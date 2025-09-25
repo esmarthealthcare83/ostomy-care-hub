@@ -91,11 +91,11 @@ export function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button size="lg" className="btn-hero text-lg px-8 py-3 hover-lift">
+              <Button size="lg"  onClick={() => window.location.href = "/products"} className="btn-hero text-lg px-8 py-3 hover-lift">
                 Shop Now
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button
+              <Button onClick={() => window.location.href = "/about"}
                 size="lg"
                 variant="outline"
                 className="text-lg px-8 py-3 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"

@@ -18,7 +18,7 @@ const Index = () => {
         {/* <WhyChooseUs /> */}
         <Services />
         <Testimonials />
-        <FAQ />
+        {/* <FAQ /> */}
         <Contact />
       </main>
       <Footer />

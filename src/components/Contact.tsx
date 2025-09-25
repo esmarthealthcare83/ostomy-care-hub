@@ -12,7 +12,8 @@ export function Contact() {
       description: "Get detailed assistance via email",
       contact: "coloplast.support@ndslindia.com",
       action: "Send Email",
-      color: "primary"
+      color: "primary",
+      href: "mailto:coloplast.support@ndslindia.com"
     },
     {
       icon: Phone,
@@ -20,7 +21,8 @@ export function Contact() {
       description: "Speak directly with our experts",
       contact: "1800-102-0550 / 0120-407-1300",
       action: "Call Now",
-      color: "secondary"
+      color: "secondary",
+      href: "tel:18001020550"
     },
     {
       icon: MessageCircle,
@@ -28,7 +30,8 @@ export function Contact() {
       description: "Quick support via WhatsApp",
       contact: "+91 8929120550",
       action: "Chat Now",
-      color: "accent"
+      color: "accent",
+      href: "https://wa.me/918929120550"
     }
   ];
 
@@ -37,9 +40,7 @@ export function Contact() {
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-            We're Here to Help You
-          </h2>
+          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">We're Here to Help You</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             If you have a request or complaint about our products, tell us and we'll do everything we can to help
           </p>
@@ -52,9 +53,11 @@ export function Contact() {
               {contactMethods.map((method, index) => {
                 const IconComponent = method.icon;
                 return (
-                  <Card key={method.title} 
-                        className="hover-lift shadow-soft hover:shadow-medium animate-slide-up"
-                        style={{animationDelay: `${index * 0.1}s`}}>
+                  <Card
+                    key={method.title}
+                    className="hover-lift shadow-soft hover:shadow-medium animate-slide-up"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
                     <CardHeader className="flex flex-row items-center space-y-0 space-x-4">
                       <div className={`w-12 h-12 rounded-full bg-gradient-${method.color} flex items-center justify-center`}>
                         <IconComponent className="h-6 w-6 text-white" />
@@ -66,10 +69,18 @@ export function Contact() {
                     </CardHeader>
                     <CardContent className="pt-0">
                       <div className="flex items-center justify-between">
-                        <div className="text-sm font-medium text-foreground">
-                          {method.contact}
-                        </div>
-                        <Button size="sm" className={`btn-${method.color === 'primary' ? 'hero' : method.color === 'secondary' ? 'secondary-medical' : 'accent-medical'}`}>
+                        <div className="text-sm font-medium text-foreground">{method.contact}</div>
+                        <Button
+                          size="sm"
+                          className={`btn-${method.color === "primary" ? "hero" : method.color === "secondary" ? "secondary-medical" : "accent-medical"}`}
+                          onClick={() => {
+                            if (method.href.startsWith("http")) {
+                              window.open(method.href, "_blank", "noopener,noreferrer");
+                            } else {
+                              window.location.href = method.href;
+                            }
+                          }}
+                        >
                           {method.action}
                         </Button>
                       </div>
@@ -127,31 +138,37 @@ export function Contact() {
                     <Input placeholder="Enter your last name" />
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium mb-2 block">Email Address</label>
                   <Input type="email" placeholder="Enter your email" />
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium mb-2 block">Phone Number</label>
                   <Input type="tel" placeholder="Enter your phone number" />
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium mb-2 block">Subject</label>
                   <Input placeholder="What is this regarding?" />
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium mb-2 block">Message</label>
-                  <Textarea 
+                  <Textarea
                     placeholder="Tell us about your request or concern..."
                     className="min-h-[120px]"
                   />
                 </div>
-                
-                <Button size="lg" className="w-full btn-hero">
+
+                <Button
+                  size="lg"
+                  className="w-full btn-hero"
+                  onClick={() => {
+                    window.location.href = "mailto:coloplast.support@ndslindia.com";
+                  }}
+                >
                   Send Message
                   <Mail className="ml-2 h-4 w-4" />
                 </Button>
@@ -168,9 +185,7 @@ export function Contact() {
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="font-medium">eSmart Healthcare</span>
               </div>
-              <p className="text-muted-foreground text-sm">
-                Serving customers across TS & AP with reliable medical supply distribution
-              </p>
+              <p className="text-muted-foreground text-sm">Serving customers across TS & AP with reliable medical supply distribution</p>
             </CardContent>
           </Card>
         </div>

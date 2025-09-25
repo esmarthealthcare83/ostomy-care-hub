@@ -1,288 +1,3 @@
-// import { useState } from "react";
-// import { Link } from "react-router-dom";
-// import { Star, Filter, Grid, List, Search } from "lucide-react";
-// import { Button } from "@/components/ui/button";
-// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-// import { Badge } from "@/components/ui/badge";
-// import { Input } from "@/components/ui/input";
-// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-// import { products, categories, brands } from "@/data/products";
-// import { Header } from "@/components/Header";
-// import { Footer } from "@/components/Footer";
-
-// export default function Products() {
-//   const [searchQuery, setSearchQuery] = useState("");
-//   const [selectedCategory, setSelectedCategory] = useState("all");
-//   const [selectedBrand, setSelectedBrand] = useState("all");
-//   const [sortBy, setSortBy] = useState("name");
-//   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-
-//   const filteredProducts = products
-//     .filter(product => {
-//       const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-//                            product.brand.toLowerCase().includes(searchQuery.toLowerCase());
-//       const matchesCategory = selectedCategory === "all" || product.category === selectedCategory;
-//       const matchesBrand = selectedBrand === "all" || product.brand === selectedBrand;
-//       return matchesSearch && matchesCategory && matchesBrand;
-//     })
-//     .sort((a, b) => {
-//       switch (sortBy) {
-//         case "price-low":
-//           return parseInt(a.price.replace(/[^0-9]/g, "")) - parseInt(b.price.replace(/[^0-9]/g, ""));
-//         case "price-high":
-//           return parseInt(b.price.replace(/[^0-9]/g, "")) - parseInt(a.price.replace(/[^0-9]/g, ""));
-//         case "rating":
-//           return b.rating - a.rating;
-//         case "popular":
-//           return (b.popular ? 1 : 0) - (a.popular ? 1 : 0);
-//         default:
-//           return a.name.localeCompare(b.name);
-//       }
-//     });
-
-//   return (
-//     <div className="min-h-screen bg-background">
-//       <Header />
-//       {/* Header section for page title */}
-//       <div className="bg-gradient-medical text-white py-12">
-//         <div className="container mx-auto px-4">
-//           <h1 className="text-4xl font-bold mb-4">Our Products</h1>
-//           <p className="text-xl text-white/90">
-//             Comprehensive range of medical supplies for your ostomy care needs
-//           </p>
-//         </div>
-//       </div>
-
-//       <div className="container mx-auto px-4 py-8">
-//         {/* Filters and Search */}
-//         <div className="bg-card rounded-lg p-6 mb-8 shadow-soft">
-//           <div className="flex flex-col lg:flex-row gap-4 items-center justify-between mb-6">
-//             <div className="flex items-center gap-2">
-//               <Filter className="h-5 w-5 text-muted-foreground" />
-//               <span className="font-semibold">Filter Products</span>
-//             </div>
-//             <div className="flex items-center gap-2">
-//               <Button
-//                 variant={viewMode === "grid" ? "default" : "outline"}
-//                 size="sm"
-//                 onClick={() => setViewMode("grid")}
-//               >
-//                 <Grid className="h-4 w-4" />
-//               </Button>
-//               <Button
-//                 variant={viewMode === "list" ? "default" : "outline"}
-//                 size="sm"
-//                 onClick={() => setViewMode("list")}
-//               >
-//                 <List className="h-4 w-4" />
-//               </Button>
-//             </div>
-//           </div>
-
-//           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-//             {/* Search */}
-//             <div className="relative">
-//               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-//               <Input
-//                 placeholder="Search products..."
-//                 value={searchQuery}
-//                 onChange={(e) => setSearchQuery(e.target.value)}
-//                 className="pl-10"
-//               />
-//             </div>
-
-//             {/* Category Filter */}
-//             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-//               <SelectTrigger>
-//                 <SelectValue placeholder="All Categories" />
-//               </SelectTrigger>
-//               <SelectContent>
-//                 <SelectItem value="all">All Categories</SelectItem>
-//                 {categories.map((category) => (
-//                   <SelectItem key={category.id} value={category.name}>
-//                     {category.name}
-//                   </SelectItem>
-//                 ))}
-//               </SelectContent>
-//             </Select>
-
-//             {/* Brand Filter */}
-//             <Select value={selectedBrand} onValueChange={setSelectedBrand}>
-//               <SelectTrigger>
-//                 <SelectValue placeholder="All Brands" />
-//               </SelectTrigger>
-//               <SelectContent>
-//                 <SelectItem value="all">All Brands</SelectItem>
-//                 {brands.map((brand) => (
-//                   <SelectItem key={brand.name} value={brand.name}>
-//                     {brand.name}
-//                   </SelectItem>
-//                 ))}
-//               </SelectContent>
-//             </Select>
-
-//             {/* Sort By */}
-//             <Select value={sortBy} onValueChange={setSortBy}>
-//               <SelectTrigger>
-//                 <SelectValue placeholder="Sort by" />
-//               </SelectTrigger>
-//               <SelectContent>
-//                 <SelectItem value="name">Name A-Z</SelectItem>
-//                 <SelectItem value="price-low">Price: Low to High</SelectItem>
-//                 <SelectItem value="price-high">Price: High to Low</SelectItem>
-//                 <SelectItem value="rating">Highest Rated</SelectItem>
-//                 <SelectItem value="popular">Most Popular</SelectItem>
-//               </SelectContent>
-//             </Select>
-
-//             {/* Results Count */}
-//             <div className="flex items-center justify-center text-sm text-muted-foreground">
-//               {filteredProducts.length} products found
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Products Grid/List */}
-//         {viewMode === "grid" ? (
-//           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-//             {filteredProducts.map((product, index) => (
-//               <Card key={product.id} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden border border-gray-100"
-//                 style={{animationDelay: `${index * 0.05}s`}}>
-//                 <div className="relative h-44 w-full overflow-hidden">
-//                   <img
-//                     src={product.image ?? 'https://via.placeholder.com/220x160'}
-//                     alt={product.name}
-//                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-//                   />
-//                   {product.popular && (
-//                     <div className="absolute top-3 left-3 px-3 py-1 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-500 to-green-400 text-white shadow-md">
-//                       Popular
-//                     </div>
-//                   )}
-//                   {!product.inStock && (
-//                     <div className="absolute top-3 right-3 px-2 py-1 rounded-lg text-xs font-medium bg-red-500 text-white shadow-sm">
-//                       Sold Out
-//                     </div>
-//                   )}
-//                 </div>
-//                 <CardHeader className="pb-3 pt-4">
-//                   <div className="flex items-center justify-between mb-2">
-//                     <Badge variant="secondary" className="text-xs">
-//                       {product.brand}
-//                     </Badge>
-//                     <div className="flex items-center gap-1">
-//                       <Star className="h-4 w-4 text-yellow-400" />
-//                       <span className="text-xs font-medium">{product.rating}</span>
-//                       <span className="text-xs text-gray-400">({product.reviews})</span>
-//                     </div>
-//                   </div>
-//                   <CardTitle className="text-base font-semibold leading-tight text-gray-900 mb-1 group-hover:text-blue-700 transition-colors">
-//                     {product.name}
-//                   </CardTitle>
-//                   <CardDescription className="text-sm text-gray-500">{product.pack}</CardDescription>
-//                 </CardHeader>
-//                 <CardContent className="pt-0">
-//                   <div className="mb-4">
-//                     <div className="text-xl font-bold text-blue-600">MRP {product.price}</div>
-//                     <div className="text-sm text-gray-500">{product.pricePerUnit}</div>
-//                     <div className="text-xs text-green-500">Inclusive of all taxes</div>
-//                   </div>
-//                   <div className="flex gap-2">
-//                     <Link to={`/products/${product.id}`} className="flex-1">
-//                       <Button className="w-full px-4 py-2 text-sm rounded-lg bg-blue-500 text-white hover:bg-blue-600 shadow">
-//                         View Details
-//                       </Button>
-//                     </Link>
-//                     <Button className={`px-4 py-2 text-sm rounded-lg bg-green-500 text-white hover:bg-green-600 shadow transition-all duration-200 ${!product.inStock && 'opacity-60 cursor-not-allowed'}`} disabled={!product.inStock}>
-//                       Add to Cart
-//                     </Button>
-//                   </div>
-//                 </CardContent>
-//               </Card>
-//             ))}
-//           </div>
-//         ) : (
-//           <div className="space-y-4">
-//             {filteredProducts.map((product, index) => (
-//               <Card key={product.id} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
-//                 style={{animationDelay: `${index * 0.02}s`}}>
-//                 <CardContent className="p-6">
-//                   <div className="flex flex-col md:flex-row gap-6">
-//                     <div className="w-full md:w-36 h-36 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0 flex items-center justify-center relative">
-//                       <img
-//                         src={product.image ?? 'https://via.placeholder.com/140x140'}
-//                         alt={product.name}
-//                         className="w-full h-full object-cover"
-//                       />
-//                       {!product.inStock && (
-//                         <div className="absolute top-3 left-3 px-2 py-1 rounded-lg text-xs font-medium bg-red-500 text-white shadow">
-//                           Sold Out
-//                         </div>
-//                       )}
-//                     </div>
-//                     <div className="flex-1">
-//                       <div className="flex items-start justify-between mb-2">
-//                         <div>
-//                           <h3 className="text-lg font-semibold text-gray-900 mb-1">{product.name}</h3>
-//                           <div className="flex items-center gap-2 mb-2">
-//                             <Badge variant="secondary">{product.brand}</Badge>
-//                             <Badge variant="outline">{product.category}</Badge>
-//                             {product.popular && (
-//                               <Badge className="bg-gradient-to-r from-blue-500 to-green-400 text-white font-bold">
-//                                 Popular
-//                               </Badge>
-//                             )}
-//                           </div>
-//                         </div>
-//                         <div className="flex items-center gap-1">
-//                           <Star className="h-4 w-4 text-yellow-400" />
-//                           <span className="font-medium">{product.rating}</span>
-//                           <span className="text-gray-400">({product.reviews})</span>
-//                         </div>
-//                       </div>
-//                       <p className="text-gray-500 mb-3 line-clamp-2">{product.description}</p>
-//                       <div className="mb-4 flex gap-2 flex-wrap">
-//                         {(product.features ?? []).map((feature, i) => (
-//                           <span key={i} className="px-2 py-1 bg-gray-100 text-xs rounded">{feature}</span>
-//                         ))}
-//                       </div>
-//                       <div className="flex items-center justify-between">
-//                         <div>
-//                           <div className="text-2xl font-bold text-blue-600">MRP {product.price}</div>
-//                           <div className="text-sm text-gray-500">{product.pricePerUnit} • {product.pack}</div>
-//                         </div>
-//                         <div className="flex gap-2">
-//                           <Link to={`/products/${product.id}`}>
-//                             <Button variant="outline" className="rounded-lg border-gray-400 px-4 py-2 hover:bg-gray-100 text-sm shadow">
-//                               View Details
-//                             </Button>
-//                           </Link>
-//                           <Button className={`rounded-lg px-4 py-2 bg-green-500 text-white hover:bg-green-600 text-sm shadow transition-all duration-200 ${!product.inStock && 'opacity-60 cursor-not-allowed'}`} disabled={!product.inStock}>
-//                             Add to Cart
-//                           </Button>
-//                         </div>
-//                       </div>
-//                     </div>
-//                   </div>
-//                 </CardContent>
-//               </Card>
-//             ))}
-//           </div>
-//         )}
-
-//         {filteredProducts.length === 0 && (
-//           <div className="text-center py-12">
-//             <h3 className="text-xl font-semibold text-foreground mb-2">No products found</h3>
-//             <p className="text-muted-foreground">Try adjusting your search criteria</p>
-//           </div>
-//         )}
-//       </div>
-//       <Footer />
-//     </div>
-//   );
-// }
-
-
 import React, { useState } from 'react';
 import { Search, Filter, Star, ShoppingCart, Eye, ArrowLeft, Grid, List } from 'lucide-react';
 import { Header } from "@/components/Header";
@@ -709,10 +424,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
                     <ShoppingCart className="h-4 w-4 mr-2" />
                     Add to Cart
                   </button>
-                  <button className="w-full border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center">
-                    <Eye className="h-4 w-4 mr-2" />
-                    View Details
-                  </button>
+                  
+       <Link to={`/products/${product.id}`} className="w-full">
+  <div className="w-full border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center cursor-pointer">
+    <Eye className="h-4 w-4 mr-2" />
+    View Details
+  </div>
+</Link>
+
                 </div>
               </div>
             </div>
@@ -779,10 +498,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
             <ShoppingCart className="h-5 w-5" />
             {product.inStock ? 'Add to Cart' : 'Out of Stock'}
           </button>
-          <button className="w-full border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center">
-            <Eye className="h-4 w-4 mr-2" />
-            View Details
-          </button>
+          <Link to={`/products/${product.id}`} className="w-full">
+  <div className="w-full border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center cursor-pointer">
+    <Eye className="h-4 w-4 mr-2" />
+    View Details
+  </div>
+</Link>
+
         </div>
       </div>
     </div>

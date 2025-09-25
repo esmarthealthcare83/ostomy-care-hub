@@ -442,7 +442,7 @@ export function ProductCategories() {
               Need help choosing the right product? Our experts are here to assist you.
             </p>
             <a
-              href="/contact"
+              href="/Contact"
               className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               Get Expert Consultation
@@ -565,7 +565,7 @@ export function ProductCategories() {
             ))}
           </div>
           <div className="text-center mt-12">
-            <button className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <button onClick={() => window.location.href = "/products"} className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
               View All Products
             </button>
           </div>
@@ -605,9 +605,13 @@ export function ProductCategories() {
                   </div>
                 ))}
               </div>
-              <button className="btn-hero px-6 py-3 rounded-lg bg-blue-600 text-white text-lg font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl">
-                View All Brands
-              </button>
+              <button
+  onClick={() => window.location.href = "/products"}
+  className="btn-hero px-6 py-3 rounded-lg bg-blue-600 text-white text-lg font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+>
+  View All Brands
+</button>
+
             </div>
             <div className="relative">
               <img
