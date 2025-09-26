@@ -1,15 +1,16 @@
 import { Facebook, Youtube, Instagram, Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import logo from "@/assets/logo.jpg";
 
 export function Footer() {
   const quickLinks = [
-    { name: "How to Place Order", href: "#order" },
-    { name: "Login/Sign Up", href: "#login" },
-    { name: "My Profile", href: "#profile" },
-    { name: "My Orders", href: "#orders" },
-    { name: "Loyalty Points Program", href: "#loyalty" },
-    { name: "Blog", href: "#blog" }
+    { name: "How to Place Order", href: "#order", isRoute: false },
+    { name: "Login/Sign Up", href: "/login", isRoute: true },
+    { name: "My Profile", href: "/profile", isRoute: true },
+    { name: "My Orders", href: "/orders", isRoute: true },
+    { name: "Loyalty Points Program", href: "#loyalty", isRoute: false },
+    { name: "Blog", href: "/blog", isRoute: true }
   ];
 
   const serviceLinks = [

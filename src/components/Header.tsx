@@ -16,7 +16,10 @@ export function Header() {
     // { name: "Baseplates", href: "/products?category=Ostomy Baseplates" },
     // { name: "Supporting Products", href: "/products?category=Supporting Products" },
     { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+        { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
+
   ];
 
   return (
@@ -97,9 +100,11 @@ export function Header() {
             <Button variant="ghost" size="icon" className="hidden md:flex">
               <Heart className="h-4 w-4" />
             </Button>
-            <Button variant="outline" className="hidden md:flex items-center gap-2">
-              <User className="h-4 w-4" />
-              {/* Login */}
+            <Button variant="outline" className="hidden md:flex items-center gap-2" asChild>
+              <Link to="/login">
+                <User className="h-4 w-4" />
+                Login
+              </Link>
             </Button>
             {/* <Button className="btn-hero">
               <ShoppingBag className="h-4 w-4 mr-2" />
@@ -171,10 +176,12 @@ export function Header() {
                 );
               })}
               <hr className="my-2" />
-              <Button variant="outline" className="mx-4 flex items-center gap-2">
-                <User className="h-4 w-4" />
-                Login
-              </Button>
+              <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+                <Button variant="outline" className="mx-4 flex items-center gap-2 w-full">
+                  <User className="h-4 w-4" />
+                  Login
+                </Button>
+              </Link>
             </nav>
           </div>
         )}

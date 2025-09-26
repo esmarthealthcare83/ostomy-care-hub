@@ -10,10 +10,10 @@ export function Contact() {
       icon: Mail,
       title: "Email Us",
       description: "Get detailed assistance via email",
-      contact: "coloplast.support@ndslindia.com",
+      contact: "esmarthealthcarehyd@gmail.com",
       action: "Send Email",
       color: "primary",
-      href: "mailto:coloplast.support@ndslindia.com"
+      href: "mailto:esmarthealthcarehyd@gmail.com"
     },
     {
       icon: Phone,
@@ -22,16 +22,16 @@ export function Contact() {
       contact: "1800-102-0550 / 0120-407-1300",
       action: "Call Now",
       color: "secondary",
-      href: "tel:18001020550"
+      href: "tel:9088869996"
     },
     {
       icon: MessageCircle,
       title: "WhatsApp Us",
       description: "Quick support via WhatsApp",
-      contact: "+91 8929120550",
+      contact: "+91 9088869996",
       action: "Chat Now",
       color: "accent",
-      href: "https://wa.me/918929120550"
+      href: "https://wa.me/919088869996"
     }
   ];
 
@@ -177,17 +177,44 @@ export function Contact() {
           </div>
         </div>
 
-        {/* Location info */}
-        <div className="mt-16 text-center">
-          <Card className="inline-block shadow-soft">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3 mb-2">
-                <MapPin className="h-5 w-5 text-primary" />
-                <span className="font-medium">eSmart Healthcare</span>
+        {/* Location Map */}
+        <div className="mt-16">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-foreground mb-4">Find Us</h3>
+            <p className="text-muted-foreground">Serving customers across Telangana & Andhra Pradesh with reliable medical supply distribution</p>
+          </div>
+
+          <Card className="shadow-strong overflow-hidden">
+            <CardContent className="p-0">
+              <div className="aspect-video w-full">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.721!2d78.4867!3d17.3850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99c7450c5b9f%3A0x1234567890abcdef!2sHyderabad%2C%20Telangana%2C%20India!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="eSmart Healthcare Service Area"
+                  className="rounded-lg"
+                ></iframe>
               </div>
-              <p className="text-muted-foreground text-sm">Serving customers across TS & AP with reliable medical supply distribution</p>
             </CardContent>
           </Card>
+
+          <div className="mt-8 text-center">
+            <Card className="inline-block shadow-soft">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <MapPin className="h-5 w-5 text-primary" />
+                  <span className="font-medium">Pan-India Service Coverage</span>
+                </div>
+                <p className="text-muted-foreground text-sm">
+                  We provide doorstep delivery across India with dedicated support for Telangana & Andhra Pradesh regions
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </section>
