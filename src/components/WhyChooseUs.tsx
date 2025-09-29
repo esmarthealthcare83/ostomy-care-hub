@@ -11,7 +11,7 @@ export function WhyChooseUs() {
     },
     {
       icon: Truck,
-      title: "Free Pan-India Delivery",
+      title: "Free TS & AP Delivery",
       description: "Get your medical supplies delivered to your doorstep anywhere in India with no extra charges.",
       color: "secondary"
     },

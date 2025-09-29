@@ -5,21 +5,21 @@ import logo from "@/assets/logo.jpg";
 
 export function Footer() {
   const quickLinks = [
-    { name: "How to Place Order", href: "#order", isRoute: false },
+    { name: "How to Place Order", href: "/orders", isRoute: true },
     { name: "Login/Sign Up", href: "/login", isRoute: true },
     { name: "My Profile", href: "/profile", isRoute: true },
     { name: "My Orders", href: "/orders", isRoute: true },
-    { name: "Loyalty Points Program", href: "#loyalty", isRoute: false },
+    { name: "Gallery", href: "#loyalty", isRoute: false },
     { name: "Blog", href: "/blog", isRoute: true }
   ];
 
   const serviceLinks = [
-    { name: "Track Order", href: "#track" },
+    { name: "Track Order", href: "/orders" },
     { name: "FAQ's", href: "#faq" },
-    { name: "Contact", href: "#contact" },
-    { name: "Find us", href: "#location" },
-    { name: "About Us", href: "#about" },
-    { name: "Coloplast Care", href: "#care" }
+    { name: "Contact", href: "/Contact" },
+    { name: "Find us", href: "/Contact" },
+    { name: "About Us", href: "/about" },
+    { name: "eSmart HealthCare", href: "/" }
   ];
 
   const legalLinks = [
@@ -48,8 +48,7 @@ export function Footer() {
             </div>
             
             <p className="text-primary-foreground/90 mb-6 leading-relaxed">
-              Your trusted partner in healthcare, providing quality medical supplies and ostomy care products 
-              with professional service across India.
+             your trusted partner for customer-centered healthcare. Featuring excellence in quality, service, and access, we empower you to achieve your full health potential throughout your life.
             </p>
             
             <div className="space-y-3">
@@ -59,11 +58,11 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-secondary" />
-                <span className="text-sm">coloplast.support@ndslindia.com</span>
+                <span className="text-sm">esmarthealthcarehyd@gmail.com</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 text-secondary" />
-                <span className="text-sm">Pan-India Service</span>
+                <span className="text-sm">TS & AP Service</span>
               </div>
             </div>
           </div>

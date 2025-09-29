@@ -6,7 +6,7 @@ export function Services() {
     {
       icon: Truck,
       title: "Free Doorstep Delivery",
-      description: "Pan-India delivery for all prepaid orders with reliable tracking",
+      description: "TS & AP delivery for all prepaid orders with reliable tracking",
       color: "primary"
     },
     {
@@ -18,7 +18,7 @@ export function Services() {
     {
       icon: Phone,
       title: "Expert Support",
-      description: "Monday-Friday 9am-6pm professional assistance",
+      description: "Monday-Saturday 9am-6pm professional assistance",
       color: "accent"
     },
     {
@@ -78,6 +78,48 @@ export function Services() {
               </Card>
             );
           })}
+        </div>
+
+        {/* Comprehensive Services */}
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">
+              Our Comprehensive Healthcare Services
+            </h3>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Discover how eSmart Healthcare delivers exceptional care through specialized services designed for your health and wellness journey.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-gradient-card p-6 rounded-lg shadow-soft hover:shadow-medium transition-shadow duration-300">
+              <h4 className="text-xl font-semibold mb-3 text-primary">Product Consulting</h4>
+              <p className="text-muted-foreground leading-relaxed">
+                Our expert team provides personalized product recommendations based on your specific medical needs. We help you choose the right ostomy care products, ensuring optimal fit, comfort, and effectiveness for your lifestyle.
+              </p>
+            </div>
+
+            <div className="bg-gradient-card p-6 rounded-lg shadow-soft hover:shadow-medium transition-shadow duration-300">
+              <h4 className="text-xl font-semibold mb-3 text-secondary">Facility Solutions</h4>
+              <p className="text-muted-foreground leading-relaxed">
+                We offer comprehensive facility solutions for healthcare providers, including bulk supply management, inventory optimization, and customized delivery schedules to ensure seamless operations and uninterrupted patient care.
+              </p>
+            </div>
+
+            <div className="bg-gradient-card p-6 rounded-lg shadow-soft hover:shadow-medium transition-shadow duration-300">
+              <h4 className="text-xl font-semibold mb-3 text-accent">Patient Support and Guidance</h4>
+              <p className="text-muted-foreground leading-relaxed">
+                Beyond products, we provide ongoing patient support through educational resources, virtual consultations, and personalized guidance to help you manage your condition with confidence and independence.
+              </p>
+            </div>
+
+            <div className="bg-gradient-card p-6 rounded-lg shadow-soft hover:shadow-medium transition-shadow duration-300">
+              <h4 className="text-xl font-semibold mb-3 text-primary">Custom Supply Management</h4>
+              <p className="text-muted-foreground leading-relaxed">
+                Tailored supply management solutions that adapt to your changing needs. From recurring deliveries to emergency supplies, we ensure you always have the products you need when you need them.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Stats section */}

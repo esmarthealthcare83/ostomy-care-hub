@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { ArrowRight, Shield, Truck, HeartHandshake, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AppointmentDialog } from "./AppointmentDialog";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import heroImage from "@/assets/medical-hero.jpg";
 import { motion } from "framer-motion";
 
@@ -72,7 +74,7 @@ export function Hero() {
           >
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
               <Stethoscope className="h-4 w-4 text-secondary" />
-              <span className="text-sm font-medium text-white">Professional Medical Care</span>
+              <span className="text-sm font-medium text-white">eSmart Health Care</span>
             </div>
 
             <motion.h1
@@ -82,13 +84,12 @@ export function Hero() {
               animate="visible"
               onAnimationComplete={() => setShowSplit(true)}
             >
-              Your Trusted
-              <SplitText text="Healthcare Partner" startAnimation={showSplit} />
+             Welcome to 
+              <SplitText text="eSmart Healthcare" startAnimation={showSplit} />
             </motion.h1>
 
             <p className="text-xl text-white/90 mb-8 leading-relaxed">
-              Premium ostomy care products and medical supplies delivered to your doorstep. Quality you can trust, service you can rely on.
-            </p>
+Empowering patient lives since 2013 across Hyderabad, Vijayawada, and Vizag.</p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
               <Button size="lg"  onClick={() => window.location.href = "/products"} className="btn-hero text-lg px-8 py-3 hover-lift">
@@ -136,12 +137,34 @@ export function Hero() {
             variants={rightVariants}
           >
             <div className="relative rounded-2xl overflow-hidden shadow-strong">
-              <img
-                src={heroImage}
-                alt="Healthcare professionals providing quality medical care"
-                className="w-full h-[500px] object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
+              <Carousel className="w-full">
+                <CarouselContent>
+                  <CarouselItem>
+                    <img
+                      src={heroImage}
+                      alt="Healthcare professionals providing quality medical care"
+                      className="w-full h-[500px] object-cover"
+                    />
+                  </CarouselItem>
+                  <CarouselItem>
+                    <img
+                      src={heroImage}
+                      alt="Patient consultation and support services"
+                      className="w-full h-[500px] object-cover"
+                    />
+                  </CarouselItem>
+                  <CarouselItem>
+                    <img
+                      src={heroImage}
+                      alt="Medical supplies and healthcare products"
+                      className="w-full h-[500px] object-cover"
+                    />
+                  </CarouselItem>
+                </CarouselContent>
+                <CarouselPrevious className="left-4" />
+                <CarouselNext className="right-4" />
+              </Carousel>
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent pointer-events-none"></div>
             </div>
 
             {/* Floating stats card */}

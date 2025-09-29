@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { products } from "@/data/products";
 import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { Footer } from "@/components/Footer";  
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -139,7 +139,7 @@ const product = products.find(p => p.id === id);
               <div className="text-center">
                 <Truck className="h-8 w-8 mx-auto mb-2 text-primary" />
                 <div className="text-sm font-medium">Free Delivery</div>
-                <div className="text-xs text-muted-foreground">Pan-India</div>
+                <div className="text-xs text-muted-foreground">TS & AP</div>
               </div>
               <div className="text-center">
                 <Shield className="h-8 w-8 mx-auto mb-2 text-primary" />

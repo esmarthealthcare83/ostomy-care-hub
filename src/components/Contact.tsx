@@ -106,7 +106,7 @@ export function Contact() {
               <CardContent>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Monday - Friday:</span>
+                    <span className="text-muted-foreground">Monday - Saturday:</span>
                     <span className="font-medium">9:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between">
@@ -207,7 +207,7 @@ export function Contact() {
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-2">
                   <MapPin className="h-5 w-5 text-primary" />
-                  <span className="font-medium">Pan-India Service Coverage</span>
+                  <span className="font-medium">TS & AP Service Coverage</span>
                 </div>
                 <p className="text-muted-foreground text-sm">
                   We provide doorstep delivery across India with dedicated support for Telangana & Andhra Pradesh regions

@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Search, ShoppingBag, Menu, X, Phone, Mail, Heart, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { AppointmentDialog } from "./AppointmentDialog";
 import logo from "@/assets/logo.jpg";
 
 export function Header() {
@@ -28,7 +29,7 @@ export function Header() {
       <div className="bg-gradient-primary text-primary-foreground py-2 px-4">
         <div className="container mx-auto flex items-center justify-between text-sm">
           <div className="flex items-center gap-4">
-            <span>📦 Free Doorstep Delivery Pan-India for All Prepaid Orders</span>
+            <span>📦 Free Doorstep Delivery TS & AP for All Prepaid Orders</span>
           </div>
           <div className="hidden md:flex items-center gap-4">
             <div className="flex items-center gap-2">
@@ -98,14 +99,11 @@ export function Header() {
           <div className="flex items-center gap-2">
 
             <Button variant="ghost" size="icon" className="hidden md:flex">
-              <Heart className="h-4 w-4" />
+              {/* <Heart className="h-4 w-4" /> */}
             </Button>
-            <Button variant="outline" className="hidden md:flex items-center gap-2" asChild>
-              <Link to="/login">
-                <User className="h-4 w-4" />
-                Login
-              </Link>
-            </Button>
+            <AppointmentDialog>
+              <Button className="btn-hero">Book Appointment</Button>
+            </AppointmentDialog>
             {/* <Button className="btn-hero">
               <ShoppingBag className="h-4 w-4 mr-2" />
               <span className="hidden sm:inline">Cart</span>
@@ -176,12 +174,9 @@ export function Header() {
                 );
               })}
               <hr className="my-2" />
-              <Link to="/login" onClick={() => setIsMenuOpen(false)}>
-                <Button variant="outline" className="mx-4 flex items-center gap-2 w-full">
-                  <User className="h-4 w-4" />
-                  Login
-                </Button>
-              </Link>
+              <AppointmentDialog>
+                <Button className="mx-4 w-full btn-hero" onClick={() => setIsMenuOpen(false)}>Book Appointment</Button>
+              </AppointmentDialog>
             </nav>
           </div>
         )}
