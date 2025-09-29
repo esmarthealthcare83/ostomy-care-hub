@@ -13,14 +13,10 @@ export function Header() {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Products", href: "/products" },
-    // { name: "Ostomy Bags", href: "/products?category=Ostomy Bags" },
-    // { name: "Baseplates", href: "/products?category=Ostomy Baseplates" },
-    // { name: "Supporting Products", href: "/products?category=Supporting Products" },
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
-        { name: "Blog", href: "/blog" },
+    { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
-
   ];
 
   return (
@@ -71,38 +67,36 @@ export function Header() {
             </div>
           </div>
 
+          {/* Navigation - Desktop */}
+          <nav className="hidden md:flex items-center justify-center mt-1 gap-8">
+            {navItems.map((item) => {
+              const isActive = item.href === "/" ? location.pathname === "/" : location.pathname.startsWith(item.href.split("?")[0]);
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`transition-colors duration-200 font-medium relative ${
+                    isActive 
+                      ? "text-primary" 
+                      : "text-foreground hover:text-primary"
+                  } after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
+                    isActive ? "after:scale-x-100" : ""
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
+          </nav>
 
-        {/* Navigation - Desktop */}
-
-             <nav className="hidden md:flex items-center justify-center mt-1 gap-8">
-          {navItems.map((item) => {
-            const isActive = item.href === "/" ? location.pathname === "/" : location.pathname.startsWith(item.href.split("?")[0]);
-            return (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`transition-colors duration-200 font-medium relative ${
-                  isActive 
-                    ? "text-primary" 
-                    : "text-foreground hover:text-primary"
-                } after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
-                  isActive ? "after:scale-x-100" : ""
-                }`}
-              >
-                {item.name}
-              </Link>
-            );
-          })}
-        </nav>
           {/* Right side buttons */}
-
           <div className="flex items-center gap-2">
-
             <Button variant="ghost" size="icon" className="hidden md:flex">
               {/* <Heart className="h-4 w-4" /> */}
             </Button>
             <AppointmentDialog>
-              <Button className="btn-hero">Book Appointment</Button>
+              {/* Desktop: regular hero button, Mobile: hidden */}
+              <Button className="btn-hero hidden md:inline-flex">Book Appointment</Button>
             </AppointmentDialog>
             {/* <Button className="btn-hero">
               <ShoppingBag className="h-4 w-4 mr-2" />
@@ -119,28 +113,6 @@ export function Header() {
             </Button>
           </div>
         </div>
-
-        {/* Navigation - Desktop */}
-        {/* <nav className="hidden md:flex items-center justify-center mt-4 gap-8">
-          {navItems.map((item) => {
-            const isActive = item.href === "/" ? location.pathname === "/" : location.pathname.startsWith(item.href.split("?")[0]);
-            return (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={`transition-colors duration-200 font-medium relative ${
-                  isActive 
-                    ? "text-primary" 
-                    : "text-foreground hover:text-primary"
-                } after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
-                  isActive ? "after:scale-x-100" : ""
-                }`}
-              >
-                {item.name}
-              </Link>
-            );
-          })}
-        </nav> */}
 
         {/* Mobile menu */}
         {isMenuOpen && (
@@ -175,7 +147,14 @@ export function Header() {
               })}
               <hr className="my-2" />
               <AppointmentDialog>
-                <Button className="mx-4 w-full btn-hero" onClick={() => setIsMenuOpen(false)}>Book Appointment</Button>
+                {/* Mobile: SMALL button */}
+                <Button 
+                  size="sm" // or use "xs" if your Button supports it
+                  className="mx-4 w-full btn-hero md:hidden py-2 px-4 text-sm"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Book Appointment
+                </Button>
               </AppointmentDialog>
             </nav>
           </div>
