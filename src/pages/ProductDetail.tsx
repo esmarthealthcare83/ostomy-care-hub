@@ -1,44 +1,51 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Star, ShoppingCart, Heart, Share2, Shield, Truck, HeadphonesIcon } from "lucide-react";
+import { ArrowLeft, Star, Heart, Share2, Shield, Truck, HeadphonesIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import { UserDetailsForm } from "@/components/UserDetailsForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { products } from "@/data/products";
 import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";  
+import { Footer } from "@/components/Footer";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-
-const product = products.find(p => p.id === id);
-
+  
+  // Find the product by ID
+  const product = products.find((p) => p.id === id);
+  
+  // If product not found, show error
   if (!product) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-4">Product Not Found</h1>
-          <p className="text-muted-foreground mb-6">The product you're looking for doesn't exist.</p>
-          <Link to="/products">
-            <Button className="btn-hero">Browse All Products</Button>
-          </Link>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="container mx-auto px-4 py-8 flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
+            <Button onClick={() => navigate('/products')}>
+              Back to Products
+            </Button>
+          </div>
         </div>
+        <Footer />
       </div>
     );
   }
-
+  
+  // Find related products (excluding current product)
   const relatedProducts = products
-    .filter(p => p.id !== product.id && (p.category === product.category || p.brand === product.brand))
+    .filter(p => p.id !== id && p.category === product.category)
     .slice(0, 4);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col">
       <Header />
+      
       {/* Breadcrumb */}
-      <div className="bg-muted/30 py-4">
-        <div className="container mx-auto px-4">
+      <div className="border-b bg-muted/40">
+        <div className="container mx-auto px-4 py-3">
           <div className="flex items-center gap-2 text-sm">
             <Link to="/" className="text-muted-foreground hover:text-primary">Home</Link>
             <span className="text-muted-foreground">/</span>
@@ -52,7 +59,7 @@ const product = products.find(p => p.id === id);
       <div className="container mx-auto px-4 py-8">
         {/* Back Button */}
         <Button 
-          variant="ghost" 
+          variant="outline" 
           onClick={() => navigate(-1)}
           className="mb-6 hover:bg-muted"
         >
@@ -63,51 +70,33 @@ const product = products.find(p => p.id === id);
         <div className="grid lg:grid-cols-2 gap-12 mb-12">
           {/* Product Image */}
           <div className="space-y-4">
-            <div className="aspect-square bg-muted rounded-lg flex items-center justify-center">
-              <span className="text-muted-foreground text-lg">Product Image</span>
-            </div>
-            <div className="grid grid-cols-4 gap-2">
-              {[1, 2, 3, 4].map(i => (
-                <div key={i} className="aspect-square bg-muted rounded-md flex items-center justify-center">
-                  <span className="text-xs text-muted-foreground">Image {i}</span>
-                </div>
-              ))}
+            <div className="bg-white rounded-lg border overflow-hidden">
+              <img 
+                src={product.images[0] || ''} 
+                alt={product.name} 
+                className="w-full h-auto object-cover aspect-square"
+              />
             </div>
           </div>
 
           {/* Product Info */}
           <div className="space-y-6">
             <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Badge variant="secondary">{product.brand}</Badge>
-                <Badge variant="outline">{product.category}</Badge>
-                {product.popular && (
-                  <Badge className="bg-gradient-accent text-accent-foreground">Popular</Badge>
-                )}
-                {product.bestSeller && (
-                  <Badge className="bg-gradient-primary text-primary-foreground">Best Seller</Badge>
-                )}
-              </div>
-              
-              <h1 className="text-3xl font-bold text-foreground mb-4">{product.name}</h1>
-              
+              <h1 className="text-3xl font-bold text-foreground mb-2">{product.name}</h1>
               <div className="flex items-center gap-2 mb-4">
-                <div className="flex items-center gap-1">
-                  <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  <span className="font-semibold text-lg">{product.rating}</span>
+                <div className="flex items-center gap-1 bg-primary/10 px-2 py-1 rounded">
+                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                  <span className="text-sm font-medium">{product.rating}</span>
                 </div>
-                <span className="text-muted-foreground">({product.reviews} reviews)</span>
+                <span className="text-sm text-muted-foreground">({product.reviews} reviews)</span>
               </div>
-
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                {product.description}
-              </p>
+              <p className="text-muted-foreground">{product.description}</p>
             </div>
 
-            {/* Pricing */}
-            <div className="bg-gradient-card p-6 rounded-lg">
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="text-3xl font-bold text-primary">MRP {product.price}</span>
+            {/* Price */}
+            <div className="space-y-1">
+              <div className="flex items-baseline gap-3">
+                <span className="text-3xl font-bold text-primary">{product.price}</span>
                 {product.originalPrice && (
                   <span className="text-lg text-muted-foreground line-through">
                     {product.originalPrice}
@@ -122,10 +111,12 @@ const product = products.find(p => p.id === id);
 
             {/* Actions */}
             <div className="flex gap-4">
-              <Button className="btn-hero flex-1">
-                <ShoppingCart className="h-5 w-5 mr-2" />
-                Add to Cart
-              </Button>
+              <UserDetailsForm product={{
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                pack: product.pack
+              }} />
               <Button variant="outline" size="icon">
                 <Heart className="h-5 w-5" />
               </Button>

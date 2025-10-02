@@ -3,10 +3,11 @@ import { Search, Filter, Star, ShoppingCart, Eye, ArrowLeft, Grid, List } from '
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
+import { UserDetailsForm } from '@/components/UserDetailsForm';
 
 
 interface Product {
-  id: number;
+  id: string;
   name: string;
   brand: string;
   price: string;
@@ -27,10 +28,13 @@ const Products: React.FC = () => {
   const [sortBy, setSortBy] = useState('name');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<{min?: number; max?: number}>({});
+  const [selectedPriceRange, setSelectedPriceRange] = useState<string>('');
 
   const allProducts: Product[] = [
     {
-      id: 1,
+      id: "alterna-1-piece-flat-transparent",
       name: "Alterna® 1-Piece Deep Convex Urostomy Transparent Bag",
       brand: "Alterna®",
       price: "₹ 3,072",
@@ -46,7 +50,7 @@ const Products: React.FC = () => {
       productCode: "39001"
     },
     {
-      id: 2,
+      id: "alterna-1-piece-flat-transparent",
       name: "Alterna® 1-Piece Flat Drainable Opaque Bag",
       brand: "Alterna®",
       price: "₹ 1,836",
@@ -62,7 +66,7 @@ const Products: React.FC = () => {
       productCode: "66001"
     },
     {
-      id: 3,
+      id: "alterna-1-piece-flat-transparent",
       name: "Alterna® 1-Piece Flat Transparent Bag for Colostomy/Ileostomy",
       brand: "Alterna®",
       price: "₹ 1,788",
@@ -78,7 +82,7 @@ const Products: React.FC = () => {
       productCode: "10601"
     },
     {
-      id: 4,
+      id: "alterna-1-piece-flat-transparent",
       name: "Alterna® 1-Piece Flat Transparent Pediatric Bag",
       brand: "Alterna®",
       price: "₹ 1,842",
@@ -94,7 +98,7 @@ const Products: React.FC = () => {
       productCode: "29001"
     },
     {
-      id: 5,
+      id: "alterna-1-piece-flat-transparent",
       name: "Alterna® 1-Piece Light Convex Drainable Transparent Bag",
       brand: "Alterna®",
       price: "₹ 2,016",
@@ -110,7 +114,7 @@ const Products: React.FC = () => {
       productCode: "31001"
     },
     {
-      id: 6,
+      id: "brava-adhesive-remover-spray",
       name: "Brava® Adhesive Remover Spray",
       brand: "Brava®",
       price: "₹ 870",
@@ -126,7 +130,7 @@ const Products: React.FC = () => {
       productCode: "20701"
     },
     {
-      id: 7,
+      id: "brava-mouldable-ring",
       name: "Brava® Mouldable Ring",
       brand: "Brava®",
       price: "₹ 1,490",
@@ -142,7 +146,7 @@ const Products: React.FC = () => {
       productCode: "35001"
     },
     {
-      id: 8,
+      id: "sensura-mio-2-piece-flat-baseplate",
       name: "SenSura® Mio 2-Piece Flat Baseplate",
       brand: "SenSura® Mio",
       price: "₹ 3,168",
@@ -168,23 +172,93 @@ const Products: React.FC = () => {
     { key: 'pediatric', label: 'Pediatric', count: allProducts.filter(p => p.category === 'pediatric').length }
   ];
 
-  const brands = ['All Brands', 'Alterna®', 'Brava®', 'SenSura®', 'SenSura® Mio', 'Comfeel®'];
+  const brands = ['All Brands', 'Alterna®', 'Brava®', 'SenSura®', 'SenSura® Mio'];
+
+  // Handle brand selection
+  const handleBrandToggle = (brand: string) => {
+    if (brand === 'All Brands') {
+      setSelectedBrands(prev => 
+        prev.includes('All Brands') ? [] : ['All Brands']
+      );
+    } else {
+      setSelectedBrands(prev => {
+        const newBrands = prev.includes(brand)
+          ? prev.filter(b => b !== brand && b !== 'All Brands')
+          : [...prev.filter(b => b !== 'All Brands'), brand];
+        return newBrands.length === 0 ? ['All Brands'] : newBrands;
+      });
+    }
+  };
+
+  // Handle price range selection
+  const handlePriceRangeChange = (range: string) => {
+    if (selectedPriceRange === range) {
+      setSelectedPriceRange('');
+      setPriceRange({});
+      return;
+    }
+    
+    setSelectedPriceRange(range);
+    switch (range) {
+      case 'under-1000':
+        setPriceRange({ max: 1000 });
+        break;
+      case '1000-2000':
+        setPriceRange({ min: 1000, max: 2000 });
+        break;
+      case '2000-3000':
+        setPriceRange({ min: 2000, max: 3000 });
+        break;
+      case 'above-3000':
+        setPriceRange({ min: 3000 });
+        break;
+      default:
+        setPriceRange({});
+    }
+  };
+
+  // Helper function to parse price strings with currency symbols and commas
+  const parsePrice = (priceStr: string): number => {
+    // Remove all non-numeric characters except decimal point
+    const numericString = priceStr.replace(/[^\d.]/g, '');
+    return parseFloat(numericString) || 0;
+  };
 
   const filteredProducts = allProducts.filter(product => {
+    // Category filter
     const matchesCategory = activeFilter === 'all' || product.category === activeFilter;
+    
+    // Search filter
     const matchesSearch = searchQuery === '' || 
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.productCode.includes(searchQuery);
-    return matchesCategory && matchesSearch;
+    
+    // Brand filter - handle "All Brands" case
+    const matchesBrand = selectedBrands.length === 0 || 
+      selectedBrands.includes('All Brands') ||
+      selectedBrands.some(selectedBrand => {
+        if (selectedBrand === product.brand) return true;
+        // Handle SenSura® Mio as part of SenSura® family
+        if (selectedBrand === 'SenSura®' && product.brand === 'SenSura® Mio') return true;
+        return false;
+      });
+    
+    // Price range filter
+    const price = parsePrice(product.price);
+    const matchesPriceRange = !selectedPriceRange || 
+      (priceRange.min === undefined || price >= priceRange.min) && 
+      (priceRange.max === undefined || price <= priceRange.max);
+    
+    return matchesCategory && matchesSearch && matchesBrand && matchesPriceRange;
   });
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
       case 'price-low':
-        return parseInt(a.price.replace(/[₹,\s]/g, '')) - parseInt(b.price.replace(/[₹,\s]/g, ''));
+        return parsePrice(a.price) - parsePrice(b.price);
       case 'price-high':
-        return parseInt(b.price.replace(/[₹,\s]/g, '')) - parseInt(a.price.replace(/[₹,\s]/g, ''));
+        return parsePrice(b.price) - parsePrice(a.price);
       case 'rating':
         return b.rating - a.rating;
       case 'reviews':
@@ -265,8 +339,19 @@ const Products: React.FC = () => {
                 <div className="space-y-2">
                   {brands.map(brand => (
                     <label key={brand} className="flex items-center">
-                      <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                      <input 
+                        type="checkbox" 
+                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        checked={selectedBrands.includes(brand) || 
+                                (brand === 'All Brands' && selectedBrands.length === 0)}
+                        onChange={() => handleBrandToggle(brand)}
+                      />
                       <span className="ml-2 text-gray-600">{brand}</span>
+                      {brand !== 'All Brands' && (
+                        <span className="ml-auto text-xs text-gray-500">
+                          ({allProducts.filter(p => p.brand === brand).length})
+                        </span>
+                      )}
                     </label>
                   ))}
                 </div>
@@ -277,23 +362,84 @@ const Products: React.FC = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-3">Price Range</label>
                 <div className="space-y-2">
                   <label className="flex items-center">
-                    <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                    <input 
+                      type="checkbox"
+                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      checked={selectedPriceRange === 'under-1000'}
+                      onChange={() => handlePriceRangeChange('under-1000')}
+                    />
                     <span className="ml-2 text-gray-600">Under ₹1,000</span>
+                    <span className="ml-auto text-xs text-gray-500">
+                      ({allProducts.filter(p => parsePrice(p.price) < 1000).length})
+                    </span>
                   </label>
                   <label className="flex items-center">
-                    <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                    <input 
+                      type="checkbox"
+                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      checked={selectedPriceRange === '1000-2000'}
+                      onChange={() => handlePriceRangeChange('1000-2000')}
+                    />
                     <span className="ml-2 text-gray-600">₹1,000 - ₹2,000</span>
+                    <span className="ml-auto text-xs text-gray-500">
+                      ({allProducts.filter(p => parsePrice(p.price) >= 1000 && parsePrice(p.price) <= 2000).length})
+                    </span>
                   </label>
                   <label className="flex items-center">
-                    <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                    <input 
+                      type="checkbox"
+                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      checked={selectedPriceRange === '2000-3000'}
+                      onChange={() => handlePriceRangeChange('2000-3000')}
+                    />
                     <span className="ml-2 text-gray-600">₹2,000 - ₹3,000</span>
+                    <span className="ml-auto text-xs text-gray-500">
+                      ({allProducts.filter(p => parsePrice(p.price) >= 2000 && parsePrice(p.price) <= 3000).length})
+                    </span>
                   </label>
                   <label className="flex items-center">
-                    <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                    <input 
+                      type="checkbox"
+                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      checked={selectedPriceRange === 'above-3000'}
+                      onChange={() => handlePriceRangeChange('above-3000')}
+                    />
                     <span className="ml-2 text-gray-600">Above ₹3,000</span>
+                    <span className="ml-auto text-xs text-gray-500">
+                      ({allProducts.filter(p => parsePrice(p.price) > 3000).length})
+                    </span>
                   </label>
+                  {selectedPriceRange && (
+                    <button 
+                      onClick={() => {
+                        setSelectedPriceRange('');
+                        setPriceRange({});
+                      }}
+                      className="text-sm text-blue-600 hover:text-blue-700 mt-2"
+                    >
+                      Clear price filter
+                    </button>
+                  )}
                 </div>
               </div>
+              
+              {/* Clear All Filters */}
+              {(activeFilter !== 'all' || searchQuery || selectedBrands.length > 0 || selectedPriceRange) && (
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <button 
+                    onClick={() => {
+                      setActiveFilter('all');
+                      setSearchQuery('');
+                      setSelectedBrands([]);
+                      setSelectedPriceRange('');
+                      setPriceRange({});
+                    }}
+                    className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                  >
+                    Clear All Filters
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
@@ -345,11 +491,33 @@ const Products: React.FC = () => {
             </div>
 
             {/* Products Grid/List */}
-            <div className={viewMode === 'grid' ? 'grid md:grid-cols-2 xl:grid-cols-3 gap-6' : 'space-y-4'}>
-              {sortedProducts.map(product => (
-                <ProductCard key={product.id} product={product} viewMode={viewMode} />
-              ))}
-            </div>
+            {sortedProducts.length === 0 ? (
+              <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
+                <div className="text-gray-400 mb-4">
+                  <Search className="h-16 w-16 mx-auto" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">No products found</h3>
+                <p className="text-gray-600 mb-4">Try adjusting your filters or search terms</p>
+                <button 
+                  onClick={() => {
+                    setActiveFilter('all');
+                    setSearchQuery('');
+                    setSelectedBrands([]);
+                    setSelectedPriceRange('');
+                    setPriceRange({});
+                  }}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Clear all filters
+                </button>
+              </div>
+            ) : (
+              <div className={viewMode === 'grid' ? 'grid md:grid-cols-2 xl:grid-cols-3 gap-6' : 'space-y-4'}>
+                {sortedProducts.map((product, index) => (
+                  <ProductCard key={`${product.id}-${index}`} product={product} viewMode={viewMode} />
+                ))}
+              </div>
+            )}
 
             {/* Pagination */}
             <div className="flex justify-center mt-12">
@@ -381,20 +549,25 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
   if (viewMode === 'list') {
     return (
       <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
-        <div className="flex">
-          <div className="w-48 h-48 flex-shrink-0">
+        <div className="flex flex-col md:flex-row">
+          <div className="w-full md:w-48 h-48 flex-shrink-0 relative">
             <img 
               src={product.image} 
               alt={product.name}
               className="w-full h-full object-cover"
             />
+            {!product.inStock && (
+              <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-medium">
+                Sold Out
+              </div>
+            )}
           </div>
           <div className="flex-1 p-6">
-            <div className="flex justify-between items-start">
-              <div className="flex-1">
+            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start">
+              <div className="flex-1 mb-4 lg:mb-0">
                 <div className="text-sm text-blue-600 font-medium mb-1">{product.brand}</div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
-                <p className="text-gray-600 mb-3">{product.description}</p>
+                <p className="text-gray-600 mb-3 text-sm">{product.description}</p>
                 
                 <div className="flex flex-wrap gap-1 mb-4">
                   {product.features.map((feature, index) => (
@@ -414,24 +587,35 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
                 </div>
               </div>
 
-              <div className="text-right ml-6">
+              <div className="text-left lg:text-right lg:ml-6 min-w-[200px]">
                 <div className="text-2xl font-bold text-gray-900 mb-1">{product.price}</div>
                 <div className="text-sm text-gray-500 mb-1">{product.unitPrice}</div>
                 <div className="text-xs text-green-600 mb-4">Inclusive of all taxes</div>
                 
                 <div className="space-y-2">
-                  <button className="w-full bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center">
-                    <ShoppingCart className="h-4 w-4 mr-2" />
-                    Add to Cart
-                  </button>
-                  
-       <Link to={`/products/${product.id}`} className="w-full">
-  <div className="w-full border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center cursor-pointer">
-    <Eye className="h-4 w-4 mr-2" />
-    View Details
-  </div>
-</Link>
-
+                  <UserDetailsForm 
+                    product={{ 
+                      id: product.id,
+                      name: product.name,
+                      price: product.price,
+                      pack: product.packSize
+                    }}
+                    disabled={!product.inStock}
+                    className={`w-full flex items-center justify-center gap-2 px-6 py-2 rounded-lg font-semibold transition-all duration-300 ${
+                      !product.inStock 
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                    }`}
+                  >
+                    <ShoppingCart className="h-4 w-4" />
+                    {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+                  </UserDetailsForm>
+                  <Link to={`/products/${product.id}`} className="w-full">
+                    <div className="w-full border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center cursor-pointer">
+                      <Eye className="h-4 w-4 mr-2" />
+                      View Details
+                    </div>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -487,24 +671,29 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
         </div>
 
         <div className="space-y-2">
-          <button 
-            className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
-              product.inStock
-                ? 'bg-blue-600 text-white hover:bg-blue-700 transform hover:scale-105'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
+          <UserDetailsForm 
+            product={{ 
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              pack: product.packSize
+            }}
             disabled={!product.inStock}
+            className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+              !product.inStock 
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+                : 'bg-blue-600 text-white hover:bg-blue-700 transform hover:scale-105'
+            }`}
           >
             <ShoppingCart className="h-5 w-5" />
             {product.inStock ? 'Add to Cart' : 'Out of Stock'}
-          </button>
+          </UserDetailsForm>
           <Link to={`/products/${product.id}`} className="w-full">
-  <div className="w-full border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center cursor-pointer">
-    <Eye className="h-4 w-4 mr-2" />
-    View Details
-  </div>
-</Link>
-
+            <div className="w-full border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center cursor-pointer">
+              <Eye className="h-4 w-4 mr-2" />
+              View Details
+            </div>
+          </Link>
         </div>
       </div>
     </div>
