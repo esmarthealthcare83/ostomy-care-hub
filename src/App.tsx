@@ -7,6 +7,7 @@ import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
+import ProductCategory from "./pages/ProductCategory";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 import Contact from "./pages/Contact";
@@ -29,6 +30,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/products/:slug" element={<ProductCategory />} />
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
