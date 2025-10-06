@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowRight, Shield, Truck, HeartHandshake, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AppointmentDialog } from "./AppointmentDialog";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 import heroImage from "@/assets/medical-hero.jpg";
+import heroImage2 from "@/assets/medical-hero2.jpg";
 import { motion } from "framer-motion";
 
 const leftVariants = {
@@ -48,6 +50,22 @@ function SplitText({ text, startAnimation }) {
 
 export function Hero() {
   const [showSplit, setShowSplit] = useState(false);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
 
   return (
     <section className="relative overflow-hidden bg-gradient-hero">
@@ -137,7 +155,19 @@ Empowering patient lives since 2013 across Hyderabad, Vijayawada, and Vizag.</p>
             variants={rightVariants}
           >
             <div className="relative rounded-2xl overflow-hidden shadow-strong">
-              <Carousel className="w-full">
+              <Carousel
+                setApi={setApi}
+                className="w-full"
+                plugins={[
+                  Autoplay({
+                    delay: 4000,
+                  }),
+                ]}
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+              >
                 <CarouselContent>
                   <CarouselItem>
                     <img
@@ -148,7 +178,7 @@ Empowering patient lives since 2013 across Hyderabad, Vijayawada, and Vizag.</p>
                   </CarouselItem>
                   <CarouselItem>
                     <img
-                      src={heroImage}
+                      src={heroImage2}
                       alt="Patient consultation and support services"
                       className="w-full h-[500px] object-cover"
                     />
@@ -161,9 +191,19 @@ Empowering patient lives since 2013 across Hyderabad, Vijayawada, and Vizag.</p>
                     />
                   </CarouselItem>
                 </CarouselContent>
-                <CarouselPrevious className="left-4" />
-                <CarouselNext className="right-4" />
               </Carousel>
+              {/* Carousel indicators */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                {Array.from({ length: count }, (_, i) => (
+                  <button
+                    key={i}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      i === current - 1 ? 'bg-white' : 'bg-white/50'
+                    }`}
+                    onClick={() => api?.scrollTo(i)}
+                  />
+                ))}
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent pointer-events-none"></div>
             </div>
 
