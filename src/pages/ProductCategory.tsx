@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Search, Filter, Star, ShoppingCart, Eye, ArrowLeft, Grid, List } from 'lucide-react';
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { UserDetailsForm } from "@/components/UserDetailsForm";
 
 interface Product {
   id: number;
@@ -19,6 +20,7 @@ interface Product {
   description: string;
   packSize: string;
   productCode: string;
+  discountType?: string;
 }
 
 const ProductCategory: React.FC = () => {
@@ -40,7 +42,8 @@ const ProductCategory: React.FC = () => {
       inStock: true,
       description: "Elastic barrier tape for ostomy care.",
       packSize: "Pack of 1",
-      productCode: "12070"
+      productCode: "12070",
+      discountType: "Seasonal Offer"
     },
     {
       id: 2,
@@ -574,6 +577,1203 @@ const ProductCategory: React.FC = () => {
     }
   ];
 
+  const walkingSticksProducts: Product[] = [
+    {
+      id: 101,
+      name: "Karma Aluminium 121 ALU Single Leg Stick Ryder",
+      brand: "Karma",
+      price: "₹ 850",
+      unitPrice: "₹ 850/Unit",
+      rating: 4.5,
+      reviews: 10,
+      category: "walking-sticks",
+      image: "https://medineeds.in/cdn/shop/products/Ryder-121AN-Silver.jpg?v=1734009389",
+      features: ["Aluminum", "Single Leg", "Adjustable Height", "Powder Coated"],
+      inStock: true,
+      description: "Best Karma Brand Aluminium Single Leg walking Stick Ryder Price | It is a single-leg stick which is very useful for the aged person and these types of people who are suffering from any type of disorder, they can use this stick.",
+      packSize: "Pack of 1",
+      productCode: "121AN"
+    },
+    {
+      id: 102,
+      name: "Aluminum Karma Walking Stick WS-121",
+      brand: "Karma",
+      price: "₹ 523",
+      unitPrice: "₹ 523/Unit",
+      rating: 4.5,
+      reviews: 15,
+      category: "walking-sticks",
+      image: "https://medineeds.in/cdn/shop/products/121.jpg?v=1734009480",
+      features: ["Aluminum", "Adjustable Height", "Lightweight", "Ergonomic Handle"],
+      inStock: true,
+      description: "Best Karma walking sticks for seniors Price /Aluminum Karma Walking Stick WS-121 is a perfect partner for old age when most people find it difficult to walk. Walking Stick will act as an assistant to help you combat your old age problems. It has an elegant look and a durable design. It is also light in weight.",
+      packSize: "Pack of 1",
+      productCode: "WS-121"
+    }
+  ];
+
+  const walkerProducts: Product[] = [
+    {
+      id: 103,
+      name: "Vissco Max Walker PC 2901",
+      brand: "Vissco",
+      price: "₹ 3,400",
+      unitPrice: "₹ 3,400/Unit",
+      rating: 4.7,
+      reviews: 5,
+      category: "walker",
+      image: "https://medineeds.in/cdn/shop/files/2901-VisscoDuraMaxWalker_Revised_-01_1800x1800_6b81f7dc-47c7-4aaa-8bf0-fa4bca87c418.webp?v=1751630686",
+      features: ["Height Adjustable", "Foldable", "Lightweight Aluminum", "Non-Slip Tips"],
+      inStock: true,
+      description: "Regain mobility and walk with confidence using the Vissco Max Walker PC 2901, a lightweight, height-adjustable foldable walker designed for the elderly, post-surgical patients, and individuals with limited lower limb strength.",
+      packSize: "Pack of 1",
+      productCode: "PC 2901"
+    },
+    {
+      id: 104,
+      name: "Karma Walker WK-50",
+      brand: "Karma",
+      price: "₹ 3,000",
+      unitPrice: "₹ 3,000/Unit",
+      rating: 4.6,
+      reviews: 8,
+      category: "walker",
+      image: "https://medineeds.in/cdn/shop/products/50-1.jpg?v=1734011682",
+      features: ["Foldable", "Aluminum Frame", "Adjustable Height"],
+      inStock: true,
+      description: "Karma Walker WK-50 is designed for stability and ease of use for elderly patients.",
+      packSize: "Pack of 1",
+      productCode: "WK-50"
+    },
+    {
+      id: 105,
+      name: "Karma WK-80 Aluminium Foldable Walker",
+      brand: "Karma",
+      price: "₹ 3,500",
+      unitPrice: "₹ 3,500/Unit",
+      rating: 4.5,
+      reviews: 6,
+      category: "walker",
+      image: "https://medineeds.in/cdn/shop/products/80.jpg?v=1734011550",
+      features: ["Aluminum", "Foldable", "Lightweight"],
+      inStock: true,
+      description: "Karma WK-80 Aluminium Foldable Walker for elderly mobility support.",
+      packSize: "Pack of 1",
+      productCode: "WK-80"
+    },
+    {
+      id: 106,
+      name: "Karma WK-51-BR One-Button Folding Walker",
+      brand: "Karma",
+      price: "₹ 3,200",
+      unitPrice: "₹ 3,200/Unit",
+      rating: 4.4,
+      reviews: 7,
+      category: "walker",
+      image: "https://medineeds.in/cdn/shop/products/51-1.jpg?v=1734011858",
+      features: ["One-Button Folding", "Adjustable", "Durable"],
+      inStock: true,
+      description: "Karma WK-51-BR One-Button Folding Walker for easy mobility.",
+      packSize: "Pack of 1",
+      productCode: "WK-51-BR"
+    },
+    {
+      id: 107,
+      name: "Karma Ryder WK-51 MS Walker",
+      brand: "Karma",
+      price: "₹ 3,500",
+      unitPrice: "₹ 3,500/Unit",
+      rating: 4.3,
+      reviews: 5,
+      category: "walker",
+      image: "https://medineeds.in/cdn/shop/products/51.jpg?v=1734011594",
+      features: ["Stainless Steel", "Foldable", "Stable"],
+      inStock: true,
+      description: "Karma Ryder WK-51 MS Walker with stainless steel construction.",
+      packSize: "Pack of 1",
+      productCode: "WK-51 MS"
+    },
+    {
+      id: 108,
+      name: "Medipedic Walker Plain Double Bar PC 9934",
+      brand: "Medipedic",
+      price: "₹ 2,099",
+      unitPrice: "₹ 2,099/Unit",
+      rating: 4.2,
+      reviews: 4,
+      category: "walker",
+      image: "https://medineeds.in/cdn/shop/files/9934-MedipedicWalkerPlainWithDoubleBar-01_1800x1800_125f5bc4-5d56-4559-ab84-260616871567.webp?v=1751631009",
+      features: ["Double Bar", "Foldable", "Lightweight"],
+      inStock: true,
+      description: "Medipedic Walker Plain Double Bar PC 9934 Lightweight Foldable Walker for Elderly Patients.",
+      packSize: "Pack of 1",
+      productCode: "PC 9934"
+    }
+  ];
+
+  const wheelchairsProducts: Product[] = [
+    {
+      id: 109,
+      name: "Medimove Ezee Lite Foldable Wheelchair",
+      brand: "Medimove",
+      price: "₹ 12,000",
+      unitPrice: "₹ 12,000/Unit",
+      rating: 4.8,
+      reviews: 12,
+      category: "wheelchairs",
+      image: "https://medineeds.in/cdn/shop/products/medimove-ezee-lite.jpg?v=1734442000",
+      features: ["Foldable", "Lightweight", "Aluminum Frame"],
+      inStock: true,
+      description: "Medimove Ezee Lite Foldable Wheelchair for easy transport and use.",
+      packSize: "Pack of 1",
+      productCode: "Ezee Lite"
+    },
+    {
+      id: 110,
+      name: "Karma Ryder 1 Attendant Wheelchair",
+      brand: "Karma",
+      price: "₹ 9,689",
+      unitPrice: "₹ 9,689/Unit",
+      rating: 4.7,
+      reviews: 15,
+      category: "wheelchairs",
+      image: "https://medineeds.in/cdn/shop/products/karma_ryder1_wheelchair.jpg?v=1734610205",
+      features: ["Attendant Model", "Foldable", "Durable"],
+      inStock: true,
+      description: "Karma Ryder 1 Attendant Wheelchair for patient care.",
+      packSize: "Pack of 1",
+      productCode: "Ryder 1"
+    },
+    {
+      id: 111,
+      name: "Karma Rainbow 8 Reclining Wheelchair with Commode",
+      brand: "Karma",
+      price: "₹ 16,200",
+      unitPrice: "₹ 16,200/Unit",
+      rating: 4.9,
+      reviews: 20,
+      category: "wheelchairs",
+      image: "https://medineeds.in/cdn/shop/products/rainbow8.jpg?v=1734610300",
+      features: ["Reclining", "Commode Included", "Hydraulic"],
+      inStock: true,
+      description: "Karma Rainbow 8 Reclining Wheelchair with Commode for comprehensive care.",
+      packSize: "Pack of 1",
+      productCode: "Rainbow 8"
+    },
+    {
+      id: 112,
+      name: "Karma Ryder 1 Pro Manual Wheelchair",
+      brand: "Karma",
+      price: "₹ 10,500",
+      unitPrice: "₹ 10,500/Unit",
+      rating: 4.6,
+      reviews: 10,
+      category: "wheelchairs",
+      image: "https://medineeds.in/cdn/shop/products/ryder1pro.jpg?v=1734610250",
+      features: ["Manual", "Foldable", "Lightweight"],
+      inStock: true,
+      description: "Karma Ryder 1 Pro Manual Wheelchair for travel and daily use.",
+      packSize: "Pack of 1",
+      productCode: "Ryder 1 Pro"
+    },
+    {
+      id: 113,
+      name: "Karma Aurora 5 Aluminium Wheelchair",
+      brand: "Karma",
+      price: "₹ 11,000",
+      unitPrice: "₹ 11,000/Unit",
+      rating: 4.5,
+      reviews: 8,
+      category: "wheelchairs",
+      image: "https://medineeds.in/cdn/shop/products/aurora5.jpg?v=1734610350",
+      features: ["Aluminum", "Lightweight", "Foldable"],
+      inStock: true,
+      description: "Karma Aurora 5 Aluminium Wheelchair for easy mobility.",
+      packSize: "Pack of 1",
+      productCode: "Aurora 5"
+    }
+  ];
+
+  const commodeProducts: Product[] = [
+    {
+      id: 114,
+      name: "Karma Rainbow 2C Folding Commode Chair",
+      brand: "Karma",
+      price: "₹ 4,500",
+      unitPrice: "₹ 4,500/Unit",
+      rating: 4.7,
+      reviews: 12,
+      category: "commode",
+      image: "https://medineeds.in/cdn/shop/products/rainbow2c.jpg?v=1734610400",
+      features: ["Folding", "Lightweight", "Portable"],
+      inStock: true,
+      description: "Karma Rainbow 2C Folding Commode Chair for bathroom assistance.",
+      packSize: "Pack of 1",
+      productCode: "Rainbow 2C"
+    },
+    {
+      id: 115,
+      name: "Karma Ryder 210 MS FC Commode Folding Chair",
+      brand: "Karma",
+      price: "₹ 3,800",
+      unitPrice: "₹ 3,800/Unit",
+      rating: 4.4,
+      reviews: 9,
+      category: "commode",
+      image: "https://medineeds.in/cdn/shop/products/ryder210.jpg?v=1734610450",
+      features: ["Folding", "Mild Steel", "Stable"],
+      inStock: true,
+      description: "Karma Ryder 210 MS FC Commode Folding Chair.",
+      packSize: "Pack of 1",
+      productCode: "Ryder 210"
+    },
+    {
+      id: 116,
+      name: "Vissco Comfort Chrome Folding Commode Chair",
+      brand: "Vissco",
+      price: "₹ 4,200",
+      unitPrice: "₹ 4,200/Unit",
+      rating: 4.6,
+      reviews: 11,
+      category: "commode",
+      image: "https://medineeds.in/cdn/shop/products/vissco0942.jpg?v=1734610500",
+      features: ["Chrome", "Folding", "Without Wheels"],
+      inStock: true,
+      description: "Vissco Comfort Chrome Folding Commode Chair PC 0942.",
+      packSize: "Pack of 1",
+      productCode: "PC 0942"
+    },
+    {
+      id: 117,
+      name: "Vissco 0941 Comfort Folding Commode Chair",
+      brand: "Vissco",
+      price: "₹ 4,000",
+      unitPrice: "₹ 4,000/Unit",
+      rating: 4.5,
+      reviews: 10,
+      category: "commode",
+      image: "https://medineeds.in/cdn/shop/products/vissco0941.jpg?v=1734610550",
+      features: ["Folding", "Lightweight", "Portable"],
+      inStock: true,
+      description: "Vissco 0941 Comfort Folding Commode Chair.",
+      packSize: "Pack of 1",
+      productCode: "PC 0941"
+    }
+  ];
+
+  const airbedsProducts: Product[] = [
+    {
+      id: 101,
+      name: "Romsons Cell Mat Anti-Decubitus Air Mattress (Tubular)",
+      brand: "Romsons",
+      price: "₹ 9,000",
+      unitPrice: "₹ 9,000/Unit",
+      rating: 4.5,
+      reviews: 12,
+      category: "airbeds",
+      image: "https://medineeds.in/cdn/shop/products/romsonsair6.jpg?v=1736331136",
+      features: ["Anti-decubitus", "Tubular design", "Pressure relief", "PVC material"],
+      inStock: false,
+      description: "Romsons Cell Mat Anti-Decubitus Air Mattress provides excellent pressure relief for bedridden patients, preventing bedsores.",
+      packSize: "Pack of 1",
+      productCode: "Cell Mat"
+    },
+    {
+      id: 102,
+      name: "Air Mattress (Therapy For Bed Sores) Poct (Point Of Care)",
+      brand: "Point Of Care",
+      price: "₹ 1,899",
+      unitPrice: "₹ 1,899/Unit",
+      rating: 4.3,
+      reviews: 8,
+      category: "airbeds",
+      image: "https://medineeds.in/cdn/shop/files/x7pOaPn_COP-mtUP3NzZgQc_0_gps_generated.png?v=1749990177",
+      features: ["Therapy for bed sores", "Inflatable", "Lightweight", "Portable"],
+      inStock: true,
+      description: "Point Of Care Air Mattress designed for therapy and prevention of bed sores in patients.",
+      packSize: "Pack of 1",
+      productCode: "POCT Air Mattress"
+    },
+    {
+      id: 103,
+      name: "Karma Health Care Tubular Air-Wave Mattress T1",
+      brand: "Karma",
+      price: "₹ 13,200",
+      unitPrice: "₹ 13,200/Unit",
+      rating: 4.6,
+      reviews: 15,
+      category: "airbeds",
+      image: "https://medineeds.in/cdn/shop/products/T1-4.jpg?v=1736145553",
+      features: ["Tubular air-wave", "Pressure relief", "Durable", "Easy to maintain"],
+      inStock: false,
+      description: "Karma Tubular Air-Wave Mattress T1 for effective pressure relief and comfort.",
+      packSize: "Pack of 1",
+      productCode: "T1"
+    },
+    {
+      id: 104,
+      name: "Karma Airwave 3 Medicated Pressure Relief Air Mattress",
+      brand: "Karma",
+      price: "₹ 4,200",
+      unitPrice: "₹ 4,200/Unit",
+      rating: 4.4,
+      reviews: 10,
+      category: "airbeds",
+      image: "https://medineeds.in/cdn/shop/products/air-3-3.jpg?v=1736146493",
+      features: ["Medicated", "Pressure relief", "Airwave technology", "Comfortable"],
+      inStock: false,
+      description: "Karma Airwave 3 provides medicated pressure relief for patients at risk of bedsores.",
+      packSize: "Pack of 1",
+      productCode: "Airwave 3"
+    }
+  ];
+
+  const injectionTubeNeedlesProducts: Product[] = [
+    {
+      id: 105,
+      name: "Portex Tracheostomy Tube Cuffed",
+      brand: "Portex",
+      price: "₹ 1,185",
+      unitPrice: "₹ 1,185/Unit",
+      rating: 4.7,
+      reviews: 20,
+      category: "injection-tube-needles",
+      image: "https://medineeds.in/cdn/shop/products/portex_tracostomy.jpg?v=1676020540",
+      features: ["Cuffed", "Tracheostomy tube", "Sterile", "High quality"],
+      inStock: true,
+      description: "Portex Tracheostomy Tube Cuffed for secure airway management.",
+      packSize: "Pack of 1",
+      productCode: "Tracheostomy Tube"
+    },
+    {
+      id: 106,
+      name: "Covidien HME Tracheostomy Filter Adult (2 Pcs)",
+      brand: "Covidien",
+      price: "₹ 330",
+      unitPrice: "₹ 330/Unit",
+      rating: 4.5,
+      reviews: 15,
+      category: "injection-tube-needles",
+      image: "https://medineeds.in/cdn/shop/products/covidien_tracheostomy_filter.png?v=1676009698",
+      features: ["HME filter", "Adult size", "Heat and moisture exchanger", "2 pieces"],
+      inStock: true,
+      description: "Covidien HME Tracheostomy Filter for humidification and filtration.",
+      packSize: "Pack of 2",
+      productCode: "HME Filter"
+    },
+    {
+      id: 107,
+      name: "Freka Tube For Feeding CH",
+      brand: "Freka",
+      price: "₹ 891",
+      unitPrice: "₹ 891/Unit",
+      rating: 4.6,
+      reviews: 12,
+      category: "injection-tube-needles",
+      image: "https://medineeds.in/cdn/shop/files/Photoroom-20241024-171416.webp?v=1729770432",
+      features: ["Feeding tube", "CH size", "Flexible", "Biocompatible"],
+      inStock: true,
+      description: "Freka Tube for enteral feeding, designed for patient comfort.",
+      packSize: "Pack of 1",
+      productCode: "Freka CH"
+    },
+    {
+      id: 108,
+      name: "Lilly Humapen Ergo II Two-Tone Blue insulin Delivery Device (Pen)",
+      brand: "Lilly",
+      price: "₹ 937",
+      unitPrice: "₹ 937/Unit",
+      rating: 4.8,
+      reviews: 25,
+      category: "injection-tube-needles",
+      image: "https://medineeds.in/cdn/shop/files/Photoroom-20241020-140405.webp?v=1729413341",
+      features: ["Insulin pen", "Two-tone blue", "Reusable", "Easy to use"],
+      inStock: true,
+      description: "Humapen Ergo II for convenient insulin delivery.",
+      packSize: "Pack of 1",
+      productCode: "Humapen Ergo II"
+    },
+    {
+      id: 109,
+      name: "Dispovan Pen Needles 4mm 32g (5x20 Needles)",
+      brand: "Dispovan",
+      price: "₹ 679",
+      unitPrice: "₹ 679/Unit",
+      rating: 4.4,
+      reviews: 18,
+      category: "injection-tube-needles",
+      image: "https://medineeds.in/cdn/shop/products/dispovan_pen_needle_2.jpg?v=1734614942",
+      features: ["Pen needles", "4mm length", "32G gauge", "Sterile"],
+      inStock: true,
+      description: "Dispovan Pen Needles for insulin injection, 100 needles.",
+      packSize: "Pack of 100",
+      productCode: "4mm 32G"
+    }
+  ];
+
+  const healthCareDevicesProducts: Product[] = [
+    {
+      id: 110,
+      name: "Accusure Life Glucose Test Strips 50",
+      brand: "Accusure",
+      price: "₹ 703",
+      unitPrice: "₹ 703/Unit",
+      rating: 4.5,
+      reviews: 30,
+      category: "health-care-devices",
+      image: "https://medineeds.in/cdn/shop/files/Photoroom-20241109-165300.webp?v=1731154459",
+      features: ["Glucose test strips", "50 strips", "Accurate results", "For Accusure glucometer"],
+      inStock: true,
+      description: "Accusure Life Glucose Test Strips for monitoring blood sugar levels.",
+      packSize: "Pack of 50",
+      productCode: "Life Strips 50"
+    },
+    {
+      id: 111,
+      name: "Gluco Spark Blood Glucose Monitoring System",
+      brand: "Gluco Spark",
+      price: "₹ 420",
+      unitPrice: "₹ 420/Unit",
+      rating: 4.3,
+      reviews: 22,
+      category: "health-care-devices",
+      image: "https://medineeds.in/cdn/shop/files/glucospark_1.jpg?v=1749473731",
+      features: ["Blood glucose monitor", "Large LCD", "Fast results", "User-friendly"],
+      inStock: true,
+      description: "Gluco Spark system for accurate and fast blood glucose monitoring.",
+      packSize: "Pack of 1",
+      productCode: "Gluco Spark"
+    },
+    {
+      id: 112,
+      name: "Beurer Medical Nebuliser IH-17",
+      brand: "Beurer",
+      price: "₹ 1,228",
+      unitPrice: "₹ 1,228/Unit",
+      rating: 4.6,
+      reviews: 28,
+      category: "health-care-devices",
+      image: "https://medineeds.in/cdn/shop/files/IH17_BEURER_NEBULIZER_5.jpg?v=1750588095",
+      features: ["Compressor nebulizer", "For upper & lower airways", "Efficient nebulization", "For adults & kids"],
+      inStock: true,
+      description: "Beurer IH-17 nebulizer for effective respiratory treatment.",
+      packSize: "Pack of 1",
+      productCode: "IH-17"
+    },
+    {
+      id: 113,
+      name: "FreeStyle Libre Flash Glucose Monitoring Sensor",
+      brand: "FreeStyle Libre",
+      price: "₹ 5,248",
+      unitPrice: "₹ 5,248/Unit",
+      rating: 4.8,
+      reviews: 35,
+      category: "health-care-devices",
+      image: "https://medineeds.in/cdn/shop/files/glucospark.png?v=1749821012",
+      features: ["Continuous glucose monitor", "14-day sensor", "Painless", "Real-time readings"],
+      inStock: true,
+      description: "FreeStyle Libre sensor for continuous glucose monitoring.",
+      packSize: "Pack of 1",
+      productCode: "Libre Sensor"
+    },
+    {
+      id: 114,
+      name: "OneTouch Verio Flex Glucometer with 25+10 Test Strips",
+      brand: "OneTouch",
+      price: "₹ 1,799",
+      unitPrice: "₹ 1,799/Unit",
+      rating: 4.7,
+      reviews: 40,
+      category: "health-care-devices",
+      image: "https://medineeds.in/cdn/shop/products/Optimized-verio-meter.jpg?v=1738067740",
+      features: ["Glucometer", "ColorSure technology", "25 strips + 10 free", "Easy to use"],
+      inStock: true,
+      description: "OneTouch Verio Flex glucometer with test strips for diabetes management.",
+      packSize: "Pack of 1",
+      productCode: "Verio Flex"
+    }
+  ];
+
+  const adultDiapersProducts: Product[] = [
+    {
+      id: 115,
+      name: "Adult Diaper Premium Panty Style Large Respect 10 Pcs",
+      brand: "Respect",
+      price: "₹ 475",
+      unitPrice: "₹ 475/Unit",
+      rating: 4.4,
+      reviews: 15,
+      category: "adult-diapers",
+      image: "https://medineeds.in/cdn/shop/files/ADULTDIAPERPANTYSTYLELARGE.png?v=1682951670",
+      features: ["Panty style", "Large size", "Premium quality", "Comfortable"],
+      inStock: true,
+      description: "Respect Adult Diaper Premium Panty Style Large for incontinence care.",
+      packSize: "Pack of 10",
+      productCode: "Respect Large"
+    },
+    {
+      id: 116,
+      name: "B-Fit Economy Adult Diaper Pants",
+      brand: "B-Fit",
+      price: "₹ 309",
+      unitPrice: "₹ 309/Unit",
+      rating: 4.2,
+      reviews: 20,
+      category: "adult-diapers",
+      image: "https://medineeds.in/cdn/shop/products/b-fit-m.jpg?v=1736332843",
+      features: ["Economy range", "Pants style", "Absorbent", "Various sizes"],
+      inStock: true,
+      description: "B-Fit Economy Adult Diaper Pants for daily use.",
+      packSize: "Pack of 10",
+      productCode: "B-Fit Economy"
+    },
+    {
+      id: 117,
+      name: "Adult Diaper Premium Panty Style Xl Respect 10 Pcs",
+      brand: "Respect",
+      price: "₹ 499",
+      unitPrice: "₹ 499/Unit",
+      rating: 4.5,
+      reviews: 18,
+      category: "adult-diapers",
+      image: "https://medineeds.in/cdn/shop/files/ADULTDIAPERPANTYSTYLEXLRESPECT.png?v=1682952253",
+      features: ["Panty style", "XL size", "Premium", "Leak proof"],
+      inStock: true,
+      description: "Respect Adult Diaper Premium Panty Style XL for superior protection.",
+      packSize: "Pack of 10",
+      productCode: "Respect XL"
+    },
+    {
+      id: 118,
+      name: "B Fit Economy Adult Diaper 10 Pcs",
+      brand: "B-Fit",
+      price: "₹ 291",
+      unitPrice: "₹ 291/Unit",
+      rating: 4.3,
+      reviews: 25,
+      category: "adult-diapers",
+      image: "https://medineeds.in/cdn/shop/products/bfit-m.png?v=1736333008",
+      features: ["Economy", "Adult diaper", "Comfortable", "Absorbent"],
+      inStock: true,
+      description: "B-Fit Economy Adult Diaper for reliable incontinence management.",
+      packSize: "Pack of 10",
+      productCode: "B-Fit Diaper"
+    },
+    {
+      id: 119,
+      name: "Adult Diaper Premium Panty Style Medium Respect 10 Pcs",
+      brand: "Respect",
+      price: "₹ 462",
+      unitPrice: "₹ 462/Unit",
+      rating: 4.4,
+      reviews: 16,
+      category: "adult-diapers",
+      image: "https://medineeds.in/cdn/shop/files/ADULTDIAPERPANTYSTYLEMEDIUMRESPECT.png?v=1682951978",
+      features: ["Panty style", "Medium size", "Premium", "Soft"],
+      inStock: true,
+      description: "Respect Adult Diaper Premium Panty Style Medium for everyday comfort.",
+      packSize: "Pack of 10",
+      productCode: "Respect Medium"
+    }
+  ];
+
+  const dentalCareProducts: Product[] = [
+    {
+      id: 120,
+      name: "Stim Flurosid Mouthwash 150ml",
+      brand: "Stim",
+      price: "₹ 650",
+      unitPrice: "₹ 650/Unit",
+      rating: 4.5,
+      reviews: 30,
+      category: "dental-care",
+      image: "https://medineeds.in/cdn/shop/files/P10_3.png?v=1757423136",
+      features: ["Fluoride mouthwash", "150ml", "Anticavity", "Freshens breath"],
+      inStock: true,
+      description: "Stim Flurosid Mouthwash for fluoride protection and oral hygiene.",
+      packSize: "Pack of 1",
+      productCode: "Flurosid 150ml"
+    },
+    {
+      id: 121,
+      name: "Stim Lidayn Spray Lidocaine Topical Mint Flavoured 100gm",
+      brand: "Stim",
+      price: "₹ 339",
+      unitPrice: "₹ 339/Unit",
+      rating: 4.6,
+      reviews: 22,
+      category: "dental-care",
+      image: "https://medineeds.in/cdn/shop/files/3332493154.jpg?v=1738070602",
+      features: ["Lidocaine spray", "Topical", "Mint flavoured", "Pain relief"],
+      inStock: true,
+      description: "Stim Lidayn Spray for topical pain relief in the mouth.",
+      packSize: "Pack of 1",
+      productCode: "Lidayn Spray"
+    },
+    {
+      id: 122,
+      name: "Stim Sentim Toothpaste for Sensitive Teeth – 100g (Pack of 3)",
+      brand: "Stim",
+      price: "₹ 378",
+      unitPrice: "₹ 378/Unit",
+      rating: 4.7,
+      reviews: 35,
+      category: "dental-care",
+      image: "https://medineeds.in/cdn/shop/files/product_3695_5467.jpg?v=1753531521",
+      features: ["For sensitive teeth", "100g each", "Pack of 3", "Reduces sensitivity"],
+      inStock: true,
+      description: "Stim Sentim Toothpaste designed to relieve tooth sensitivity.",
+      packSize: "Pack of 3",
+      productCode: "Sentim 100g"
+    },
+    {
+      id: 123,
+      name: "STIM Ultigel Mouth Ulcer Gel – 15g (Pack of 3)",
+      brand: "Stim",
+      price: "₹ 300",
+      unitPrice: "₹ 300/Unit",
+      rating: 4.4,
+      reviews: 28,
+      category: "dental-care",
+      image: "https://medineeds.in/cdn/shop/files/ultigel.png?v=1707562086",
+      features: ["Mouth ulcer gel", "15g each", "Pack of 3", "Fast relief"],
+      inStock: true,
+      description: "Stim Ultigel for quick relief from mouth ulcers.",
+      packSize: "Pack of 3",
+      productCode: "Ultigel 15g"
+    },
+    {
+      id: 124,
+      name: "STIM Ri-namel Enamel Repair Toothpaste",
+      brand: "Stim",
+      price: "₹ 370",
+      unitPrice: "₹ 370/Unit",
+      rating: 4.5,
+      reviews: 32,
+      category: "dental-care",
+      image: "https://medineeds.in/cdn/shop/files/71mRH956UqL._SX679.jpg?v=1753450353",
+      features: ["Enamel repair", "Hydroxyapatite", "Fluoride", "Strengthens teeth"],
+      inStock: true,
+      description: "Stim Ri-namel Toothpaste for repairing and strengthening tooth enamel.",
+      packSize: "Pack of 1",
+      productCode: "Ri-namel"
+    }
+  ];
+
+  const kneeCalfSupportProducts: Product[] = [
+    {
+      id: 125,
+      name: "ROM Elbow Brace, Black",
+      brand: "Romsons",
+      price: "₹ 1,900",
+      unitPrice: "₹ 1,900/Unit",
+      rating: 4.2,
+      reviews: 18,
+      category: "knee-calf-support",
+      image: "https://medineeds.in/cdn/shop/products/1-295-300x300-1.jpg?v=1676020922",
+      features: ["ROM brace", "Elbow support", "Adjustable", "Black"],
+      inStock: true,
+      description: "ROM Elbow Brace for range of motion control and support.",
+      packSize: "Pack of 1",
+      productCode: "ROM Elbow Brace"
+    },
+    {
+      id: 126,
+      name: "Tynor Knee Cap (Pair) Latex Free D-04",
+      brand: "Tynor",
+      price: "₹ 300",
+      unitPrice: "₹ 300/Unit",
+      rating: 4.3,
+      reviews: 45,
+      category: "knee-calf-support",
+      image: "https://medineeds.in/cdn/shop/products/tynor-knee-cap.jpg?v=1676021790",
+      features: ["Knee cap", "Pair", "Latex free", "Compression support"],
+      inStock: true,
+      description: "Tynor Knee Cap for knee support and pain relief.",
+      packSize: "Pack of 2",
+      productCode: "D-04"
+    },
+    {
+      id: 127,
+      name: "Dr.Morepen Ortho Knee Cap Open Patella 1 Piece KN-04",
+      brand: "Dr.Morepen",
+      price: "₹ 400",
+      unitPrice: "₹ 400/Unit",
+      rating: 4.1,
+      reviews: 32,
+      category: "knee-calf-support",
+      image: "https://medineeds.in/cdn/shop/files/81eBEWL9pHL._SX522.jpg?v=1726823338",
+      features: ["Open patella", "Knee support", "Orthopedic", "Compression"],
+      inStock: true,
+      description: "Dr.Morepen Ortho Knee Cap for open patella support.",
+      packSize: "Pack of 1",
+      productCode: "KN-04"
+    },
+    {
+      id: 128,
+      name: "Tynor Knee Wrap Hinged (Neoprene), Black J-15",
+      brand: "Tynor",
+      price: "₹ 1,200",
+      unitPrice: "₹ 1,200/Unit",
+      rating: 4.4,
+      reviews: 28,
+      category: "knee-calf-support",
+      image: "https://medineeds.in/cdn/shop/products/j15.jpg?v=1676021811",
+      features: ["Hinged knee wrap", "Neoprene", "Black", "Support"],
+      inStock: true,
+      description: "Tynor Knee Wrap Hinged for knee stability and support.",
+      packSize: "Pack of 1",
+      productCode: "J-15"
+    },
+    {
+      id: 129,
+      name: "Knee Wrap Hinged (Neoprene), Black, 1 Unit",
+      brand: "Karma",
+      price: "₹ 1,100",
+      unitPrice: "₹ 1,100/Unit",
+      rating: 4.2,
+      reviews: 25,
+      category: "knee-calf-support",
+      image: "https://medineeds.in/cdn/shop/products/Knee-Wrap-Hinged-1-300x300-1.jpg?v=1676018693",
+      features: ["Hinged knee wrap", "Neoprene", "Black", "Adjustable"],
+      inStock: true,
+      description: "Hinged Knee Wrap for knee joint support.",
+      packSize: "Pack of 1",
+      productCode: "Knee Wrap Hinged"
+    },
+  ];
+
+  const legSupportProducts: Product[] = [
+    {
+      id: 130,
+      name: "Vissco Activeband – Physical Resistance Bands PC H1042",
+      brand: "Vissco",
+      price: "₹ 399",
+      unitPrice: "₹ 399/Unit",
+      rating: 4.5,
+      reviews: 40,
+      category: "leg-support",
+      image: "https://medineeds.in/cdn/shop/files/4042Red-01_1800x1800_65f940ce-c181-402d-9ca8-88779f1e6c30.webp?v=1751625379",
+      features: ["Resistance bands", "Latex-free", "Strength training", "Rehabilitation"],
+      inStock: true,
+      description: "Vissco Activeband for physical therapy and strength training.",
+      packSize: "Pack of 1",
+      productCode: "H1042"
+    },
+    {
+      id: 131,
+      name: "Vissco 3D Knee Cap with Donut Padding (PC 2705)",
+      brand: "Vissco",
+      price: "₹ 515",
+      unitPrice: "₹ 515/Unit",
+      rating: 4.6,
+      reviews: 35,
+      category: "leg-support",
+      image: "https://medineeds.in/cdn/shop/files/2705_1800x1800_f5476c45-3676-4d3b-931c-662b1089eefd.webp?v=1751463397",
+      features: ["3D knee cap", "Donut padding", "Patella support", "Pain relief"],
+      inStock: true,
+      description: "Vissco 3D Knee Cap for advanced knee support.",
+      packSize: "Pack of 1",
+      productCode: "PC 2705"
+    },
+    {
+      id: 132,
+      name: "Pneumatic Walker (Double Push Button – Short Type) PC 5723",
+      brand: "Vissco",
+      price: "₹ 5,699",
+      unitPrice: "₹ 5,699/Unit",
+      rating: 4.4,
+      reviews: 20,
+      category: "leg-support",
+      image: "https://medineeds.in/cdn/shop/files/5723-1_1800x1800_767efa07-b664-4ec5-9d11-eaec05cf3836.webp?v=1751538493",
+      features: ["Pneumatic walker", "Short type", "Foot & ankle support", "Orthopedic"],
+      inStock: true,
+      description: "Pneumatic Walker for foot and ankle support.",
+      packSize: "Pack of 1",
+      productCode: "PC 5723"
+    },
+    {
+      id: 133,
+      name: "Vissco ROM Knee Brace – Fixed Height (PC 0755)",
+      brand: "Vissco",
+      price: "₹ 1,799",
+      unitPrice: "₹ 1,799/Unit",
+      rating: 4.5,
+      reviews: 30,
+      category: "leg-support",
+      image: "https://medineeds.in/cdn/shop/files/download_86f76b0e-a903-41af-819d-1b4d50fa97bf.jpg?v=1740037810",
+      features: ["ROM knee brace", "Fixed height", "Hinged", "Post-surgery"],
+      inStock: true,
+      description: "Vissco ROM Knee Brace for ligament recovery.",
+      packSize: "Pack of 1",
+      productCode: "PC 0755"
+    },
+    {
+      id: 134,
+      name: "Vissco 3D Knee Cap PC 2704",
+      brand: "Vissco",
+      price: "₹ 399",
+      unitPrice: "₹ 399/Unit",
+      rating: 4.3,
+      reviews: 38,
+      category: "leg-support",
+      image: "https://medineeds.in/cdn/shop/files/shopping_5d018fb1-6e63-49ed-b917-e7ed0c5452c2.webp?v=1740037531",
+      features: ["3D knee cap", "Compression support", "Pain relief", "Injury recovery"],
+      inStock: true,
+      description: "Vissco 3D Knee Cap for compression and support.",
+      packSize: "Pack of 1",
+      productCode: "PC 2704"
+    },
+    {
+      id: 135,
+      name: "Vissco Ice Cool Gel Pack PC 4134/35",
+      brand: "Vissco",
+      price: "₹ 430",
+      unitPrice: "₹ 430/Unit",
+      rating: 4.7,
+      reviews: 50,
+      category: "leg-support",
+      image: "https://medineeds.in/cdn/shop/files/1_1800x1800_e7a0eab9-80aa-454e-be0d-49537072deca.webp?v=1751628902",
+      features: ["Ice cool gel pack", "Hot & cold therapy", "Regular & large size"],
+      inStock: true,
+      description: "Vissco Gel Pack for hot and cold therapy.",
+      packSize: "Pack of 1",
+      productCode: "PC 4134/35"
+    },
+    {
+      id: 136,
+      name: "Vissco Orthopaedic Heating Belt PC 4009/10",
+      brand: "Vissco",
+      price: "₹ 915",
+      unitPrice: "₹ 915/Unit",
+      rating: 4.4,
+      reviews: 42,
+      category: "leg-support",
+      image: "https://medineeds.in/cdn/shop/files/4011_1_1800x1800_c82a03bc-a6a9-4e13-9456-83f8eef5ad0a.webp?v=1751627348",
+      features: ["Heating belt", "Pain relief", "Back, neck & joints", "Orthopedic"],
+      inStock: true,
+      description: "Vissco Heating Belt for pain relief.",
+      packSize: "Pack of 1",
+      productCode: "PC 4009/10"
+    },
+    {
+      id: 137,
+      name: "Pneumatic Walker (Double Push Button – Long Type) PC 5724",
+      brand: "Vissco",
+      price: "₹ 6,199",
+      unitPrice: "₹ 6,199/Unit",
+      rating: 4.5,
+      reviews: 25,
+      category: "leg-support",
+      image: "https://medineeds.in/cdn/shop/files/5724-1_1800x1800_1b7f44c8-c5d0-4b72-b7c9-1c34689a7877.webp?v=1751543236",
+      features: ["Pneumatic walker", "Long type", "Leg, foot & ankle support"],
+      inStock: true,
+      description: "Pneumatic Walker for leg, foot and ankle support.",
+      packSize: "Pack of 1",
+      productCode: "PC 5724"
+    },
+  ];
+
+  const fingerSupportProducts: Product[] = [
+    {
+      id: 138,
+      name: "Wrist Brace With Thumb, Grey",
+      brand: "Romsons",
+      price: "₹ 210",
+      unitPrice: "₹ 210/Unit",
+      rating: 4.1,
+      reviews: 15,
+      category: "finger",
+      image: "https://medineeds.in/cdn/shop/products/1-264-300x300-1.jpg?v=1676022556",
+      features: ["Wrist brace", "With thumb", "Grey", "Support"],
+      inStock: true,
+      description: "Wrist Brace With Thumb for wrist and thumb support.",
+      packSize: "Pack of 1",
+      productCode: "Wrist Brace Thumb"
+    },
+    {
+      id: 139,
+      name: "Finger Cot, Silver",
+      brand: "Romsons",
+      price: "₹ 154",
+      unitPrice: "₹ 154/Unit",
+      rating: 4.0,
+      reviews: 12,
+      category: "finger",
+      image: "https://medineeds.in/cdn/shop/products/F02ADZ_1-600x706-1.jpg?v=1676010859",
+      features: ["Finger cot", "Silver", "Protective", "Single"],
+      inStock: true,
+      description: "Finger Cot for finger protection.",
+      packSize: "Pack of 1",
+      productCode: "F02ADZ"
+    },
+    {
+      id: 140,
+      name: "Thumb Spica Splint, Grey",
+      brand: "Romsons",
+      price: "₹ 250",
+      unitPrice: "₹ 250/Unit",
+      rating: 4.2,
+      reviews: 18,
+      category: "finger",
+      image: "https://medineeds.in/cdn/shop/products/1-302-300x300-1.jpg?v=1676021697",
+      features: ["Thumb spica splint", "Grey", "Immobilization", "Support"],
+      inStock: true,
+      description: "Thumb Spica Splint for thumb immobilization.",
+      packSize: "Pack of 1",
+      productCode: "Thumb Spica"
+    },
+  ];
+
+  const handSupportProducts: Product[] = [
+    {
+      id: 141,
+      name: "Weight Cuff, Grey",
+      brand: "Romsons",
+      price: "₹ 430",
+      unitPrice: "₹ 430/Unit",
+      rating: 4.3,
+      reviews: 20,
+      category: "hand-support",
+      image: "https://medineeds.in/cdn/shop/products/H01UBZ_1-300x300-1.jpg?v=1676022494",
+      features: ["Weight cuff", "Grey", "Resistance training", "Adjustable"],
+      inStock: true,
+      description: "Weight Cuff for resistance training.",
+      packSize: "Pack of 1",
+      productCode: "H01UBZ"
+    },
+    {
+      id: 142,
+      name: "Tynor Tennis Elbow Support (Black) E-10",
+      brand: "Tynor",
+      price: "₹ 235",
+      unitPrice: "₹ 235/Unit",
+      rating: 4.4,
+      reviews: 35,
+      category: "hand-support",
+      image: "https://medineeds.in/cdn/shop/products/tennis.jpg?v=1676021868",
+      features: ["Tennis elbow support", "Black", "Compression", "Pain relief"],
+      inStock: true,
+      description: "Tynor Tennis Elbow Support for elbow pain relief.",
+      packSize: "Pack of 1",
+      productCode: "E-10"
+    },
+    {
+      id: 143,
+      name: "Vissco Shoulder Abduction Support (PC 0815)",
+      brand: "Vissco",
+      price: "₹ 1,899",
+      unitPrice: "₹ 1,899/Unit",
+      rating: 4.5,
+      reviews: 28,
+      category: "hand-support",
+      image: "https://medineeds.in/cdn/shop/files/71BVAneARHL._SL1500.jpg?v=1751691456",
+      features: ["Shoulder abduction support", "Universal size", "Post-surgery", "Arm sling"],
+      inStock: true,
+      description: "Vissco Shoulder Abduction Support with pillow.",
+      packSize: "Pack of 1",
+      productCode: "PC 0815"
+    },
+    {
+      id: 144,
+      name: "Elastic Shoulder Immobiliser, Grey",
+      brand: "Romsons",
+      price: "₹ 850",
+      unitPrice: "₹ 850/Unit",
+      rating: 4.2,
+      reviews: 22,
+      category: "hand-support",
+      image: "https://medineeds.in/cdn/shop/products/1-121-370x500-1.jpg?v=1676010773",
+      features: ["Shoulder immobiliser", "Elastic", "Grey", "Support"],
+      inStock: true,
+      description: "Elastic Shoulder Immobiliser for shoulder support.",
+      packSize: "Pack of 1",
+      productCode: "Shoulder Immobiliser"
+    },
+    {
+      id: 145,
+      name: "Vissco Ice Cool Gel Pack PC 4134/35",
+      brand: "Vissco",
+      price: "₹ 430",
+      unitPrice: "₹ 430/Unit",
+      rating: 4.7,
+      reviews: 50,
+      category: "hand-support",
+      image: "https://medineeds.in/cdn/shop/files/1_1800x1800_e7a0eab9-80aa-454e-be0d-49537072deca.webp?v=1751628902",
+      features: ["Ice cool gel pack", "Hot & cold therapy", "Regular & large"],
+      inStock: true,
+      description: "Vissco Gel Pack for therapy.",
+      packSize: "Pack of 1",
+      productCode: "PC 4134/35"
+    },
+    {
+      id: 146,
+      name: "Forearm Splint, Grey",
+      brand: "Romsons",
+      price: "₹ 492",
+      unitPrice: "₹ 492/Unit",
+      rating: 4.1,
+      reviews: 16,
+      category: "hand-support",
+      image: "https://medineeds.in/cdn/shop/products/1-285-300x300-1.jpg?v=1676011017",
+      features: ["Forearm splint", "Grey", "Immobilization", "Support"],
+      inStock: true,
+      description: "Forearm Splint for forearm support.",
+      packSize: "Pack of 1",
+      productCode: "Forearm Splint"
+    },
+  ];
+
+  const backSupportProducts: Product[] = [
+    {
+      id: 147,
+      name: "Vissco Core 0120 Taylor Brace",
+      brand: "Vissco",
+      price: "₹ 1,799",
+      unitPrice: "₹ 1,799/Unit",
+      rating: 4.6,
+      reviews: 40,
+      category: "back",
+      image: "https://medineeds.in/cdn/shop/files/download_98ddefe4-36e5-43fd-8174-d605d7045a88.jpg?v=1740036676",
+      features: ["Taylor brace", "Dorso lumbar", "Spinal support", "Orthopedic"],
+      inStock: true,
+      description: "Vissco Taylor Brace for back support.",
+      packSize: "Pack of 1",
+      productCode: "Core 0120"
+    },
+    {
+      id: 148,
+      name: "Tynor Lumbo Lacepull Brace A 29",
+      brand: "Tynor",
+      price: "₹ 1,799",
+      unitPrice: "₹ 1,799/Unit",
+      rating: 4.7,
+      reviews: 45,
+      category: "back",
+      image: "https://medineeds.in/cdn/shop/files/tynor_6ff95727-ef01-45b2-8d22-ad8cca0d9615.webp?v=1753797129",
+      features: ["Lumbo lacepull brace", "Back support", "Lumbar pain", "Curative"],
+      inStock: true,
+      description: "Tynor Lumbo Lacepull Brace for lumbar support.",
+      packSize: "Pack of 1",
+      productCode: "A 29"
+    },
+    {
+      id: 149,
+      name: "Vissco Coccyx Seat Cushion",
+      brand: "Vissco",
+      price: "₹ 1,599",
+      unitPrice: "₹ 1,599/Unit",
+      rating: 4.4,
+      reviews: 30,
+      category: "back",
+      image: "https://medineeds.in/cdn/shop/files/shopping_549662cf-63b0-4377-8196-b981cab8fd75.webp?v=1740036999",
+      features: ["Coccyx cushion", "Tailbone relief", "Foam cushion", "Universal"],
+      inStock: true,
+      description: "Vissco Coccyx Seat Cushion for tailbone pain relief.",
+      packSize: "Pack of 1",
+      productCode: "PC 1123"
+    },
+    {
+      id: 150,
+      name: "Karma Foldable Back Rest Ryder-500-BR",
+      brand: "Karma",
+      price: "₹ 2,300",
+      unitPrice: "₹ 2,300/Unit",
+      rating: 4.3,
+      reviews: 25,
+      category: "back",
+      image: "https://medineeds.in/cdn/shop/products/500-1_74895e33-6aba-4136-9e1b-2991a90af87e.jpg?v=1736146289",
+      features: ["Foldable back rest", "Comfort", "Adjustable", "Support"],
+      inStock: true,
+      description: "Karma Foldable Back Rest for back comfort.",
+      packSize: "Pack of 1",
+      productCode: "Ryder-500-BR"
+    },
+    {
+      id: 151,
+      name: "Flamingo Maternity Belt",
+      brand: "Flamingo",
+      price: "₹ 410",
+      unitPrice: "₹ 410/Unit",
+      rating: 4.5,
+      reviews: 50,
+      category: "back",
+      image: "https://medineeds.in/cdn/shop/products/maternity.jpg?v=1676010963",
+      features: ["Maternity belt", "Pregnancy support", "Adjustable", "Comfort"],
+      inStock: true,
+      description: "Flamingo Maternity Belt for pregnancy support.",
+      packSize: "Pack of 1",
+      productCode: "Maternity Belt"
+    },
+    {
+      id: 152,
+      name: "Vissco Abdominal Belt Post Pregnancy Support PC 0501",
+      brand: "Vissco",
+      price: "₹ 749",
+      unitPrice: "₹ 749/Unit",
+      rating: 4.6,
+      reviews: 38,
+      category: "back",
+      image: "https://medineeds.in/cdn/shop/files/VISSCO_ABDOMINAL_BELT.jpg?v=1750589369",
+      features: ["Abdominal belt", "Post pregnancy", "Compression", "Support"],
+      inStock: true,
+      description: "Vissco Abdominal Belt for post-pregnancy support.",
+      packSize: "Pack of 1",
+      productCode: "PC 0501"
+    },
+    {
+      id: 153,
+      name: "Vissco Ice Cool Gel Pack PC 4134/35",
+      brand: "Vissco",
+      price: "₹ 430",
+      unitPrice: "₹ 430/Unit",
+      rating: 4.7,
+      reviews: 50,
+      category: "back",
+      image: "https://medineeds.in/cdn/shop/files/1_1800x1800_e7a0eab9-80aa-454e-be0d-49537072deca.webp?v=1751628902",
+      features: ["Ice cool gel pack", "Hot & cold therapy", "Sizes available"],
+      inStock: true,
+      description: "Vissco Gel Pack for therapy.",
+      packSize: "Pack of 1",
+      productCode: "PC 4134/35"
+    },
+    {
+      id: 154,
+      name: "Vissco Orthopaedic Heating Belt PC 4009/10",
+      brand: "Vissco",
+      price: "₹ 915",
+      unitPrice: "₹ 915/Unit",
+      rating: 4.4,
+      reviews: 42,
+      category: "back",
+      image: "https://medineeds.in/cdn/shop/files/4011_1_1800x1800_c82a03bc-a6a9-4e13-9456-83f8eef5ad0a.webp?v=1751627348",
+      features: ["Heating belt", "Pain relief", "Back, neck & joints"],
+      inStock: true,
+      description: "Vissco Heating Belt for pain relief.",
+      packSize: "Pack of 1",
+      productCode: "PC 4009/10"
+    },
+  ];
+
+  const elbowSupportProducts: Product[] = [
+    {
+      id: 155,
+      name: "Tynor Lumbo Lacepull Brace A 29",
+      brand: "Tynor",
+      price: "₹ 1,799",
+      unitPrice: "₹ 1,799/Unit",
+      rating: 4.7,
+      reviews: 45,
+      category: "elbow-support",
+      image: "https://medineeds.in/cdn/shop/files/tynor_6ff95727-ef01-45b2-8d22-ad8cca0d9615.webp?v=1753797129",
+      features: ["Lumbo lacepull brace", "Back support", "Lumbar pain", "Curative"],
+      inStock: true,
+      description: "Tynor Lumbo Lacepull Brace for lumbar support.",
+      packSize: "Pack of 1",
+      productCode: "A 29"
+    },
+  ];
+
   const productMap: { [key: string]: Product[] } = {
     'coloplast': coloplastProducts,
     'convatec': convatecProducts,
@@ -582,6 +1782,21 @@ const ProductCategory: React.FC = () => {
     'prowess': prowessProducts,
     'medifeliz': medifelizProducts,
     'examination-gloves': examinationGlovesProducts,
+    'walking-sticks': walkingSticksProducts,
+    'walker': walkerProducts,
+    'wheelchairs': wheelchairsProducts,
+    'commode': commodeProducts,
+    'airbeds': airbedsProducts,
+    'injection-tube-needles': injectionTubeNeedlesProducts,
+    'health-care-devices': healthCareDevicesProducts,
+    'adult-diapers': adultDiapersProducts,
+    'dental-care': dentalCareProducts,
+    'knee-calf-support': kneeCalfSupportProducts,
+    'leg-support': legSupportProducts,
+    'finger': fingerSupportProducts,
+    'hand-support': handSupportProducts,
+    'back': backSupportProducts,
+    'elbow-support': elbowSupportProducts,
   };
 
   const allProducts = productMap[slug || ''] || [];
@@ -823,12 +2038,15 @@ const ProductCard: React.FC<{ product: Product; viewMode: 'grid' | 'list' }> = (
                 <div className="text-xs text-green-600 mb-4">Inclusive of all taxes</div>
                 
                 <div className="space-y-2">
-                  <button className="w-full bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center">
-                    <ShoppingCart className="h-4 w-4 mr-2" />
-                    Add to Cart
-                  </button>
-                  
-          <Link to={`/products/${product.id}`} className="w-full">
+                  <UserDetailsForm product={{
+                    id: product.id.toString(),
+                    productCode: product.productCode,
+                    name: product.name,
+                    price: product.price,
+                    pack: product.packSize
+                  }} />
+
+          <Link to={`/products/${product.productCode}`} className="w-full">
   <div className="w-full border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center cursor-pointer">
     <Eye className="h-4 w-4 mr-2" />
     View Details
@@ -887,27 +2105,35 @@ const ProductCard: React.FC<{ product: Product; viewMode: 'grid' | 'list' }> = (
           <div className="text-2xl font-bold text-gray-900">{product.price}</div>
           <div className="text-sm text-gray-500">{product.unitPrice}</div>
           <div className="text-xs text-green-600 mt-1">Inclusive of all taxes</div>
+          {product.discountType && (
+            <div className="text-xs text-orange-600 font-medium mt-1">🎉 {product.discountType}</div>
+          )}
         </div>
 
         <div className="space-y-2">
-          <button 
-            className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
-              product.inStock
-                ? 'bg-blue-600 text-white hover:bg-blue-700 transform hover:scale-105'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
-            disabled={!product.inStock}
-          >
-            <ShoppingCart className="h-5 w-5" />
-            {product.inStock ? 'Add to Cart' : 'Out of Stock'}
-          </button>
-          <Link to={`/products/${product.id}`} className="w-full">
-  <div className="w-full border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center cursor-pointer">
-    <Eye className="h-4 w-4 mr-2" />
-    View Details
-  </div>
-</Link>
-
+          {product.inStock ? (
+            <UserDetailsForm product={{
+              id: product.id.toString(),
+              productCode: product.productCode,
+              name: product.name,
+              price: product.price,
+              pack: product.packSize
+            }} />
+          ) : (
+            <button
+              className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold bg-gray-300 text-gray-500 cursor-not-allowed"
+              disabled
+            >
+              <ShoppingCart className="h-5 w-5" />
+              Out of Stock
+            </button>
+          )}
+          <Link to={`/products/${product.productCode}`} className="w-full">
+            <div className="w-full border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center cursor-pointer">
+              <Eye className="h-4 w-4 mr-2" />
+              View Details
+            </div>
+          </Link>
         </div>
       </div>
     </div>

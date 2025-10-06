@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 interface UserDetailsFormProps {
   product: {
     id: string;
+    productCode?: string;
     name: string;
     price: string;
     pack: string;
@@ -47,6 +48,7 @@ export function UserDetailsForm({
     // Format WhatsApp message
     const message = `*New Order Request*%0A%0A` +
       `*Product Details*%0A` +
+      `Code: ${product.productCode || 'N/A'}%0A` +
       `Name: ${product.name}%0A` +
       `Price: ${product.price}%0A` +
       `Pack: ${product.pack}%0A%0A` +
@@ -58,7 +60,7 @@ export function UserDetailsForm({
       `Pincode: ${formData.pincode}`;
 
     // Open WhatsApp with pre-filled message
-    window.open(`https://wa.me/919494486312?text=${message}`, '_blank');
+    window.open(`https://wa.me/919088869996?text=${message}`, '_blank');
     
     // Close dialog and reset form
     setIsOpen(false);
@@ -76,11 +78,11 @@ export function UserDetailsForm({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button 
+        <Button
           className={`btn-hero flex-1 ${className}`}
           disabled={disabled}
         >
-          {children || 'Add to Cart'}
+          {children || 'Buy Now'}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

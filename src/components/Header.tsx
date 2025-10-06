@@ -8,42 +8,42 @@ import logo from "@/assets/logo.jpg";
 
 const productDropdown = [
   { label: "Ostomy Care", children: [
-    { name: "Coloplast", href: "/products/coloplast" },
-    { name: "ConvaTec", href: "/products/convatec" },
-    { name: "Hollister", href: "/products/hollister" },
-    { name: "Bao-Health", href: "/products/bao-health" },
-    { name: "Prowess", href: "/products/prowess" },
-    { name: "Medifeliz", href: "/products/medifeliz" },
-    { name: "Examination Gloves", href: "/products/examination-gloves" },
+    { name: "Coloplast", href: "/brand/coloplast" },
+    { name: "ConvaTec", href: "/brand/convatec" },
+    { name: "Hollister", href: "/brand/hollister" },
+    { name: "Bao-Health", href: "/brand/bao-health" },
+    { name: "Prowess", href: "/brand/prowess" },
+    { name: "Medifeliz", href: "/brand/medifeliz" },
+    { name: "Examination Gloves", href: "/brand/examination-gloves" },
   ]},
   { label: "Mobility Care", children: [
-    { name: "Walking Sticks", href: "/products/walking-sticks" },
-    { name: "Walker", href: "/products/walker" },
-    { name: "Wheelchairs", href: "/products/wheelchairs" },
-    { name: "Commode", href: "/products/commode" }
+    { name: "Walking Sticks", href: "/products/category/walking-sticks" },
+    { name: "Walker", href: "/products/category/walker" },
+    { name: "Wheelchairs", href: "/products/category/wheelchairs" },
+    { name: "Commode", href: "/products/category/commode" }
   ]},
   { label: "Patient Care", children: [
-    { name: "AirBeds", href: "/products/airbeds" },
-    { name: "Injection | Tube | Needles", href: "/products/injection-tube-needles" },
-    { name: "Cleaning", href: "/products/cleaning" },
-    { name: "Health Care Device", href: "/products/health-care-devices" },
-    { name: "Acupressure", href: "/products/acupressure" },
-    { name: "Dressing", href: "/products/dressing" },
-    { name: "Adult Diapers", href: "/products/adult-diapers" },
-    { name: "Shower Chair", href: "/products/shower-chair" },
-    { name: "Ointments", href: "/products/ointments" },
-    { name: "Underpads", href: "/products/underpads" },
-    { name: "Dental Care", href: "/products/dental-care" },
-    { name: "Hearing Battery", href: "/products/hearing-battery" }
+    { name: "AirBeds", href: "/products/category/airbeds" },
+    { name: "Injection | Tube | Needles", href: "/products/category/injection-tube-needles" },
+    // { name: "Cleaning", href: "/products/cleaning" },
+    { name: "Health Care Device", href: "/products/category/health-care-devices" },
+    // { name: "Acupressure", href: "/products/acupressure" },
+    // { name: "Dressing", href: "/products/dressing" },
+    { name: "Adult Diapers", href: "/products/category/adult-diapers" },
+    // { name: "Shower Chair", href: "/products/shower-chair" },
+    // { name: "Ointments", href: "/products/ointments" },
+    // { name: "Underpads", href: "/products/underpads" },
+    { name: "Dental Care", href: "/products/category/dental-care" },
+    // { name: "Hearing Battery", href: "/products/hearing-battery" }
   ]},
   { label: "Support", children: [
-    { name: "Knee & Calf Support", href: "/products/knee-calf-support" },
-    { name: "Leg Support", href: "/products/leg-support" },
+    { name: "Knee & Calf Support", href: "/products/category/knee-calf-support" },
+    { name: "Leg Support", href: "/products/category/leg-support" },
     { name: "Cervical Collar (Neck)", href: "/products/cervical-collar-neck" },
-    { name: "Finger Support", href: "/products/finger" },
-    { name: "Hand Support", href: "/products/hand-support" },
-    { name: "Back Support", href: "/products/back" },
-    { name: "Elbow Support", href: "/products/elbow-support" },
+    { name: "Finger Support", href: "/products/category/finger" },
+    { name: "Hand Support", href: "/products/category/hand-support" },
+    { name: "Back Support", href: "/products/category/back" },
+    { name: "Elbow Support", href: "/products/category/elbow-support" },
     { name: "Foot Support", href: "/products/foot-support" }
   ]},
   { label: "Brands", children: [
@@ -71,6 +71,32 @@ const allProducts = productDropdown.flatMap(cat =>
     href: prod.href,
   }))
 );
+
+// Add some popular product names for search
+const popularProducts = [
+  { name: "Karma Aluminium 121 ALU Single Leg Stick Ryder", href: "/products/category/walking-sticks", productCode: "WS-121" },
+  { name: "Aluminum Karma Walking Stick WS-121", href: "/products/category/walking-sticks", productCode: "WS-121" },
+  { name: "Vissco Max Walker PC 2901", href: "/products/category/walker", productCode: "PC 2901" },
+  { name: "Karma Walker WK-50", href: "/products/category/walker", productCode: "WK-50" },
+  { name: "Medimove Ezee Lite Foldable Wheelchair", href: "/products/category/wheelchairs", productCode: "Ezee Lite" },
+  { name: "Karma Ryder 1 Attendant Wheelchair", href: "/products/category/wheelchairs", productCode: "Ryder 1" },
+  { name: "Karma Rainbow 8 Reclining Wheelchair with Commode", href: "/products/category/wheelchairs", productCode: "Rainbow 8" },
+  { name: "Karma Rainbow 2C Folding Commode Chair", href: "/products/category/commode", productCode: "Rainbow 2C" },
+  { name: "Vissco Comfort Chrome Folding Commode Chair", href: "/products/category/commode", productCode: "Comfort Chrome" },
+  { name: "Air Mattress (Therapy For Bed Sores) Poct (Point Of Care)", href: "/products/category/airbeds", productCode: "Poct" },
+  { name: "Lilly Humapen Ergo II Two-Tone Blue insulin Delivery Device (Pen)", href: "/products/category/injection-tube-needles", productCode: "Humapen Ergo II" },
+  { name: "Gluco Spark Blood Glucose Monitoring System", href: "/products/category/health-care-devices", productCode: "Gluco Spark" },
+  { name: "B-Fit Economy Adult Diaper Pants", href: "/products/category/adult-diapers", productCode: "Economy" },
+  { name: "Stim Sentim Toothpaste for Sensitive Teeth – 100g (Pack of 3)", href: "/products/category/dental-care", productCode: "Ri-namel" },
+  { name: "Tynor Knee Cap (Pair) Latex Free D-04", href: "/products/category/knee-calf-support", productCode: "D-04" },
+  { name: "Vissco 3D Knee Cap with Donut Padding (PC 2705)", href: "/products/category/leg-support", productCode: "PC 2705" },
+  { name: "Wrist Brace With Thumb, Grey", href: "/products/category/finger", productCode: "Wrist Brace" },
+  { name: "Tynor Tennis Elbow Support (Black) E-10", href: "/products/category/hand-support", productCode: "E-10" },
+  { name: "Vissco Core 0120 Taylor Brace", href: "/products/category/back", productCode: "0120" },
+  { name: "Tynor Lumbo Lacepull Brace A 29", href: "/products/category/elbow-support", productCode: "A 29" },
+];
+
+const searchProducts = [...allProducts, ...popularProducts];
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -103,8 +129,9 @@ export function Header() {
       return;
     }
 
-    const filtered = allProducts.filter(p =>
-      p.name.toLowerCase().includes(value.toLowerCase())
+    const filtered = searchProducts.filter(p =>
+      p.name.toLowerCase().includes(value.toLowerCase()) ||
+      (p.productCode && p.productCode.toLowerCase().includes(value.toLowerCase()))
     );
 
     setSearchResults(filtered);
