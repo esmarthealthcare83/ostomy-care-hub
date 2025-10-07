@@ -257,10 +257,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { products } from "@/data/products";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { useState } from "react";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   // Find the product by ID or productCode
   const product = products.find((p) => p.id === id || p.productCode === id);
@@ -287,6 +290,22 @@ export default function ProductDetail() {
   const relatedProducts = products
     .filter(p => p.id !== product.id && p.productCode !== product.productCode && p.category === product.category)
     .slice(0, 4);
+
+  // Handle mouse move for zoom effect
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMousePosition({ x, y });
+  };
+
+  const handleMouseEnter = () => {
+    setIsZoomed(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsZoomed(false);
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -319,11 +338,20 @@ export default function ProductDetail() {
         <div className="grid lg:grid-cols-2 gap-12 mb-12">
           {/* Product Image */}
           <div className="space-y-4">
-            <div className="bg-white rounded-lg border overflow-hidden">
+            <div 
+              className="bg-white rounded-lg border overflow-hidden relative cursor-zoom-in"
+              onMouseMove={handleMouseMove}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               <img 
                 src={product.images[0] || ''} 
                 alt={product.name} 
-                className="w-full h-auto object-cover aspect-square"
+                className="w-full h-auto object-cover aspect-square transition-transform duration-200"
+                style={{
+                  transform: isZoomed ? 'scale(2)' : 'scale(1)',
+                  transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
+                }}
               />
             </div>
           </div>
