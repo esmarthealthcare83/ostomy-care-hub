@@ -9,11 +9,11 @@ import logo from "@/assets/logo.jpg";
 const productDropdown = [
   { label: "Ostomy Care", children: [
     { name: "Coloplast", href: "/brand/coloplast" },
-    { name: "ConvaTec", href: "/brand/convatec" },
-    { name: "Hollister", href: "/brand/hollister" },
-    { name: "Bao-Health", href: "/brand/bao-health" },
-    { name: "Prowess", href: "/brand/prowess" },
-    { name: "Medifeliz", href: "/brand/medifeliz" },
+    // { name: "ConvaTec", href: "/brand/convatec" },
+    // { name: "Hollister", href: "/brand/hollister" },
+    // { name: "Bao-Health", href: "/brand/bao-health" },
+    // { name: "Prowess", href: "/brand/prowess" },
+    // { name: "Medifeliz", href: "/brand/medifeliz" },
     { name: "Examination Gloves", href: "/brand/examination-gloves" },
   ]},
   { label: "Mobility Care", children: [
@@ -46,22 +46,22 @@ const productDropdown = [
     { name: "Elbow Support", href: "/products/category/elbow-support" },
     { name: "Foot Support", href: "/products/foot-support" }
   ]},
-  { label: "Brands", children: [
-    { name: "Karma", href: "/products/karma" },
-    { name: "Coloplast", href: "/products/coloplast" },
-    { name: "Romsons", href: "/products/romson" },
-    { name: "Hicks", href: "/products/hicks" },
-    { name: "B-Fit", href: "/products/b-fit" },
-    { name: "ConvaTec", href: "/products/convatec" },
-    { name: "Dr.Dentaids", href: "/products/dr-dentaids" },
-    { name: "Dr.Trust", href: "/products/dr-trust" },
-    { name: "Vissco", href: "/products/vissco" },
-    { name: "Hollister", href: "/products/hollister" },
-    { name: "One Touch", href: "/products/one-touch" },
-    { name: "Beurer", href: "/products/beurer" },
-    { name: "Easy Care", href: "/products/easy-care" },
-    { name: "Stim", href: "/products/stim" }
-  ]}
+  // { label: "Brands", children: [
+  //   { name: "Karma", href: "/products/karma" },
+  //   { name: "Coloplast", href: "/products/coloplast" },
+  //   { name: "Romsons", href: "/products/romson" },
+  //   { name: "Hicks", href: "/products/hicks" },
+  //   { name: "B-Fit", href: "/products/b-fit" },
+  //   { name: "ConvaTec", href: "/products/convatec" },
+  //   { name: "Dr.Dentaids", href: "/products/dr-dentaids" },
+  //   { name: "Dr.Trust", href: "/products/dr-trust" },
+  //   { name: "Vissco", href: "/products/vissco" },
+  //   { name: "Hollister", href: "/products/hollister" },
+  //   { name: "One Touch", href: "/products/one-touch" },
+  //   { name: "Beurer", href: "/products/beurer" },
+  //   { name: "Easy Care", href: "/products/easy-care" },
+  //   { name: "Stim", href: "/products/stim" }
+  // ]}
 ];
 
 // Flatten all products for search
