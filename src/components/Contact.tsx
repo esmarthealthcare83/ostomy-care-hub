@@ -3,8 +3,87 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/components/ui/sonner";
+import { useState } from "react";
 
 export function Contact() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validate all fields are filled
+    if (!formData.firstName || !formData.lastName || !formData.email || 
+        !formData.phone || !formData.subject || !formData.message) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success("Thank you for your message!", {
+          description: "We'll get back to you within 24 hours.",
+          duration: 5000,
+        });
+        
+        // Reset form
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: ""
+        });
+      } else {
+        toast.error("Failed to send message", {
+          description: data.error || "Please try again or contact us directly.",
+        });
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast.error("Connection error", {
+        description: "Please check your internet connection and try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   const contactMethods = [
     {
       icon: Mail,
@@ -127,51 +206,103 @@ export function Contact() {
                   Fill out the form below and we'll get back to you within 24 hours
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">First Name</label>
-                    <Input placeholder="Enter your first name" />
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">First Name *</label>
+                      <Input 
+                        name="firstName"
+                        placeholder="Enter your first name" 
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                        required
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Last Name *</label>
+                      <Input 
+                        name="lastName"
+                        placeholder="Enter your last name" 
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        required
+                        disabled={isSubmitting}
+                      />
+                    </div>
                   </div>
+
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Last Name</label>
-                    <Input placeholder="Enter your last name" />
+                    <label className="text-sm font-medium mb-2 block">Email Address *</label>
+                    <Input 
+                      name="email"
+                      type="email" 
+                      placeholder="Enter your email" 
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      disabled={isSubmitting}
+                    />
                   </div>
-                </div>
 
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Email Address</label>
-                  <Input type="email" placeholder="Enter your email" />
-                </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Phone Number *</label>
+                    <Input 
+                      name="phone"
+                      type="tel" 
+                      placeholder="Enter your phone number" 
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      required
+                      disabled={isSubmitting}
+                    />
+                  </div>
 
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Phone Number</label>
-                  <Input type="tel" placeholder="Enter your phone number" />
-                </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Subject *</label>
+                    <Input 
+                      name="subject"
+                      placeholder="What is this regarding?" 
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      required
+                      disabled={isSubmitting}
+                    />
+                  </div>
 
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Subject</label>
-                  <Input placeholder="What is this regarding?" />
-                </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Message *</label>
+                    <Textarea
+                      name="message"
+                      placeholder="Tell us about your request or concern..."
+                      className="min-h-[120px]"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      disabled={isSubmitting}
+                    />
+                  </div>
 
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Message</label>
-                  <Textarea
-                    placeholder="Tell us about your request or concern..."
-                    className="min-h-[120px]"
-                  />
-                </div>
-
-                <Button
-                  size="lg"
-                  className="w-full btn-hero"
-                  onClick={() => {
-                    window.location.href = "mailto:coloplast.support@ndslindia.com";
-                  }}
-                >
-                  Send Message
-                  <Mail className="ml-2 h-4 w-4" />
-                </Button>
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full btn-hero"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <span className="animate-spin mr-2">⏳</span>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <Mail className="ml-2 h-4 w-4" />
+                      </>
+                    )}
+                  </Button>
+                </form>
               </CardContent>
             </Card>
           </div>

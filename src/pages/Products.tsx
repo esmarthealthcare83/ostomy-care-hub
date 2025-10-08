@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Link, useLocation } from "react-router-dom";
 import { UserDetailsForm } from '@/components/UserDetailsForm';
+import { products as allProductsData } from "@/data/products";
 
 
 interface Product {
@@ -11,15 +12,15 @@ interface Product {
   name: string;
   brand: string;
   price: string;
-  unitPrice: string;
+  pricePerUnit: string;
   rating: number;
   reviews: number;
   category: string;
-  image: string;
+  images: string[];
   features: string[];
   inStock: boolean;
   description: string;
-  packSize: string;
+  pack: string;
   productCode: string;
 }
 
@@ -32,7 +33,26 @@ const Products: React.FC = () => {
   const [priceRange, setPriceRange] = useState<{min?: number; max?: number}>({});
   const [selectedPriceRange, setSelectedPriceRange] = useState<string>('');
 
-  const allProducts: Product[] = [
+  // Convert products from products.ts to match the local Product interface
+  const allProducts: Product[] = allProductsData.map(p => ({
+    id: p.id,
+    name: p.name,
+    brand: p.brand,
+    price: p.price,
+    pricePerUnit: p.pricePerUnit,
+    rating: p.rating,
+    reviews: p.reviews,
+    category: p.category,
+    images: p.images,
+    features: p.features,
+    inStock: p.inStock,
+    description: p.description,
+    pack: p.pack,
+    productCode: p.productCode
+  }));
+
+  // Old hardcoded products - keeping for reference but not used
+  const oldProducts: Product[] = [
     {
       id: "alterna-1-piece-flat-transparent",
       name: "Alterna® 1-Piece Deep Convex Urostomy Transparent Bag",
@@ -552,7 +572,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:w-48 h-48 flex-shrink-0 relative">
             <img 
-              src={product.image} 
+              src={product.images && product.images.length > 0 ? product.images[0] : '/placeholder.svg'} 
               alt={product.name}
               className="w-full h-full object-cover"
             />
@@ -589,16 +609,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
 
               <div className="text-left lg:text-right lg:ml-6 min-w-[200px]">
                 <div className="text-2xl font-bold text-gray-900 mb-1">{product.price}</div>
-                <div className="text-sm text-gray-500 mb-1">{product.unitPrice}</div>
+                <div className="text-sm text-gray-500 mb-1">{product.pricePerUnit}</div>
                 <div className="text-xs text-green-600 mb-4">Inclusive of all taxes</div>
                 
                 <div className="space-y-2">
                   <UserDetailsForm 
                     product={{ 
                       id: product.id,
+                      productCode: product.productCode,
                       name: product.name,
                       price: product.price,
-                      pack: product.packSize
+                      pack: product.pack
                     }}
                     disabled={!product.inStock}
                     className={`w-full flex items-center justify-center gap-2 px-6 py-2 rounded-lg font-semibold transition-all duration-300 ${
@@ -629,7 +650,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
     <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group">
       <div className="relative overflow-hidden h-48">
         <img 
-          src={product.image} 
+          src={product.images && product.images.length > 0 ? product.images[0] : '/placeholder.svg'} 
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
@@ -666,7 +687,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
 
         <div className="mb-6">
           <div className="text-2xl font-bold text-gray-900">{product.price}</div>
-          <div className="text-sm text-gray-500">{product.unitPrice}</div>
+          <div className="text-sm text-gray-500">{product.pricePerUnit}</div>
           <div className="text-xs text-green-600 mt-1">Inclusive of all taxes</div>
         </div>
 
@@ -674,9 +695,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
           <UserDetailsForm 
             product={{ 
               id: product.id,
+              productCode: product.productCode,
               name: product.name,
               price: product.price,
-              pack: product.packSize
+              pack: product.pack
             }}
             disabled={!product.inStock}
             className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${

@@ -264,6 +264,7 @@ export default function ProductDetail() {
   const navigate = useNavigate();
   const [isZoomed, setIsZoomed] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   
   // Find the product by ID or productCode
   const product = products.find((p) => p.id === id || p.productCode === id);
@@ -336,8 +337,9 @@ export default function ProductDetail() {
         </Button>
 
         <div className="grid lg:grid-cols-2 gap-12 mb-12">
-          {/* Product Image */}
+          {/* Product Images with Thumbnails */}
           <div className="space-y-4">
+            {/* Main Image */}
             <div 
               className="bg-white rounded-lg border overflow-hidden relative cursor-zoom-in"
               onMouseMove={handleMouseMove}
@@ -345,15 +347,51 @@ export default function ProductDetail() {
               onMouseLeave={handleMouseLeave}
             >
               <img 
-                src={product.images[0] || ''} 
-                alt={product.name} 
+                src={product.images[selectedImageIndex] || product.images[0] || ''} 
+                alt={`${product.name} - Image ${selectedImageIndex + 1}`} 
                 className="w-full h-auto object-cover aspect-square transition-transform duration-200"
                 style={{
                   transform: isZoomed ? 'scale(2)' : 'scale(1)',
                   transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
                 }}
               />
+              {isZoomed && (
+                <div className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                  Hover to zoom
+                </div>
+              )}
             </div>
+            
+            {/* Thumbnail Grid */}
+            {product.images.length > 1 && (
+              <div className="grid grid-cols-4 gap-2">
+                {product.images.map((image, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImageIndex(index)}
+                    className={`relative bg-white rounded-lg border-2 overflow-hidden transition-all hover:border-primary ${
+                      selectedImageIndex === index ? 'border-primary ring-2 ring-primary/20' : 'border-gray-200'
+                    }`}
+                  >
+                    <img 
+                      src={image} 
+                      alt={`${product.name} - Thumbnail ${index + 1}`}
+                      className="w-full h-full object-cover aspect-square"
+                    />
+                    {selectedImageIndex === index && (
+                      <div className="absolute inset-0 bg-primary/10"></div>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+            
+            {/* Image Counter */}
+            {product.images.length > 1 && (
+              <div className="text-center text-sm text-muted-foreground">
+                Image {selectedImageIndex + 1} of {product.images.length}
+              </div>
+            )}
           </div>
 
           {/* Product Info */}

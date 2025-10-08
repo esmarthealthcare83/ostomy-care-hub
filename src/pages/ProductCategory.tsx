@@ -4,29 +4,131 @@ import { Search, Filter, Star, ShoppingCart, Eye, ArrowLeft, Grid, List } from '
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { UserDetailsForm } from "@/components/UserDetailsForm";
+import { products as allProductsData } from "@/data/products";
 
 interface Product {
-  id: number;
+  id: string;
   name: string;
   brand: string;
   price: string;
-  unitPrice: string;
+  pricePerUnit: string;
   rating: number;
   reviews: number;
   category: string;
-  image: string;
+  images: string[];
   features: string[];
   inStock: boolean;
   description: string;
-  packSize: string;
+  pack: string;
   productCode: string;
   discountType?: string;
 }
 
 const ProductCategory: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const title = slug ? slug.charAt(0).toUpperCase() + slug.slice(1).replace('-', ' ') : 'Products';
+  const { slug, brand, subCategory } = useParams<{ slug?: string; brand?: string; subCategory?: string }>();
+  
+  // Determine the title based on the route
+  let title = 'Products';
+  if (subCategory) {
+    title = subCategory.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  } else if (slug) {
+    title = slug.charAt(0).toUpperCase() + slug.slice(1).replace('-', ' ');
+  } else if (brand) {
+    title = brand.charAt(0).toUpperCase() + brand.slice(1).replace('-', ' ');
+  }
 
+  // Convert products from products.ts to match the local Product interface
+  const convertedProducts: Product[] = allProductsData.map(p => ({
+    id: p.id,
+    name: p.name,
+    brand: p.brand,
+    price: p.price,
+    pricePerUnit: p.pricePerUnit,
+    rating: p.rating,
+    reviews: p.reviews,
+    category: p.category,
+    images: p.images,
+    features: p.features,
+    inStock: p.inStock,
+    description: p.description,
+    pack: p.pack,
+    productCode: p.productCode,
+    discountType: p.discountType
+  }));
+
+  // Filter products based on slug, brand, and subCategory
+  const getFilteredProducts = () => {
+    let filtered = convertedProducts;
+    
+    // Handle nested brand routes (e.g., /brand/coloplast/1-piece-bags)
+    if (brand && subCategory) {
+      const brandMap: { [key: string]: string[] } = {
+        'coloplast': ['Coloplast', 'SenSura®', 'SenSura® Mio', 'Alterna®', 'Comfeel®'],
+        'convatec': ['ConvaTec'],
+        'hollister': ['Hollister'],
+        'bao-health': ['Bao-Health'],
+        'prowess': ['Prowess'],
+        'medifeliz': ['Medifeliz']
+      };
+      
+      // Filter by brand (including sub-brands)
+      if (brandMap[brand]) {
+        filtered = filtered.filter(p => 
+          brandMap[brand].some(brandName => 
+            p.brand.toLowerCase().includes(brandName.toLowerCase())
+          )
+        );
+      }
+      
+      // Filter by system type (1-piece or 2-piece)
+      if (subCategory === '1-piece-bags') {
+        filtered = filtered.filter(p => 
+          p.name.toLowerCase().includes('1-piece') || 
+          p.description.toLowerCase().includes('1-piece') ||
+          (p.specifications && p.specifications['System'] === '1-piece')
+        );
+      } else if (subCategory === '2-piece-bags') {
+        filtered = filtered.filter(p => 
+          p.name.toLowerCase().includes('2-piece') || 
+          p.description.toLowerCase().includes('2-piece') ||
+          (p.specifications && p.specifications['System'] === '2-piece')
+        );
+      }
+      
+      return filtered;
+    }
+    
+    // Handle simple slug routes
+    if (!slug) return filtered;
+    
+    // Check if it's a brand filter
+    const brandMap: { [key: string]: string[] } = {
+      'coloplast': ['Coloplast', 'SenSura®', 'SenSura® Mio', 'Alterna®', 'Comfeel®'],
+      'convatec': ['ConvaTec'],
+      'hollister': ['Hollister'],
+      'bao-health': ['Bao-Health'],
+      'prowess': ['Prowess'],
+      'medifeliz': ['Medifeliz']
+    };
+    
+    if (brandMap[slug]) {
+      return filtered.filter(p => 
+        brandMap[slug].some(brandName => 
+          p.brand.toLowerCase().includes(brandName.toLowerCase())
+        )
+      );
+    }
+    
+    // Otherwise treat as category filter
+    return filtered.filter(p => 
+      p.category.toLowerCase().includes(slug.toLowerCase()) ||
+      slug.toLowerCase().includes(p.category.toLowerCase())
+    );
+  };
+
+  const allProducts = getFilteredProducts();
+
+  // Keep the old hardcoded products for categories not yet in products.ts
   const coloplastProducts: Product[] = [
     {
       id: 1,
@@ -1774,13 +1876,14 @@ const ProductCategory: React.FC = () => {
     },
   ];
 
+  // Use the filtered products from products.ts, fallback to hardcoded for other categories
   const productMap: { [key: string]: Product[] } = {
-    'coloplast': coloplastProducts,
-    'convatec': convatecProducts,
-    'hollister': hollisterProducts,
-    'bao-health': baoHealthProducts,
-    'prowess': prowessProducts,
-    'medifeliz': medifelizProducts,
+    'coloplast': allProducts,
+    'convatec': allProducts,
+    'hollister': allProducts,
+    'bao-health': allProducts,
+    'prowess': allProducts,
+    'medifeliz': allProducts,
     'examination-gloves': examinationGlovesProducts,
     'walking-sticks': walkingSticksProducts,
     'walker': walkerProducts,
@@ -1799,7 +1902,9 @@ const ProductCategory: React.FC = () => {
     'elbow-support': elbowSupportProducts,
   };
 
-  const allProducts = productMap[slug || ''] || [];
+  // If we have brand and subCategory (e.g., /brand/coloplast/1-piece-bags), use allProducts which is already filtered
+  // Otherwise, use the productMap based on slug
+  const displayProducts = (brand && subCategory) ? allProducts : (productMap[slug || ''] || allProducts);
 
   const [activeFilter, setActiveFilter] = useState('all');
   const [sortBy, setSortBy] = useState('name');
@@ -1807,12 +1912,12 @@ const ProductCategory: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const categories = [
-    { key: 'all', label: 'All Products', count: allProducts.length },
+    { key: 'all', label: 'All Products', count: displayProducts.length },
   ];
 
-  const brands = Array.from(new Set(allProducts.map(p => p.brand)));
+  const brands = Array.from(new Set(displayProducts.map(p => p.brand)));
 
-  const filteredProducts = allProducts.filter(product => {
+  const filteredProducts = displayProducts.filter(product => {
     const matchesCategory = activeFilter === 'all' || product.category === activeFilter;
     const matchesSearch = searchQuery === '' || 
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -2002,7 +2107,7 @@ const ProductCard: React.FC<{ product: Product; viewMode: 'grid' | 'list' }> = (
         <div className="flex">
           <div className="w-48 h-48 flex-shrink-0">
             <img 
-              src={product.image} 
+              src={product.images && product.images.length > 0 ? product.images[0] : '/placeholder.svg'} 
               alt={product.name}
               className="w-full h-full object-cover"
             />
@@ -2034,7 +2139,7 @@ const ProductCard: React.FC<{ product: Product; viewMode: 'grid' | 'list' }> = (
 
               <div className="text-right ml-6">
                 <div className="text-2xl font-bold text-gray-900 mb-1">{product.price}</div>
-                <div className="text-sm text-gray-500 mb-1">{product.unitPrice}</div>
+                <div className="text-sm text-gray-500 mb-1">{product.pricePerUnit}</div>
                 <div className="text-xs text-green-600 mb-4">Inclusive of all taxes</div>
                 
                 <div className="space-y-2">
@@ -2043,10 +2148,10 @@ const ProductCard: React.FC<{ product: Product; viewMode: 'grid' | 'list' }> = (
                     productCode: product.productCode,
                     name: product.name,
                     price: product.price,
-                    pack: product.packSize
+                    pack: product.pack
                   }} />
 
-          <Link to={`/products/${product.productCode}`} className="w-full">
+          <Link to={`/products/${product.id}`} className="w-full">
   <div className="w-full border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center cursor-pointer">
     <Eye className="h-4 w-4 mr-2" />
     View Details
@@ -2066,7 +2171,7 @@ const ProductCard: React.FC<{ product: Product; viewMode: 'grid' | 'list' }> = (
     <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group">
       <div className="relative overflow-hidden h-48">
         <img 
-          src={product.image} 
+          src={product.images && product.images.length > 0 ? product.images[0] : '/placeholder.svg'} 
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
@@ -2103,7 +2208,7 @@ const ProductCard: React.FC<{ product: Product; viewMode: 'grid' | 'list' }> = (
 
         <div className="mb-6">
           <div className="text-2xl font-bold text-gray-900">{product.price}</div>
-          <div className="text-sm text-gray-500">{product.unitPrice}</div>
+          <div className="text-sm text-gray-500">{product.pricePerUnit}</div>
           <div className="text-xs text-green-600 mt-1">Inclusive of all taxes</div>
           {product.discountType && (
             <div className="text-xs text-orange-600 font-medium mt-1">🎉 {product.discountType}</div>
@@ -2117,7 +2222,7 @@ const ProductCard: React.FC<{ product: Product; viewMode: 'grid' | 'list' }> = (
               productCode: product.productCode,
               name: product.name,
               price: product.price,
-              pack: product.packSize
+              pack: product.pack
             }} />
           ) : (
             <button
@@ -2128,7 +2233,7 @@ const ProductCard: React.FC<{ product: Product; viewMode: 'grid' | 'list' }> = (
               Out of Stock
             </button>
           )}
-          <Link to={`/products/${product.productCode}`} className="w-full">
+          <Link to={`/products/${product.id}`} className="w-full">
             <div className="w-full border border-gray-300 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center cursor-pointer">
               <Eye className="h-4 w-4 mr-2" />
               View Details

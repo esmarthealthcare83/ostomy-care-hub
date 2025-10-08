@@ -8,7 +8,14 @@ import logo from "@/assets/logo.jpg";
 
 const productDropdown = [
   { label: "Ostomy Care", children: [
-    { name: "Coloplast", href: "/brand/coloplast" },
+    { 
+      name: "Coloplast", 
+      href: "/brand/coloplast",
+      subChildren: [
+        { name: "1-Piece Bags", href: "/brand/coloplast/1-piece-bags" },
+        { name: "2-Piece Bags", href: "/brand/coloplast/2-piece-bags" }
+      ]
+    },
     // { name: "ConvaTec", href: "/brand/convatec" },
     // { name: "Hollister", href: "/brand/hollister" },
     // { name: "Bao-Health", href: "/brand/bao-health" },
@@ -103,6 +110,7 @@ export function Header() {
   const [desktopSubOpen, setDesktopSubOpen] = useState(null);
   const [mobileProductOpen, setMobileProductOpen] = useState(false);
   const [mobileSubOpen, setMobileSubOpen] = useState(null);
+  const [mobileSubChildOpen, setMobileSubChildOpen] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -266,13 +274,37 @@ export function Header() {
                             {desktopSubOpen === idx && (
                               <div className="flex flex-col px-4 py-1 gap-2">
                                 {cat.children.map((sub) => (
-                                  <Link
-                                    key={sub.name}
-                                    to={sub.href}
-                                    className="w-full px-2 py-1 text-sm text-foreground hover:text-primary hover:bg-primary/10 rounded"
-                                  >
-                                    {sub.name}
-                                  </Link>
+                                  <div key={sub.name}>
+                                    {sub.subChildren ? (
+                                      <div className="relative group">
+                                        <Link
+                                          to={sub.href}
+                                          className="w-full px-2 py-1 text-sm text-foreground hover:text-primary hover:bg-primary/10 rounded flex items-center justify-between"
+                                        >
+                                          {sub.name}
+                                          <ChevronDown className="h-3 w-3 -rotate-90" />
+                                        </Link>
+                                        <div className="hidden group-hover:block absolute left-full top-0 ml-1 bg-white shadow-lg rounded-lg border border-primary min-w-[180px] z-50">
+                                          {sub.subChildren.map((subChild) => (
+                                            <Link
+                                              key={subChild.name}
+                                              to={subChild.href}
+                                              className="block px-4 py-2 text-sm text-foreground hover:text-primary hover:bg-primary/10 rounded"
+                                            >
+                                              {subChild.name}
+                                            </Link>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      <Link
+                                        to={sub.href}
+                                        className="w-full px-2 py-1 text-sm text-foreground hover:text-primary hover:bg-primary/10 rounded block"
+                                      >
+                                        {sub.name}
+                                      </Link>
+                                    )}
+                                  </div>
                                 ))}
                               </div>
                             )}
@@ -397,14 +429,45 @@ export function Header() {
                               {mobileSubOpen === idx && (
                                 <div className="flex flex-col">
                                   {cat.children.map((sub) => (
-                                    <Link
-                                      key={sub.name}
-                                      to={sub.href}
-                                      className="px-6 py-1 text-sm text-foreground hover:text-primary hover:bg-primary/10"
-                                      onClick={() => setIsMenuOpen(false)}
-                                    >
-                                      {sub.name}
-                                    </Link>
+                                    <div key={sub.name}>
+                                      {sub.subChildren ? (
+                                        <div>
+                                          <button
+                                            onClick={() => setMobileSubChildOpen(mobileSubChildOpen === sub.name ? null : sub.name)}
+                                            className="w-full text-left px-6 py-1 text-sm text-foreground hover:text-primary hover:bg-primary/10 flex items-center justify-between"
+                                          >
+                                            {sub.name}
+                                            <ChevronDown
+                                              className={`h-3 w-3 transform ${
+                                                mobileSubChildOpen === sub.name ? "rotate-180" : ""
+                                              }`}
+                                            />
+                                          </button>
+                                          {mobileSubChildOpen === sub.name && (
+                                            <div className="flex flex-col ml-4">
+                                              {sub.subChildren.map((subChild) => (
+                                                <Link
+                                                  key={subChild.name}
+                                                  to={subChild.href}
+                                                  className="px-6 py-1 text-xs text-foreground hover:text-primary hover:bg-primary/10"
+                                                  onClick={() => setIsMenuOpen(false)}
+                                                >
+                                                  {subChild.name}
+                                                </Link>
+                                              ))}
+                                            </div>
+                                          )}
+                                        </div>
+                                      ) : (
+                                        <Link
+                                          to={sub.href}
+                                          className="block px-6 py-1 text-sm text-foreground hover:text-primary hover:bg-primary/10"
+                                          onClick={() => setIsMenuOpen(false)}
+                                        >
+                                          {sub.name}
+                                        </Link>
+                                      )}
+                                    </div>
                                   ))}
                                 </div>
                               )}
