@@ -15,6 +15,8 @@ import About from "./pages/About";
 import ServicesPage from "./pages/Services";
 import Blog from "./pages/Blog";
 import ComingSoon from "./pages/ComingSoon";
+import ColoplastBrand from "./pages/ColoplastBrand";
+import ColoplastProductDetail from "./pages/ColoplastProductDetail";
 import Preloader from "@/components/Preloader";
 
 const queryClient = new QueryClient();
@@ -32,6 +34,11 @@ const App = () => (
           <Route path="/products" element={<Products />} />
           <Route path="/products/category/:slug" element={<ProductCategory />} />
           <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/brand/coloplast" element={<ColoplastBrand />} />
+          <Route path="/brand/coloplast/:category" element={<ColoplastBrand />} />
+          <Route path="/brand/coloplast/:category/:subCategory" element={<ColoplastBrand />} />
+          <Route path="/brand/coloplast/product/:productId" element={<ColoplastProductDetail />} />
+          <Route path="/brand/coloplast/how-to-order" element={<ComingSoon />} />
           <Route path="/brand/:slug" element={<ProductCategory />} />
           <Route path="/brand/:brand/:subCategory" element={<ProductCategory />} />
           <Route path="/contact" element={<Contact />} />
