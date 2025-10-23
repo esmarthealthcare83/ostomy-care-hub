@@ -83,7 +83,7 @@ const buildSearchProducts = () => {
       productCode: String(product.productcode || ""),
       brand: product.brand,
       diameter: product.diameter || "",
-      href: `/brand/coloplast`,
+      href: `/brand/coloplast/product/${product.id}`,
       type: "coloplast",
       fullInfo: `${product.name} ${product.productcode || ""} ${product.diameter || ""} ${product.brand}`,
     });

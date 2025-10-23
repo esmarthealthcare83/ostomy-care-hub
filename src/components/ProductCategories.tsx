@@ -208,6 +208,7 @@
 // }
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Package, Shield, Heart, Stethoscope, Eye, Star, ShoppingCart, Filter } from 'lucide-react'; // Ensure all icons are imported
 
 // Dummy data for brands and products image to preserve all lines.
@@ -252,7 +253,8 @@ const categories = [
     count: "150+ Products",
     color: "blue",
     image:
-      "https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=400",
+      "images/coloplast/1-piece/os-b.webp",
+    route: "/brand/coloplast/ostomy-bags",
   },
   {
     icon: Shield,
@@ -261,7 +263,8 @@ const categories = [
     count: "80+ Products",
     color: "green",
     image:
-      "https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=400",
+      "images/coloplast/1-piece/os-bas.webp",
+    route: "/brand/coloplast/ostomy-baseplates",
   },
   {
     icon: Heart,
@@ -270,7 +273,8 @@ const categories = [
     count: "100+ Products",
     color: "purple",
     image:
-      "https://images.pexels.com/photos/3902881/pexels-photo-3902881.jpeg?auto=compress&cs=tinysrgb&w=400",
+      "images/coloplast/1-piece/sup.avif",
+    route: "/brand/coloplast/supporting-products",
   },
   {
     icon: Stethoscope,
@@ -280,6 +284,7 @@ const categories = [
     color: "orange",
     image:
       "https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=400",
+    route: "#contact", // Or whatever link you want for Professional Care
   },
 ];
 
@@ -293,7 +298,7 @@ const products = [
     rating: 4.8,
     reviews: 106,
     category: "colostomy",
-    image: "https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=400",
+    image:       "images/coloplast/1-piece/1.webp",
     features: ["Pack of 6", "Transparent", "Drainable"],
     inStock: true,
   },
@@ -306,7 +311,7 @@ const products = [
     rating: 4.9,
     reviews: 93,
     category: "baseplate",
-    image: "https://images.pexels.com/photos/3902881/pexels-photo-3902881.jpeg?auto=compress&cs=tinysrgb&w=400",
+    image:   "images/coloplast/1-piece/2.webp",
     features: ["Pack of 6", "Premium Quality", "Secure Fit"],
     inStock: true,
   },
@@ -319,7 +324,7 @@ const products = [
     rating: 4.7,
     reviews: 207,
     category: "accessories",
-    image: "https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=400",
+    image: "images/coloplast/1-piece/bt.webp",
     features: ["Gentle Formula", "Easy Application", "Professional Grade"],
     inStock: true,
   },
@@ -332,7 +337,7 @@ const products = [
     rating: 4.6,
     reviews: 48,
     category: "urostomy",
-    image: "https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=400",
+    image:"images/coloplast/1-piece/13.webp",
     features: ["Pack of 6", "Transparent", "Anti-Reflux"],
     inStock: true,
   },
@@ -345,7 +350,7 @@ const products = [
     rating: 4.8,
     reviews: 35,
     category: "accessories",
-    image: "https://images.pexels.com/photos/3902881/pexels-photo-3902881.jpeg?auto=compress&cs=tinysrgb&w=400",
+    image: "images/coloplast/1-piece/bp.webp",
     features: ["Pack of 10", "Flexible Seal", "Easy to Use"],
     inStock: true,
   },
@@ -358,7 +363,7 @@ const products = [
     rating: 4.9,
     reviews: 29,
     category: "pediatric",
-    image: "https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=400",
+    image: "images/coloplast/1-piece/l1.webp",
     features: ["Pack of 6", "Child-Friendly", "Gentle Adhesive"],
     inStock: false,
   },
@@ -374,12 +379,25 @@ const filters = [
 ];
 
 export function ProductCategories() {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState('all');
 
   const filteredProducts =
     activeFilter === "all"
       ? products
       : products.filter((product) => product.category === activeFilter);
+
+  const handleCategoryClick = (route: string) => {
+    if (route.startsWith('/')) {
+      navigate(route);
+    } else if (route.startsWith('#')) {
+      // Handle anchor links
+      const element = document.querySelector(route);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <div>
@@ -402,7 +420,7 @@ export function ProductCategories() {
               return (
                 <div
                   key={index}
-                  className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+                  className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden cursor-pointer"
                 >
                   <div className="h-48 overflow-hidden">
                     <img
@@ -426,12 +444,12 @@ export function ProductCategories() {
                         {category.count}
                       </span>
                     </div>
-                    <a
-                      href="/products"
+                    <button
+                      onClick={() => handleCategoryClick(category.route)}
                       className={`block text-center w-full text-white px-6 py-3 rounded-lg font-semibold ${colors.button} transition-all duration-300 transform group-hover:scale-105`}
                     >
                       Explore Products
-                    </a>
+                    </button>
                   </div>
                 </div>
               );

@@ -33,6 +33,7 @@ export default function ColoplastBrand() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState(coloplastProducts);
   const [sortBy, setSortBy] = useState("best-selling");
   const [currentPage, setCurrentPage] = useState(1);
@@ -175,19 +176,20 @@ export default function ColoplastBrand() {
         </div>
       </div> */}
 
-      {/* Navigation Menu */}
+      {/* Navigation Menu - Responsive */}
       <div className={`bg-white border-b sticky top-16 z-40 shadow-sm transition-transform duration-300 ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
-        <div className="container mx-auto px-4">
-          <nav className="flex items-center gap-8 py-4">
+        <div className="container mx-auto px-3 sm:px-4">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-2 lg:gap-6 py-3 lg:py-4 overflow-x-auto">
             {Object.entries(coloplastCategories).map(([key, cat]) => (
               <div 
                 key={key} 
-                className="relative"
+                className="relative flex-shrink-0"
                 onMouseEnter={() => setHoveredCategory(key)}
                 onMouseLeave={() => setHoveredCategory(null)}
               >
                 <button
-                  className="flex items-center gap-1 font-medium text-foreground hover:text-primary whitespace-nowrap transition-colors"
+                  className="flex items-center gap-1 font-medium text-sm lg:text-base text-foreground hover:text-primary whitespace-nowrap transition-colors py-2"
                 >
                   {cat.name}
                   <ChevronDown className={`h-4 w-4 transition-transform ${hoveredCategory === key ? 'rotate-180' : ''}`} />
@@ -199,7 +201,7 @@ export default function ColoplastBrand() {
                     onMouseEnter={() => setHoveredCategory(key)}
                     onMouseLeave={() => setHoveredCategory(null)}
                   >
-                    <div className="bg-white shadow-lg rounded-lg border border-primary/20 min-w-[200px] animate-fade-in">
+                    <div className="bg-white shadow-lg rounded-lg border border-primary/20 min-w-[180px] lg:min-w-[220px] animate-fade-in">
                       {cat.subCategories && cat.subCategories.map((sub) => (
                         <Link
                           key={sub.slug}
@@ -227,11 +229,84 @@ export default function ColoplastBrand() {
             ))}
             <Link
               to="/brand/coloplast/how-to-order"
-              className="font-medium text-foreground hover:text-primary whitespace-nowrap transition-colors"
+              className="font-medium text-sm lg:text-base text-foreground hover:text-primary whitespace-nowrap transition-colors py-2 flex-shrink-0"
             >
               How to Order
             </Link>
           </nav>
+
+          {/* Mobile Navigation Toggle */}
+          <div className="md:hidden flex items-center justify-between py-3">
+            <span className="text-sm font-medium text-foreground">Menu</span>
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={() => setMobileNavOpen(!mobileNavOpen)}
+              className="h-8 w-8 p-0"
+            >
+              <ChevronDown className={`h-5 w-5 transition-transform ${mobileNavOpen ? 'rotate-180' : ''}`} />
+            </Button>
+          </div>
+
+          {/* Mobile Navigation Menu */}
+          {mobileNavOpen && (
+            <div className="md:hidden pb-3 border-t animate-fade-in">
+              <div className="space-y-1">
+                {Object.entries(coloplastCategories).map(([key, cat]) => (
+                  <div key={key}>
+                    <button
+                      onClick={() => setActiveCategory(activeCategory === key ? null : key)}
+                      className="w-full text-left flex items-center justify-between px-3 py-2 text-sm font-medium text-foreground hover:bg-primary/5 rounded transition-colors"
+                    >
+                      <span>{cat.name}</span>
+                      <ChevronDown className={`h-4 w-4 transition-transform ${activeCategory === key ? 'rotate-180' : ''}`} />
+                    </button>
+                    
+                    {activeCategory === key && (
+                      <div className="pl-4 space-y-1 animate-fade-in">
+                        {cat.subCategories && cat.subCategories.map((sub) => (
+                          <Link
+                            key={sub.slug}
+                            to={key === "brands" ? `/brand/coloplast/${sub.slug}` : `/brand/coloplast/${key}/${sub.slug}`}
+                            className="block px-3 py-2 text-xs text-muted-foreground hover:text-primary hover:bg-primary/5 rounded transition-colors"
+                            onClick={() => {
+                              setMobileNavOpen(false);
+                              setActiveCategory(null);
+                            }}
+                          >
+                            {sub.name}
+                          </Link>
+                        ))}
+                        {cat.products && cat.products.map((prod) => (
+                          <Link
+                            key={prod.id}
+                            to={`/brand/coloplast/product/${prod.id}`}
+                            className="block px-3 py-2 text-xs text-muted-foreground hover:text-primary hover:bg-primary/5 rounded transition-colors"
+                            onClick={() => {
+                              setMobileNavOpen(false);
+                              setActiveCategory(null);
+                            }}
+                          >
+                            {prod.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                <Link
+                  to="/brand/coloplast/how-to-order"
+                  className="block px-3 py-2 text-sm font-medium text-foreground hover:bg-primary/5 rounded transition-colors"
+                  onClick={() => {
+                    setMobileNavOpen(false);
+                    setActiveCategory(null);
+                  }}
+                >
+                  How to Order
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
