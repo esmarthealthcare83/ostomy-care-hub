@@ -399,6 +399,23 @@ export function ProductCategories() {
     }
   };
 
+  // Convert brand name to URL slug
+  const brandToSlug = (brand: string): string => {
+    return brand
+      .toLowerCase()
+      .replace(/®/g, '') // Remove trademark symbol
+      .replace(/™/g, '') // Remove trademark symbol
+      .trim()
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/[^a-z0-9-]/g, ''); // Remove special characters
+  };
+
+  // Handle brand product click
+  const handleBrandClick = (brand: string) => {
+    const brandSlug = brandToSlug(brand);
+    navigate(`/brand/coloplast/${brandSlug}`);
+  };
+
   return (
     <div>
       {/* Categories Section */}
@@ -523,9 +540,12 @@ export function ProductCategories() {
                   </div>
                 </div>
                 <div className="p-6">
-                  <div className="text-sm text-blue-600 font-medium mb-2">
+                  <button
+                    onClick={() => handleBrandClick(product.brand)}
+                    className="text-sm text-blue-600 font-medium mb-2 hover:text-blue-700 hover:underline transition-colors"
+                  >
                     {product.brand}
-                  </div>
+                  </button>
                   <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2 leading-tight">
                     {product.name}
                   </h3>
@@ -567,17 +587,26 @@ export function ProductCategories() {
                       Inclusive of all taxes
                     </div>
                   </div>
-                  <button
-                    className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
-                      product.inStock
-                        ? "bg-blue-600 text-white hover:bg-blue-700 transform hover:scale-105"
-                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    }`}
-                    disabled={!product.inStock}
-                  >
-                    <ShoppingCart className="h-5 w-5" />
-                    {product.inStock ? "Add to Cart" : "Out of Stock"}
-                  </button>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleBrandClick(product.brand)}
+                      className={`flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                        product.inStock
+                          ? "bg-blue-600 text-white hover:bg-blue-700 transform hover:scale-105"
+                          : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      }`}
+                      disabled={!product.inStock}
+                    >
+                      <ShoppingCart className="h-5 w-5" />
+                      View Products
+                    </button>
+                    <button
+                      onClick={() => handleBrandClick(product.brand)}
+                      className="flex-1 px-4 py-3 rounded-lg font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all duration-300"
+                    >
+                      View Brand
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -605,10 +634,11 @@ export function ProductCategories() {
                 {brands.map((brand) => (
                   <div
                     key={brand.name}
-                    className="flex items-center justify-between p-4 bg-card rounded-lg border hover-lift"
+                    onClick={() => handleBrandClick(brand.name)}
+                    className="flex items-center justify-between p-4 bg-card rounded-lg border hover:border-blue-500 hover:shadow-md cursor-pointer transition-all duration-300 hover:bg-blue-50 transform hover:scale-105"
                   >
                     <div>
-                      <div className="font-semibold text-foreground">
+                      <div className="font-semibold text-foreground hover:text-blue-600 transition-colors">
                         {brand.name}
                       </div>
                       <div className="text-sm text-muted-foreground">

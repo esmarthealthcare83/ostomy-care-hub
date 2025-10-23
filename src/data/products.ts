@@ -1804,6 +1804,104 @@ export const products: Product[] = [
     },
     images: ["https://coloplaststore.in/cdn/shop/files/1-Alterna2-PieceTransparentBags-Colostomy_Ileostomy.jpg"],
     inStock: true
+  },
+  // Examination Gloves
+  {
+    id: "asio-latex-examination-gloves",
+    productCode: "ASIO-100",
+    name: "Premium Quality Latex Examination Gloves, 100 Pcs Per Box",
+    brand: "Asio",
+    category: "Examination Gloves",
+    pack: "Pack of 100",
+    price: "₹ 399",
+    pricePerUnit: "₹ 3.99/Unit",
+    rating: 4.5,
+    reviews: 10,
+    description: "Premium quality latex examination gloves designed for medical professionals. Provides excellent tactile sensitivity and barrier protection.",
+    features: [
+      "100% natural latex material",
+      "Powder-free for reduced allergic reactions",
+      "Textured fingertips for enhanced grip",
+      "Ambidextrous design",
+      "Single-use disposable",
+      "Medical grade quality"
+    ],
+    specifications: {
+      "Material": "Natural Latex",
+      "Size": "Medium",
+      "Thickness": "0.12mm",
+      "Length": "240mm",
+      "Powder": "Powder-free",
+      "Sterility": "Non-sterile"
+    },
+images: ["/images/coloplast/1-piece/ex1.webp"],
+    inStock: true,
+    popular: true
+  },
+  {
+    id: "generic-disposable-hand-gloves",
+    productCode: "GEN-DISP",
+    name: "Medical Examination Disposable Hand Gloves",
+    brand: "Generic",
+    category: "Examination Gloves",
+    pack: "Pack of 100",
+    price: "₹ 686",
+    pricePerUnit: "₹ 6.86/Unit",
+    rating: 4.6,
+    reviews: 15,
+    description: "High-quality disposable examination gloves suitable for medical examinations, food handling, and general protection.",
+    features: [
+      "Disposable single-use design",
+      "Comfortable fit",
+      "Good tactile sensitivity",
+      "Chemical resistant",
+      "Latex-free option available",
+      "Cost-effective solution"
+    ],
+    specifications: {
+      "Material": "Nitrile/Vinyl blend",
+      "Size": "Large",
+      "Thickness": "0.10mm",
+      "Length": "230mm",
+      "Powder": "Powder-free",
+      "Sterility": "Non-sterile"
+    },
+images: ["/images/coloplast/1-piece/ex.webp", "/images/coloplast/1-piece/ex-1.webp"," /images/coloplast/1-piece/ex-2.webp"," /images/coloplast/1-piece/ex-3.webp"," /images/coloplast/1-piece/ex-4.webp"],
+    inStock: true
+  },
+  {
+    id: "mytouch-surgical-gloves-sterile",
+    productCode: "MT-SURG",
+    name: "Mytouch Disposable Latex Surgical Gloves Sterile Pair (Two Gloves)",
+    brand: "Mytouch",
+    category: "Examination Gloves",
+    pack: "Pack of 2",
+    price: "₹ 968",
+    pricePerUnit: "₹ 484/Unit",
+    rating: 4.7,
+    reviews: 20,
+    description: "Premium sterile surgical gloves designed for surgical procedures. Provides maximum protection and dexterity for medical professionals.",
+    features: [
+      "Sterile surgical grade",
+      "Superior tactile sensitivity",
+      "Anatomical design for comfort",
+      "Textured surface for secure grip",
+      "Individually wrapped pairs",
+      "Gamma sterilized"
+    ],
+    specifications: {
+      "Material": "Natural Latex",
+      "Size": "Size 7.5",
+      "Thickness": "0.15mm",
+      "Length": "280mm",
+      "Powder": "Powder-free",
+      "Sterility": "Sterile"
+    },
+   
+     images: ["/images/coloplast/1-piece/my.webp", "/images/coloplast/1-piece/my-1.webp"," /images/coloplast/1-piece/my-2.webp"],
+
+    inStock: true,
+    bestSeller: true
   }
 ];
 
@@ -1825,6 +1923,12 @@ export const categories = [
     name: "Supporting Products",
     description: "Complete care accessories and supplies", 
     count: products.filter(p => p.category === "Supporting Products").length
+  },
+  {
+    id: "examination-gloves",
+    name: "Examination Gloves",
+    description: "Medical grade examination and surgical gloves",
+    count: products.filter(p => p.category === "Examination Gloves").length
   }
 ];
 
@@ -1836,4 +1940,7 @@ export const brands = [
   { name: "Comfeel®", products: products.filter(p => p.brand === "Comfeel®").length, popular: false },
   { name: "Coloplast", products: products.filter(p => p.brand === "Coloplast").length, popular: true },
   { name: "Hollister", products: products.filter(p => p.brand === "Hollister").length, popular: true },
+  { name: "Asio", products: products.filter(p => p.brand === "Asio").length, popular: false },
+  { name: "Generic", products: products.filter(p => p.brand === "Generic").length, popular: false },
+  { name: "Mytouch", products: products.filter(p => p.brand === "Mytouch").length, popular: false },
 ];

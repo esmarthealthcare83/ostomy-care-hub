@@ -177,10 +177,10 @@ export default function ColoplastBrand() {
       </div> */}
 
       {/* Navigation Menu - Responsive */}
-      <div className={`bg-white border-b sticky top-16 z-40 shadow-sm transition-transform duration-300 ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
-        <div className="container mx-auto px-3 sm:px-4">
+      <div className={`bg-white border-b sticky top-16 z-40 shadow-sm transition-transform duration-300 overflow-visible ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
+        <div className="container mx-auto px-3 sm:px-4 overflow-visible">
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-2 lg:gap-6 py-3 lg:py-4 overflow-x-auto">
+          <nav className="hidden md:flex items-center gap-2 lg:gap-6 py-3 lg:py-4 overflow-visible">
             {Object.entries(coloplastCategories).map(([key, cat]) => (
               <div 
                 key={key} 
@@ -201,7 +201,7 @@ export default function ColoplastBrand() {
                     onMouseEnter={() => setHoveredCategory(key)}
                     onMouseLeave={() => setHoveredCategory(null)}
                   >
-                    <div className="bg-white shadow-lg rounded-lg border border-primary/20 min-w-[180px] lg:min-w-[220px] animate-fade-in">
+                    <div className="bg-white shadow-lg rounded-lg border border-primary/20 min-w-[180px] lg:min-w-[220px] animate-fade-in max-h-[400px] overflow-y-auto">
                       {cat.subCategories && cat.subCategories.map((sub) => (
                         <Link
                           key={sub.slug}
