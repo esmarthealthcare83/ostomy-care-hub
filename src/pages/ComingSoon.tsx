@@ -62,55 +62,55 @@ const ComingSoon = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="py-20">
-        <div className="container mx-auto px-4">
+      <main className="py-8 sm:py-12 lg:py-20">
+        <div className="container mx-auto px-3 sm:px-4 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             {/* Coming Soon Hero */}
-            <div className="mb-12">
-              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-primary rounded-full flex items-center justify-center animate-pulse">
-                <Clock className="h-12 w-12 text-white" />
+            <div className="mb-8 sm:mb-12 lg:mb-16">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mx-auto mb-4 sm:mb-6 lg:mb-8 bg-gradient-primary rounded-full flex items-center justify-center animate-pulse">
+                <Clock className="h-8 sm:h-10 lg:h-12 w-8 sm:w-10 lg:w-12 text-white" />
               </div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4">
                 {getPageTitle()}
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
                 {getPageDescription()}
               </p>
             </div>
 
             {/* Feature Preview Cards */}
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12 lg:mb-16">
               <Card className="shadow-soft hover:shadow-medium transition-shadow duration-300 bg-gradient-card border-0">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 mx-auto mb-4 bg-gradient-primary rounded-full flex items-center justify-center">
-                    <Clock className="h-6 w-6 text-white" />
+                <CardContent className="p-4 sm:p-6 text-center">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 bg-gradient-primary rounded-full flex items-center justify-center">
+                    <Clock className="h-5 sm:h-6 w-5 sm:w-6 text-white" />
                   </div>
-                  <h3 className="font-semibold mb-2">Coming Soon</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <h3 className="font-semibold mb-2 text-sm sm:text-base">Coming Soon</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Expected launch in Q1 2025
                   </p>
                 </CardContent>
               </Card>
 
               <Card className="shadow-soft hover:shadow-medium transition-shadow duration-300 bg-gradient-card border-0">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 mx-auto mb-4 bg-gradient-secondary rounded-full flex items-center justify-center">
-                    <MessageCircle className="h-6 w-6 text-white" />
+                <CardContent className="p-4 sm:p-6 text-center">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 bg-gradient-secondary rounded-full flex items-center justify-center">
+                    <MessageCircle className="h-5 sm:h-6 w-5 sm:w-6 text-white" />
                   </div>
-                  <h3 className="font-semibold mb-2">Stay Updated</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <h3 className="font-semibold mb-2 text-sm sm:text-base">Stay Updated</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Get notified when it's ready
                   </p>
                 </CardContent>
               </Card>
 
               <Card className="shadow-soft hover:shadow-medium transition-shadow duration-300 bg-gradient-card border-0">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 mx-auto mb-4 bg-gradient-accent rounded-full flex items-center justify-center">
-                    <Phone className="h-6 w-6 text-white" />
+                <CardContent className="p-4 sm:p-6 text-center">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 bg-gradient-accent rounded-full flex items-center justify-center">
+                    <Phone className="h-5 sm:h-6 w-5 sm:w-6 text-white" />
                   </div>
-                  <h3 className="font-semibold mb-2">Need Help?</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <h3 className="font-semibold mb-2 text-sm sm:text-base">Need Help?</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Contact us for immediate assistance
                   </p>
                 </CardContent>
@@ -119,27 +119,28 @@ const ComingSoon = () => {
 
             {/* Contact Section */}
             <Card className="shadow-strong bg-gradient-card border-0">
-              <CardHeader className="text-center">
-                <CardTitle className="text-2xl">Need Immediate Assistance?</CardTitle>
-                <CardDescription>
+              <CardHeader className="text-center px-3 sm:px-6 py-6 sm:py-8">
+                <CardTitle className="text-xl sm:text-2xl lg:text-3xl">Need Immediate Assistance?</CardTitle>
+                <CardDescription className="text-xs sm:text-sm lg:text-base">
                   While we're building this feature, our support team is here to help you with any questions or needs.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <CardContent className="px-3 sm:px-6 pb-6 sm:pb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
                   {contactMethods.map((method, index) => {
                     const IconComponent = method.icon;
                     return (
                       <div key={method.title} className="text-center">
-                        <div className="w-12 h-12 mx-auto mb-3 bg-gradient-primary rounded-full flex items-center justify-center">
-                          <IconComponent className="h-6 w-6 text-white" />
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 bg-gradient-primary rounded-full flex items-center justify-center">
+                          <IconComponent className="h-5 sm:h-6 w-5 sm:w-6 text-white" />
                         </div>
-                        <h4 className="font-semibold mb-1">{method.title}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{method.description}</p>
-                        <p className="text-sm font-medium text-primary mb-3">{method.contact}</p>
+                        <h4 className="font-semibold mb-1 text-sm sm:text-base">{method.title}</h4>
+                        <p className="text-xs sm:text-sm text-muted-foreground mb-2">{method.description}</p>
+                        <p className="text-xs sm:text-sm font-medium text-primary mb-3">{method.contact}</p>
                         <Button
                           size="sm"
                           variant="outline"
+                          className="text-xs sm:text-sm"
                           onClick={() => window.open(method.href, method.href.startsWith('http') ? '_blank' : '_self')}
                         >
                           Contact Now
@@ -150,10 +151,10 @@ const ComingSoon = () => {
                 </div>
 
                 <div className="text-center">
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
                     Want to be notified when {getPageTitle().toLowerCase()} is available?
                   </p>
-                  <Button className="btn-hero">
+                  <Button className="btn-hero w-full sm:w-auto">
                     Notify Me When Ready
                   </Button>
                 </div>

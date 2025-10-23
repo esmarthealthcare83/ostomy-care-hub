@@ -307,11 +307,11 @@ const Products: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-6 sm:py-8">
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
           {/* Sidebar Filters */}
-          <div className="lg:w-1/4">
-            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-24">
+          <div className="hidden lg:block lg:w-1/4">
+            <div className="bg-white rounded-lg sm:rounded-2xl shadow-lg p-4 sm:p-6 sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto">
               <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
                 <Filter className="h-5 w-5 mr-2" />
                 Filters
@@ -464,33 +464,35 @@ const Products: React.FC = () => {
           </div>
 
           {/* Main Content */}
-          <div className="lg:w-3/4">
+          <div className="lg:w-3/4 w-full">
             {/* Header */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                <div>
-                  <h1 className="text-3xl font-bold text-gray-900 mb-2">All Products</h1>
-                  <p className="text-gray-600">Showing {sortedProducts.length} of {allProducts.length} products</p>
+            <div className="bg-white rounded-lg sm:rounded-2xl shadow-lg p-3 sm:p-6 mb-4 sm:mb-8">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                <div className="min-w-0">
+                  <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">All Products</h1>
+                  <p className="text-xs sm:text-sm text-gray-600">Showing {sortedProducts.length} of {allProducts.length} products</p>
                 </div>
                 
-                <div className="flex items-center space-x-4 mt-4 md:mt-0">
+                <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
                   {/* View Mode Toggle */}
-                  <div className="flex bg-gray-100 rounded-lg p-1">
+                  <div className="flex bg-gray-100 rounded-lg p-1 flex-shrink-0">
                     <button
                       onClick={() => setViewMode('grid')}
-                      className={`p-2 rounded-md transition-colors ${
+                      className={`p-1.5 sm:p-2 rounded-md transition-colors ${
                         viewMode === 'grid' ? 'bg-white shadow-sm' : 'text-gray-500'
                       }`}
+                      title="Grid view"
                     >
-                      <Grid className="h-5 w-5" />
+                      <Grid className="h-4 sm:h-5 w-4 sm:w-5" />
                     </button>
                     <button
                       onClick={() => setViewMode('list')}
-                      className={`p-2 rounded-md transition-colors ${
+                      className={`p-1.5 sm:p-2 rounded-md transition-colors ${
                         viewMode === 'list' ? 'bg-white shadow-sm' : 'text-gray-500'
                       }`}
+                      title="List view"
                     >
-                      <List className="h-5 w-5" />
+                      <List className="h-4 sm:h-5 w-4 sm:w-5" />
                     </button>
                   </div>
 
@@ -498,7 +500,7 @@ const Products: React.FC = () => {
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="px-2 sm:px-4 py-1.5 sm:py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-xs sm:text-sm"
                   >
                     <option value="name">Sort by Name</option>
                     <option value="price-low">Price: Low to High</option>
@@ -512,12 +514,12 @@ const Products: React.FC = () => {
 
             {/* Products Grid/List */}
             {sortedProducts.length === 0 ? (
-              <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
-                <div className="text-gray-400 mb-4">
-                  <Search className="h-16 w-16 mx-auto" />
+              <div className="bg-white rounded-lg sm:rounded-2xl shadow-lg p-6 sm:p-12 text-center">
+                <div className="text-gray-400 mb-3 sm:mb-4">
+                  <Search className="h-12 sm:h-16 w-12 sm:w-16 mx-auto" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">No products found</h3>
-                <p className="text-gray-600 mb-4">Try adjusting your filters or search terms</p>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">No products found</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">Try adjusting your filters or search terms</p>
                 <button 
                   onClick={() => {
                     setActiveFilter('all');
@@ -526,13 +528,13 @@ const Products: React.FC = () => {
                     setSelectedPriceRange('');
                     setPriceRange({});
                   }}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-4 sm:px-6 py-2 sm:py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-sm"
                 >
                   Clear all filters
                 </button>
               </div>
             ) : (
-              <div className={viewMode === 'grid' ? 'grid md:grid-cols-2 xl:grid-cols-3 gap-6' : 'space-y-4'}>
+              <div className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6' : 'space-y-2 sm:space-y-4'}>
                 {sortedProducts.map((product, index) => (
                   <ProductCard key={`${product.id}-${index}`} product={product} viewMode={viewMode} />
                 ))}
@@ -540,15 +542,15 @@ const Products: React.FC = () => {
             )}
 
             {/* Pagination */}
-            <div className="flex justify-center mt-12">
-              <div className="flex items-center space-x-2">
-                <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+            <div className="flex justify-center mt-8 sm:mt-12">
+              <div className="flex items-center gap-1 sm:gap-2">
+                <button className="px-2 sm:px-4 py-1.5 sm:py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-xs sm:text-sm h-8 sm:h-10 min-w-[32px]">
                   Previous
                 </button>
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg">1</button>
-                <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">2</button>
-                <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">3</button>
-                <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                <button className="px-2 sm:px-4 py-1.5 sm:py-2 bg-blue-600 text-white rounded-lg text-xs sm:text-sm h-8 sm:h-10 min-w-[32px]">1</button>
+                <button className="px-2 sm:px-4 py-1.5 sm:py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-xs sm:text-sm h-8 sm:h-10 min-w-[32px]">2</button>
+                <button className="px-2 sm:px-4 py-1.5 sm:py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-xs sm:text-sm h-8 sm:h-10 min-w-[32px]">3</button>
+                <button className="px-2 sm:px-4 py-1.5 sm:py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-xs sm:text-sm h-8 sm:h-10 min-w-[32px]">
                   Next
                 </button>
               </div>

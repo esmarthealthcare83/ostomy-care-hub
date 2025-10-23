@@ -108,15 +108,15 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="py-16">
+      <main className="py-8 sm:py-12 lg:py-16">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16 animate-fade-in">
-              <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
+        <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
+          <div className="container mx-auto px-3 sm:px-4 lg:px-8">
+            <div className="text-center mb-8 sm:mb-12 lg:mb-16 animate-fade-in">
+              <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4">
                 Welcome to eSmart Healthcare
               </h1>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              <p className="text-sm sm:text-base lg:text-xl text-muted-foreground max-w-3xl mx-auto px-2">
                 Your trusted partner for customer-centered healthcare. Featuring excellence in quality, service, and access, we empower you to achieve your full health potential throughout your life.
               </p>
             </div>
@@ -124,14 +124,14 @@ const About = () => {
         </section>
 
         {/* About Us */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
+        <section className="py-8 sm:py-12 lg:py-16">
+          <div className="container mx-auto px-3 sm:px-4 lg:px-8">
             <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold mb-4">About Us</h2>
+              <div className="text-center mb-8 sm:mb-12">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">About Us</h2>
               </div>
 
-              <div className="space-y-8">
+              <div className="space-y-4 sm:space-y-6 lg:space-y-8">
                 <Card className="shadow-strong bg-gradient-card border-0">
                   <CardHeader>
                     <CardTitle className="text-2xl">Who We Are</CardTitle>
@@ -180,16 +180,16 @@ const About = () => {
         </section>
 
         {/* Mission & Vision */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <section className="py-8 sm:py-12 lg:py-16 bg-muted/30">
+          <div className="container mx-auto px-3 sm:px-4 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
               <Card className="shadow-soft hover:shadow-medium transition-shadow duration-300 bg-gradient-card border-0 group">
                 <CardHeader>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
-                      <Target className="h-6 w-6 text-primary" />
+                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                    <div className="p-2 sm:p-3 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
+                      <Target className="h-4 sm:h-5 lg:h-6 w-4 sm:w-5 lg:w-6 text-primary" />
                     </div>
-                    <CardTitle className="text-2xl">Our Mission</CardTitle>
+                    <CardTitle className="text-lg sm:text-xl lg:text-2xl">Our Mission</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -201,15 +201,15 @@ const About = () => {
 
               <Card className="shadow-soft hover:shadow-medium transition-shadow duration-300 bg-gradient-card border-0 group">
                 <CardHeader>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-3 bg-secondary/10 rounded-full group-hover:bg-secondary/20 transition-colors">
-                      <Star className="h-6 w-6 text-secondary" />
+                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                    <div className="p-2 sm:p-3 bg-secondary/10 rounded-full group-hover:bg-secondary/20 transition-colors">
+                      <Star className="h-4 sm:h-5 lg:h-6 w-4 sm:w-5 lg:w-6 text-secondary" />
                     </div>
-                    <CardTitle className="text-2xl">Our Vision</CardTitle>
+                    <CardTitle className="text-lg sm:text-xl lg:text-2xl">Our Vision</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-xs sm:text-sm lg:text-base text-muted-foreground leading-relaxed">
                     "A community in which all people achieve their full potential for health and well-being across the lifespan. We strive to be trusted by customers, a valued partner in the healthcare community, and creators of positive change."
                   </p>
                 </CardContent>
@@ -219,49 +219,49 @@ const About = () => {
         </section>
 
         {/* Our Services */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Our Services</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
+        <section className="py-8 sm:py-12 lg:py-16 bg-muted/30">
+          <div className="container mx-auto px-3 sm:px-4 lg:px-8">
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Our Services</h2>
+              <p className="text-xs sm:text-sm lg:text-base text-muted-foreground max-w-2xl mx-auto px-2">
                 Comprehensive healthcare solutions designed to meet your needs
               </p>
             </div>
-            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
               <Card className="shadow-soft hover:shadow-medium transition-shadow duration-300 bg-gradient-card border-0">
-                <CardContent className="p-6">
-                  <h3 className="font-semibold text-lg mb-2">Patient consultations and diagnosis</h3>
-                  <p className="text-muted-foreground">Expert medical consultations and accurate diagnosis services.</p>
+                <CardContent className="p-3 sm:p-4 lg:p-6">
+                  <h3 className="font-semibold text-sm sm:text-base lg:text-lg mb-2">Patient consultations and diagnosis</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Expert medical consultations and accurate diagnosis services.</p>
                 </CardContent>
               </Card>
               <Card className="shadow-soft hover:shadow-medium transition-shadow duration-300 bg-gradient-card border-0">
-                <CardContent className="p-6">
-                  <h3 className="font-semibold text-lg mb-2">Healthcare quality improvement programs</h3>
-                  <p className="text-muted-foreground">Continuous programs to enhance healthcare quality and patient outcomes.</p>
+                <CardContent className="p-3 sm:p-4 lg:p-6">
+                  <h3 className="font-semibold text-sm sm:text-base lg:text-lg mb-2">Healthcare quality improvement programs</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Continuous programs to enhance healthcare quality and patient outcomes.</p>
                 </CardContent>
               </Card>
               <Card className="shadow-soft hover:shadow-medium transition-shadow duration-300 bg-gradient-card border-0">
-                <CardContent className="p-6">
-                  <h3 className="font-semibold text-lg mb-2">Telehealth and virtual care options</h3>
-                  <p className="text-muted-foreground">Convenient remote healthcare services for accessible care.</p>
+                <CardContent className="p-3 sm:p-4 lg:p-6">
+                  <h3 className="font-semibold text-sm sm:text-base lg:text-lg mb-2">Telehealth and virtual care options</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Convenient remote healthcare services for accessible care.</p>
                 </CardContent>
               </Card>
               <Card className="shadow-soft hover:shadow-medium transition-shadow duration-300 bg-gradient-card border-0">
-                <CardContent className="p-6">
-                  <h3 className="font-semibold text-lg mb-2">Community health outreach</h3>
-                  <p className="text-muted-foreground">Extending healthcare services to communities for better health awareness.</p>
+                <CardContent className="p-3 sm:p-4 lg:p-6">
+                  <h3 className="font-semibold text-sm sm:text-base lg:text-lg mb-2">Community health outreach</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Extending healthcare services to communities for better health awareness.</p>
                 </CardContent>
               </Card>
               <Card className="shadow-soft hover:shadow-medium transition-shadow duration-300 bg-gradient-card border-0">
-                <CardContent className="p-6">
-                  <h3 className="font-semibold text-lg mb-2">Specialty care and referrals</h3>
-                  <p className="text-muted-foreground">Specialized medical care and seamless referral services.</p>
+                <CardContent className="p-3 sm:p-4 lg:p-6">
+                  <h3 className="font-semibold text-sm sm:text-base lg:text-lg mb-2">Specialty care and referrals</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Specialized medical care and seamless referral services.</p>
                 </CardContent>
               </Card>
               <Card className="shadow-soft hover:shadow-medium transition-shadow duration-300 bg-gradient-card border-0">
-                <CardContent className="p-6">
-                  <h3 className="font-semibold text-lg mb-2">Customer-centered service desk</h3>
-                  <p className="text-muted-foreground">Dedicated support desk focused on customer needs and satisfaction.</p>
+                <CardContent className="p-3 sm:p-4 lg:p-6">
+                  <h3 className="font-semibold text-sm sm:text-base lg:text-lg mb-2">Customer-centered service desk</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Dedicated support desk focused on customer needs and satisfaction.</p>
                 </CardContent>
               </Card>
             </div>
@@ -269,31 +269,31 @@ const About = () => {
         </section>
 
         {/* Achievements */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16 animate-fade-in">
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+        <section className="py-12 sm:py-16 lg:py-20">
+          <div className="container mx-auto px-3 sm:px-4 lg:px-8">
+            <div className="text-center mb-8 sm:mb-12 lg:mb-16 animate-fade-in">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3 sm:mb-4">
                 Our Achievements
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
                 Milestones that reflect our commitment to excellence and patient care
               </p>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
               {achievements.map((achievement, index) => {
                 const IconComponent = achievement.icon;
                 return (
                   <Card key={achievement.label}
                         className="text-center shadow-soft hover:shadow-medium transition-all duration-300 hover:-translate-y-2 bg-gradient-card border-0 group animate-slide-up"
                         style={{animationDelay: `${index * 0.1}s`}}>
-                    <CardContent className="p-6">
-                      <div className="w-16 h-16 mx-auto mb-4 bg-gradient-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        <IconComponent className="h-8 w-8 text-white" />
+                    <CardContent className="p-3 sm:p-4 lg:p-6">
+                      <div className="w-12 sm:w-14 lg:w-16 h-12 sm:h-14 lg:h-16 mx-auto mb-2 sm:mb-3 lg:mb-4 bg-gradient-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <IconComponent className="h-6 sm:h-7 lg:h-8 w-6 sm:w-7 lg:w-8 text-white" />
                       </div>
-                      <div className="text-3xl font-bold text-primary mb-2">{achievement.number}</div>
-                      <div className="font-semibold text-foreground mb-2">{achievement.label}</div>
-                      <div className="text-sm text-muted-foreground">{achievement.description}</div>
+                      <div className="text-2xl sm:text-3xl lg:text-3xl font-bold text-primary mb-1 sm:mb-2">{achievement.number}</div>
+                      <div className="font-semibold text-foreground mb-1 sm:mb-2 text-xs sm:text-sm lg:text-base">{achievement.label}</div>
+                      <div className="text-xs sm:text-xs lg:text-sm text-muted-foreground">{achievement.description}</div>
                     </CardContent>
                   </Card>
                 );
@@ -303,15 +303,15 @@ const About = () => {
         </section>
 
         {/* Community Impact */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
+        <section className="py-8 sm:py-12 lg:py-16 bg-muted/30">
+          <div className="container mx-auto px-3 sm:px-4 lg:px-8">
             <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Community Impact</h2>
+              <div className="text-center mb-6 sm:mb-8">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Community Impact</h2>
               </div>
               <Card className="shadow-soft hover:shadow-medium transition-shadow duration-300 bg-gradient-card border-0">
-                <CardContent className="p-6">
-                  <ul className="space-y-2 text-muted-foreground">
+                <CardContent className="p-3 sm:p-4 lg:p-6">
+                  <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
                     <li>• Open access for all community members</li>
                     <li>• Staff engagement in local health initiatives</li>
                     <li>• Empowering patients to make positive changes in their communities</li>
@@ -323,15 +323,15 @@ const About = () => {
         </section>
 
         {/* Work Environment */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
+        <section className="py-8 sm:py-12 lg:py-16">
+          <div className="container mx-auto px-3 sm:px-4 lg:px-8">
             <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Work Environment</h2>
+              <div className="text-center mb-6 sm:mb-8">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Work Environment</h2>
               </div>
               <Card className="shadow-soft hover:shadow-medium transition-shadow duration-300 bg-gradient-card border-0">
-                <CardContent className="p-6">
-                  <ul className="space-y-2 text-muted-foreground">
+                <CardContent className="p-3 sm:p-4 lg:p-6">
+                  <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
                     <li>• Pursuit of excellence and innovation</li>
                     <li>• FISH philosophy: Be there. Make their day. Choose your attitude. Have fun.</li>
                     <li>• Integrity, ethics, and responsible resource management</li>
@@ -345,13 +345,13 @@ const About = () => {
         </section>
 
         {/* Leadership */}
-        <section className="py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16 animate-fade-in">
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+        <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
+          <div className="container mx-auto px-3 sm:px-4 lg:px-8">
+            <div className="text-center mb-8 sm:mb-12 lg:mb-16 animate-fade-in">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3 sm:mb-4">
                 Leadership
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
                 Visionary leaders driving innovation and excellence in healthcare
               </p>
             </div>

@@ -1,48 +1,108 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ChevronDown, ShoppingCart, Filter, X } from "lucide-react";
-import { coloplastProducts, coloplastCategories, getProductsByCategory, getProductsByBrand } from "@/data/coloplastProducts";
+import { ChevronDown, Filter, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { UserDetailsForm } from "@/components/UserDetailsForm";
+import { 
+  coloplastProducts, 
+  coloplastCategories, 
+  getProductsByCategory, 
+  getProductsByBrand,
+  filterProducts,
+  getAvailableFilters,
+  sortProductsWithBrandRotation,
+  paginateProducts,
+  FilterCriteria 
+} from "@/data/coloplastProducts";
 import { toast } from "@/components/ui/sonner";
 
 export default function ColoplastBrand() {
   const { category, subCategory } = useParams();
   const navigate = useNavigate();
   
+  // Determine if we're filtering by brand or category
+  const brandNames = coloplastCategories.brands?.subCategories?.map(b => b.slug) || [];
+  const isBrandFilter = category && brandNames.includes(category);
+  const brandParam = isBrandFilter ? category : null;
+  const categoryParam = isBrandFilter ? null : category;
+  
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState(coloplastProducts);
   const [sortBy, setSortBy] = useState("best-selling");
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
-  const [selectedDiameter, setSelectedDiameter] = useState<string | null>(null);
-  const [selectedBaseplateType, setSelectedBaseplateType] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize] = useState(12);
+  
+  // Multi-select filters
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [selectedBaseplateTypes, setSelectedBaseplateTypes] = useState<string[]>([]);
+  const [selectedSurgeryTypes, setSelectedSurgeryTypes] = useState<string[]>([]);
+  const [selectedBagSystems, setSelectedBagSystems] = useState<string[]>([]);
+  const [selectedProductTypes, setSelectedProductTypes] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<{ min: number; max: number } | null>(null);
+  
   const [showFilters, setShowFilters] = useState(false);
+  const [availableFilters, setAvailableFilters] = useState(getAvailableFilters());
+  const [showNavbar, setShowNavbar] = useState(true);
+  const lastScrollYRef = useRef(0);
+
+  // Handle navbar scroll behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollYRef.current && currentScrollY > 200) {
+        // Scrolling down
+        setShowNavbar(false);
+      } else {
+        // Scrolling up
+        setShowNavbar(true);
+      }
+      
+      lastScrollYRef.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
-    // Filter products based on URL params
+    // Get base products based on URL params
     let products = coloplastProducts;
     
-    if (category && subCategory) {
-      products = getProductsByCategory(category, subCategory);
-    } else if (category) {
-      products = getProductsByCategory(category);
+    // Handle brand filtering
+    if (brandParam) {
+      products = getProductsByBrand(brandParam.replace(/-/g, ' '));
+    } 
+    // Handle category filtering
+    else if (categoryParam && subCategory) {
+      products = getProductsByCategory(categoryParam, subCategory);
+    } else if (categoryParam) {
+      products = getProductsByCategory(categoryParam);
     }
 
-    // Apply additional filters
-    if (selectedBrand) {
-      products = products.filter(p => p.brand === selectedBrand);
-    }
-    if (selectedDiameter) {
-      products = products.filter(p => p.diameter?.includes(selectedDiameter));
-    }
-    if (selectedBaseplateType) {
-      products = products.filter(p => p.baseplateType === selectedBaseplateType);
-    }
+    // Build filter criteria
+    const filterCriteria: FilterCriteria = {
+      brands: selectedBrands.length > 0 ? selectedBrands : undefined,
+      baseplateTypes: selectedBaseplateTypes.length > 0 ? selectedBaseplateTypes : undefined,
+      surgeryTypes: selectedSurgeryTypes.length > 0 ? selectedSurgeryTypes : undefined,
+      bagSystems: selectedBagSystems.length > 0 ? selectedBagSystems : undefined,
+      productTypes: selectedProductTypes.length > 0 ? selectedProductTypes : undefined,
+      priceMin: priceRange?.min,
+      priceMax: priceRange?.max,
+      inStock: true
+    };
+
+    // Apply smart filtering
+    products = filterProducts(products, filterCriteria);
+
+    // Apply brand rotation to avoid duplicate brands consecutively
+    products = sortProductsWithBrandRotation(products);
 
     // Apply sorting
     switch (sortBy) {
@@ -59,43 +119,64 @@ export default function ColoplastBrand() {
         products = [...products].sort((a, b) => b.name.localeCompare(a.name));
         break;
       default:
-        // best-selling - keep original order
+        // best-selling - keep brand rotation order
         break;
     }
 
     setFilteredProducts(products);
-  }, [category, subCategory, selectedBrand, selectedDiameter, selectedBaseplateType, sortBy]);
-
-  const handleAddToCart = (productId: string, productName: string) => {
-    toast.success("Added to cart!", {
-      description: `${productName} has been added to your cart.`,
-    });
-  };
+    setCurrentPage(1); // Reset to first page when filters change
+  }, [brandParam, categoryParam, subCategory, selectedBrands, selectedBaseplateTypes, selectedSurgeryTypes, selectedBagSystems, selectedProductTypes, priceRange, sortBy]);
 
   const clearFilters = () => {
-    setSelectedBrand(null);
-    setSelectedDiameter(null);
-    setSelectedBaseplateType(null);
+    setSelectedBrands([]);
+    setSelectedBaseplateTypes([]);
+    setSelectedSurgeryTypes([]);
+    setSelectedBagSystems([]);
+    setSelectedProductTypes([]);
+    setPriceRange(null);
+    setCurrentPage(1);
   };
 
-  const uniqueBrands = [...new Set(coloplastProducts.map(p => p.brand))];
-  const uniqueDiameters = [...new Set(coloplastProducts.flatMap(p => p.diameter?.split(", ") || []))];
-  const uniqueBaseplateTypes = [...new Set(coloplastProducts.map(p => p.baseplateType).filter(Boolean))];
+  // Pagination
+  const paginationResult = paginateProducts(filteredProducts, currentPage, pageSize);
+
+  // Get display title based on brand or category
+  const getPageTitle = () => {
+    if (brandParam) {
+      const brandName = brandParam.replace(/-/g, ' ')
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+      return brandName;
+    }
+    if (categoryParam) {
+      const categoryData = coloplastCategories[categoryParam as keyof typeof coloplastCategories];
+      return categoryData?.name || 'Coloplast Ostomy Care';
+    }
+    return 'Coloplast Ostomy Care';
+  };
+
+  const getPageDescription = () => {
+    if (brandParam) {
+      return `Explore our complete range of ${getPageTitle()} products`;
+    }
+    return 'Premium quality ostomy products for your comfort and confidence';
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       
       {/* Hero Banner */}
-      <div className="bg-gradient-primary text-white py-12">
+      {/* <div className="bg-gradient-primary text-white py-12">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-2">Coloplast Ostomy Care</h1>
-          <p className="text-lg">Premium quality ostomy products for your comfort and confidence</p>
+          <h1 className="text-4xl font-bold mb-2">{getPageTitle()}</h1>
+          <p className="text-lg">{getPageDescription()}</p>
         </div>
-      </div>
+      </div> */}
 
       {/* Navigation Menu */}
-      <div className="bg-white border-b sticky top-[140px] z-40 shadow-sm">
+      <div className={`bg-white border-b sticky top-16 z-40 shadow-sm transition-transform duration-300 ${showNavbar ? 'translate-y-0' : '-translate-y-full'}`}>
         <div className="container mx-auto px-4">
           <nav className="flex items-center gap-8 py-4">
             {Object.entries(coloplastCategories).map(([key, cat]) => (
@@ -122,7 +203,7 @@ export default function ColoplastBrand() {
                       {cat.subCategories && cat.subCategories.map((sub) => (
                         <Link
                           key={sub.slug}
-                          to={`/brand/coloplast/${key}/${sub.slug}`}
+                          to={key === "brands" ? `/brand/coloplast/${sub.slug}` : `/brand/coloplast/${key}/${sub.slug}`}
                           className="block px-4 py-2 hover:bg-primary/10 transition-colors text-sm first:rounded-t-lg last:rounded-b-lg"
                           onClick={() => setHoveredCategory(null)}
                         >
@@ -166,16 +247,16 @@ export default function ColoplastBrand() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 bg-muted/30 py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex gap-8">
-            {/* Sidebar Filters - Desktop */}
-            <aside className={`${showFilters ? 'block' : 'hidden'} md:block w-full md:w-64 space-y-6`}>
+      <div className="flex-1 bg-muted/30 py-6 sm:py-8 lg:py-10">
+        <div className="container mx-auto px-3 sm:px-4 lg:px-8">
+          <div className="flex flex-col md:flex-row gap-4 sm:gap-6 lg:gap-8">
+            {/* Sidebar Filters - Mobile/Desktop */}
+            <aside className={`${showFilters ? 'block' : 'hidden'} md:block w-full md:w-72 lg:w-80 space-y-3 sm:space-y-4 max-h-[calc(100vh-200px)] overflow-y-auto`}>
               <Card>
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-semibold">Filters</h3>
-                    {(selectedBrand || selectedDiameter || selectedBaseplateType) && (
+                    {(selectedBrands.length > 0 || selectedBaseplateTypes.length > 0 || selectedSurgeryTypes.length > 0 || selectedBagSystems.length > 0 || selectedProductTypes.length > 0 || priceRange) && (
                       <Button variant="ghost" size="sm" onClick={clearFilters}>
                         Clear All
                       </Button>
@@ -183,10 +264,10 @@ export default function ColoplastBrand() {
                   </div>
 
                   {/* Sort By */}
-                  <div className="mb-6">
-                    <h4 className="font-medium mb-2">Sort By</h4>
+                  <div className="mb-6 pb-4 border-b">
+                    <h4 className="font-medium mb-2 text-sm">Sort By</h4>
                     <select
-                      className="w-full border rounded-md p-2"
+                      className="w-full border rounded-md p-2 text-sm"
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value)}
                     >
@@ -199,56 +280,121 @@ export default function ColoplastBrand() {
                   </div>
 
                   {/* Brand Filter */}
-                  <div className="mb-6">
-                    <h4 className="font-medium mb-2">Brand</h4>
-                    <div className="space-y-2">
-                      {uniqueBrands.map((brand) => (
-                        <label key={brand} className="flex items-center gap-2 cursor-pointer">
+                  <div className="mb-4 pb-4 border-b">
+                    <h4 className="font-medium mb-2 text-sm">Brand</h4>
+                    <div className="space-y-1 max-h-32 overflow-y-auto">
+                      {availableFilters.brands.map((brand) => (
+                        <label key={brand} className="flex items-center gap-2 cursor-pointer hover:bg-muted p-1 rounded">
                           <input
                             type="checkbox"
-                            checked={selectedBrand === brand}
-                            onChange={(e) => setSelectedBrand(e.target.checked ? brand : null)}
+                            checked={selectedBrands.includes(brand)}
+                            onChange={(e) => setSelectedBrands(e.target.checked ? [...selectedBrands, brand] : selectedBrands.filter(b => b !== brand))}
                             className="rounded"
                           />
-                          <span className="text-sm">{brand}</span>
+                          <span className="text-xs">{brand}</span>
                         </label>
                       ))}
                     </div>
                   </div>
 
-                  {/* Diameter Filter */}
-                  <div className="mb-6">
-                    <h4 className="font-medium mb-2">Diameter</h4>
-                    <div className="space-y-2">
-                      {uniqueDiameters.map((diameter) => (
-                        <label key={diameter} className="flex items-center gap-2 cursor-pointer">
+                  {/* Surgery Type Filter */}
+                  <div className="mb-4 pb-4 border-b">
+                    <h4 className="font-medium mb-2 text-sm">Surgery Type</h4>
+                    <div className="space-y-1">
+                      {availableFilters.surgeryTypes.map((type) => (
+                        <label key={type} className="flex items-center gap-2 cursor-pointer hover:bg-muted p-1 rounded">
                           <input
                             type="checkbox"
-                            checked={selectedDiameter === diameter}
-                            onChange={(e) => setSelectedDiameter(e.target.checked ? diameter : null)}
+                            checked={selectedSurgeryTypes.includes(type)}
+                            onChange={(e) => setSelectedSurgeryTypes(e.target.checked ? [...selectedSurgeryTypes, type] : selectedSurgeryTypes.filter(t => t !== type))}
                             className="rounded"
                           />
-                          <span className="text-sm">{diameter}</span>
+                          <span className="text-xs">{type}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Bag System Filter */}
+                  <div className="mb-4 pb-4 border-b">
+                    <h4 className="font-medium mb-2 text-sm">Bag System</h4>
+                    <div className="space-y-1">
+                      {availableFilters.bagSystems.map((system) => (
+                        <label key={system} className="flex items-center gap-2 cursor-pointer hover:bg-muted p-1 rounded">
+                          <input
+                            type="checkbox"
+                            checked={selectedBagSystems.includes(system)}
+                            onChange={(e) => setSelectedBagSystems(e.target.checked ? [...selectedBagSystems, system] : selectedBagSystems.filter(s => s !== system))}
+                            className="rounded"
+                          />
+                          <span className="text-xs">{system}</span>
                         </label>
                       ))}
                     </div>
                   </div>
 
                   {/* Baseplate Type Filter */}
-                  <div className="mb-6">
-                    <h4 className="font-medium mb-2">Baseplate Type</h4>
-                    <div className="space-y-2">
-                      {uniqueBaseplateTypes.map((type) => (
-                        <label key={type} className="flex items-center gap-2 cursor-pointer">
+                  <div className="mb-4 pb-4 border-b">
+                    <h4 className="font-medium mb-2 text-sm">Baseplate Type</h4>
+                    <div className="space-y-1">
+                      {availableFilters.baseplateTypes.map((type) => (
+                        <label key={type} className="flex items-center gap-2 cursor-pointer hover:bg-muted p-1 rounded">
                           <input
                             type="checkbox"
-                            checked={selectedBaseplateType === type}
-                            onChange={(e) => setSelectedBaseplateType(e.target.checked ? type : null)}
+                            checked={selectedBaseplateTypes.includes(type)}
+                            onChange={(e) => setSelectedBaseplateTypes(e.target.checked ? [...selectedBaseplateTypes, type] : selectedBaseplateTypes.filter(t => t !== type))}
                             className="rounded"
                           />
-                          <span className="text-sm">{type}</span>
+                          <span className="text-xs">{type}</span>
                         </label>
                       ))}
+                    </div>
+                  </div>
+
+                  {/* Product Type Filter */}
+                  <div className="mb-4 pb-4 border-b">
+                    <h4 className="font-medium mb-2 text-sm">Product Type</h4>
+                    <div className="space-y-1 max-h-32 overflow-y-auto">
+                      {availableFilters.productTypes.map((type) => (
+                        <label key={type} className="flex items-center gap-2 cursor-pointer hover:bg-muted p-1 rounded">
+                          <input
+                            type="checkbox"
+                            checked={selectedProductTypes.includes(type)}
+                            onChange={(e) => setSelectedProductTypes(e.target.checked ? [...selectedProductTypes, type] : selectedProductTypes.filter(t => t !== type))}
+                            className="rounded"
+                          />
+                          <span className="text-xs">{type}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Price Range Filter */}
+                  <div className="pb-4 border-b">
+                    <h4 className="font-medium mb-2 text-sm">Price Range</h4>
+                    <div className="space-y-2 text-xs">
+                      <div>
+                        <label className="text-muted-foreground">Min: ₹{priceRange?.min || availableFilters.priceRange.min}</label>
+                        <input
+                          type="range"
+                          min={availableFilters.priceRange.min}
+                          max={availableFilters.priceRange.max}
+                          value={priceRange?.min || availableFilters.priceRange.min}
+                          onChange={(e) => setPriceRange({ ...priceRange, min: parseInt(e.target.value) } as any)}
+                          className="w-full"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-muted-foreground">Max: ₹{priceRange?.max || availableFilters.priceRange.max}</label>
+                        <input
+                          type="range"
+                          min={availableFilters.priceRange.min}
+                          max={availableFilters.priceRange.max}
+                          value={priceRange?.max || availableFilters.priceRange.max}
+                          onChange={(e) => setPriceRange({ ...priceRange, max: parseInt(e.target.value) } as any)}
+                          className="w-full"
+                        />
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -256,14 +402,14 @@ export default function ColoplastBrand() {
             </aside>
 
             {/* Products Grid */}
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-2">
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2">
                   {category ? coloplastCategories[category]?.name : "All Products"}
                   {subCategory && ` - ${subCategory.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}`}
                 </h2>
-                <p className="text-muted-foreground">
-                  Total Products: {filteredProducts.length}
+                <p className="text-xs sm:text-sm text-muted-foreground">
+                  Showing {paginationResult.items.length > 0 ? ((currentPage - 1) * pageSize) + 1 : 0}-{Math.min(currentPage * pageSize, paginationResult.total)} of {paginationResult.total} products
                 </p>
               </div>
 
@@ -277,83 +423,152 @@ export default function ColoplastBrand() {
                   </CardContent>
                 </Card>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredProducts.map((product) => (
-                    <Card key={product.id} className="hover:shadow-lg transition-shadow">
-                      <CardContent className="p-4">
-                        <div className="aspect-square bg-muted rounded-lg mb-4 flex items-center justify-center">
-                          <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-full h-full object-cover rounded-lg"
-                            onError={(e) => {
-                              e.currentTarget.src = "https://via.placeholder.com/300x300?text=Coloplast+Product";
-                            }}
-                          />
-                        </div>
-                        
-                        <Badge className="mb-2">{product.brand}</Badge>
-                        
-                        <h3 className="font-semibold mb-2 line-clamp-2 min-h-[3rem]">
-                          {product.name}
-                        </h3>
-                        
-                        <div className="flex items-center gap-2 mb-2">
-                          {product.baseplateType && (
-                            <Badge variant="outline" className="text-xs">
-                              {product.baseplateType}
-                            </Badge>
-                          )}
-                          {product.bagSystem && (
-                            <Badge variant="outline" className="text-xs">
-                              {product.bagSystem}
-                            </Badge>
-                          )}
-                        </div>
-
-                        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                          {product.description}
-                        </p>
-
-                        <div className="flex items-center justify-between mb-4">
-                          <div>
-                            <p className="text-2xl font-bold text-primary">
-                              ₹{product.price}
-                            </p>
-                            <p className="text-xs text-muted-foreground">
-                              Pack of {product.packSize} (₹{Math.round(product.price / product.packSize)}/Unit)
-                            </p>
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-8">
+                    {paginationResult.items.map((product) => {
+                      // Handle both single image (string) and multiple images (array)
+                      const mainImage = Array.isArray(product.image) ? product.image[0] : product.image;
+                      const hasMultipleImages = Array.isArray(product.image) && product.image.length > 1;
+                      
+                      return (
+                      <Card key={product.id} className="hover:shadow-lg transition-shadow flex flex-col h-full">
+                        <CardContent className="p-3 sm:p-4 flex flex-col flex-1">
+                          <div className="aspect-square bg-muted rounded-lg mb-3 sm:mb-4 flex items-center justify-center relative flex-shrink-0">
+                            <img
+                              src={mainImage}
+                              alt={product.name}
+                              className="w-full h-full object-cover rounded-lg"
+                              onError={(e) => {
+                                e.currentTarget.src = "https://via.placeholder.com/300x300?text=Coloplast+Product";
+                              }}
+                            />
+                            {/* Badge for multiple images */}
+                            {hasMultipleImages && (
+                              <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-primary text-white px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-xs font-semibold">
+                                +{product.image.length - 1}
+                              </div>
+                            )}
                           </div>
-                        </div>
+                          
+                          <Badge className="mb-2 w-fit text-xs sm:text-sm">{product.brand}</Badge>
+                          
+                          <h3 className="font-semibold mb-2 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem] text-sm sm:text-base">
+                            {product.name}
+                          </h3>
+                          
+                          <div className="flex items-center gap-1 sm:gap-2 mb-2 flex-wrap">
+                            {product.baseplateType && (
+                              <Badge variant="outline" className="text-xs">
+                                {product.baseplateType}
+                              </Badge>
+                            )}
+                            {product.bagSystem && (
+                              <Badge variant="outline" className="text-xs">
+                                {product.bagSystem}
+                              </Badge>
+                            )}
+                          </div>
 
-                        <div className="flex gap-2">
-                          <Button
-                            className="flex-1"
-                            onClick={() => handleAddToCart(product.id, product.name)}
-                          >
-                            <ShoppingCart className="h-4 w-4 mr-2" />
-                            Add to Cart
-                          </Button>
-                          <Button
-                            variant="outline"
-                            onClick={() => navigate(`/brand/coloplast/product/${product.id}`)}
-                          >
-                            View
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+                          <p className="text-xs sm:text-sm text-muted-foreground mb-4 line-clamp-2 flex-grow">
+                            {product.description}
+                          </p>
+
+                          <div className="flex items-center justify-between mb-4">
+                            <div>
+                              <p className="text-lg sm:text-xl lg:text-2xl font-bold text-primary">
+                                ₹{product.price}
+                              </p>
+                              <p className="text-xs text-muted-foreground">
+                                Pack of {product.packSize} (₹{Math.round(product.price / product.packSize)}/Unit)
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="flex gap-2 flex-col sm:flex-row">
+                            <UserDetailsForm
+                              product={{
+                                id: product.id,
+                                name: product.name,
+                                price: `₹${product.price}`,
+                                pack: `Pack of ${product.packSize}`,
+                                productCode: product.productcode?.toString()
+                              }}
+                              className="flex-1"
+                            >
+                              Buy Now
+                            </UserDetailsForm>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => navigate(`/brand/coloplast/product/${product.id}`)}
+                              className="text-xs sm:text-sm px-2 sm:px-4"
+                            >
+                              View
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                    })}
+                  </div>
+
+                  {/* Pagination Controls */}
+                  {paginationResult.totalPages > 1 && (
+                    <div className="flex items-center justify-center gap-1 sm:gap-2 mt-8 overflow-x-auto pb-2">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                        disabled={!paginationResult.hasPrevPage}
+                        className="h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0"
+                      >
+                        <ChevronLeft className="h-3 sm:h-4 w-3 sm:w-4" />
+                      </Button>
+
+                      <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto px-2">
+                        {Array.from({ length: paginationResult.totalPages }, (_, i) => i + 1)
+                          .filter(p => {
+                            const delta = 2;
+                            return Math.abs(p - currentPage) <= delta || p === 1 || p === paginationResult.totalPages;
+                          })
+                          .map((page, idx, arr) => (
+                            <div key={page} className="flex items-center gap-1 sm:gap-2">
+                              {idx > 0 && arr[idx - 1] !== page - 1 && (
+                                <span className="px-1 sm:px-2 text-xs">...</span>
+                              )}
+                              <Button
+                                variant={page === currentPage ? "default" : "outline"}
+                                size="sm"
+                                onClick={() => setCurrentPage(page)}
+                                className="h-8 w-8 sm:h-10 sm:w-10 p-0 text-xs sm:text-sm flex-shrink-0"
+                              >
+                                {page}
+                              </Button>
+                            </div>
+                          ))}
+                      </div>
+
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setCurrentPage(Math.min(paginationResult.totalPages, currentPage + 1))}
+                        disabled={!paginationResult.hasNextPage}
+                        className="h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0"
+                      >
+                        <ChevronRight className="h-3 sm:h-4 w-3 sm:w-4" />
+                      </Button>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>
 
           {/* Information Section */}
-          <div className="mt-16">
+          <div className="mt-12 sm:mt-16">
             <Card>
-              <CardContent className="p-8">
-                <h2 className="text-2xl font-bold mb-4">
+              <CardContent className="p-4 sm:p-6 lg:p-8">
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4">
                   Coloplast Ostomy Bags – Secure, Comfortable & Affordable Solutions
                 </h2>
                 <div className="prose max-w-none">

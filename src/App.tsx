@@ -35,8 +35,8 @@ const App = () => (
           <Route path="/products/category/:slug" element={<ProductCategory />} />
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/brand/coloplast" element={<ColoplastBrand />} />
-          <Route path="/brand/coloplast/:category" element={<ColoplastBrand />} />
           <Route path="/brand/coloplast/:category/:subCategory" element={<ColoplastBrand />} />
+          <Route path="/brand/coloplast/:category" element={<ColoplastBrand />} />
           <Route path="/brand/coloplast/product/:productId" element={<ColoplastProductDetail />} />
           <Route path="/brand/coloplast/how-to-order" element={<ComingSoon />} />
           <Route path="/brand/:slug" element={<ProductCategory />} />
@@ -54,10 +54,10 @@ const App = () => (
         {/* WhatsApp Floating Button */}
         <Button
           size="icon"
-          className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg h-14 w-14 animate-bounce"
+          className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg h-12 sm:h-14 w-12 sm:w-14 animate-bounce"
           onClick={() => window.open('https://wa.me/919088869996?text=How%20can%20I%20help%20you%3F', '_blank')}
         >
-          <MessageCircle className="h-6 w-6" />
+          <MessageCircle className="h-5 sm:h-6 w-5 sm:w-6" />
         </Button>
       </BrowserRouter>
     </TooltipProvider>

@@ -80,8 +80,8 @@ export function Hero() {
         ></div>
       </div>
 
-      <div className="container mx-auto px-4 py-20 relative">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
           {/* Left content, animates in from left */}
           <motion.div
             className="text-center lg:text-left"
@@ -96,7 +96,7 @@ export function Hero() {
             </div>
 
             <motion.h1
-              className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
               variants={leftVariants}
               initial="hidden"
               animate="visible"
@@ -106,42 +106,42 @@ export function Hero() {
               <SplitText text="eSmart Healthcare" startAnimation={showSplit} />
             </motion.h1>
 
-            <p className="text-xl text-white/90 mb-8 leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 leading-relaxed">
 Empowering patient lives since 2013 across Hyderabad, Vijayawada, and Vizag.</p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button size="lg"  onClick={() => window.location.href = "/products"} className="btn-hero text-lg px-8 py-3 hover-lift">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12">
+              <Button size="lg"  onClick={() => window.location.href = "/products"} className="btn-hero text-sm sm:text-base px-6 sm:px-8 py-2.5 sm:py-3 h-auto hover-lift">
                 Shop Now
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 sm:h-5 w-4 sm:w-5" />
               </Button>
               <Button onClick={() => window.location.href = "/about"}
                 size="lg"
                 variant="outline"
-                className="text-lg px-8 py-3 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
+                className="text-sm sm:text-base px-6 sm:px-8 py-2.5 sm:py-3 h-auto bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
               >
                 Learn More
               </Button>
             </div>
 
             {/* Trust indicators */}
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/20">
+            <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-6 sm:pt-8 border-t border-white/20">
               <div className="text-center">
-                <div className="flex items-center justify-center w-12 h-12 bg-white/10 rounded-full mb-2 mx-auto">
-                  <Shield className="h-6 w-6 text-secondary" />
+                <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-white/10 rounded-full mb-1.5 sm:mb-2 mx-auto">
+                  <Shield className="h-5 sm:h-6 w-5 sm:w-6 text-secondary" />
                 </div>
-                <p className="text-white/80 text-sm font-medium">100% Authentic</p>
+                <p className="text-white/80 text-xs sm:text-sm font-medium">100% Authentic</p>
               </div>
               <div className="text-center">
-                <div className="flex items-center justify-center w-12 h-12 bg-white/10 rounded-full mb-2 mx-auto">
-                  <Truck className="h-6 w-6 text-secondary" />
+                <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-white/10 rounded-full mb-1.5 sm:mb-2 mx-auto">
+                  <Truck className="h-5 sm:h-6 w-5 sm:w-6 text-secondary" />
                 </div>
-                <p className="text-white/80 text-sm font-medium">Free Delivery</p>
+                <p className="text-white/80 text-xs sm:text-sm font-medium">Free Delivery</p>
               </div>
               <div className="text-center">
-                <div className="flex items-center justify-center w-12 h-12 bg-white/10 rounded-full mb-2 mx-auto">
-                  <HeartHandshake className="h-6 w-6 text-secondary" />
+                <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-white/10 rounded-full mb-1.5 sm:mb-2 mx-auto">
+                  <HeartHandshake className="h-5 sm:h-6 w-5 sm:w-6 text-secondary" />
                 </div>
-                <p className="text-white/80 text-sm font-medium">Expert Care</p>
+                <p className="text-white/80 text-xs sm:text-sm font-medium">Expert Care</p>
               </div>
             </div>
           </motion.div>
@@ -173,21 +173,21 @@ Empowering patient lives since 2013 across Hyderabad, Vijayawada, and Vizag.</p>
                     <img
                       src={heroImage}
                       alt="Healthcare professionals providing quality medical care"
-                      className="w-full h-[500px] object-cover"
+                      className="w-full h-64 sm:h-96 md:h-[400px] lg:h-[500px] object-cover"
                     />
                   </CarouselItem>
                   <CarouselItem>
                     <img
                       src={heroImage2}
                       alt="Patient consultation and support services"
-                      className="w-full h-[500px] object-cover"
+                      className="w-full h-64 sm:h-96 md:h-[400px] lg:h-[500px] object-cover"
                     />
                   </CarouselItem>
                   <CarouselItem>
                     <img
                       src={heroImage}
                       alt="Medical supplies and healthcare products"
-                      className="w-full h-[500px] object-cover"
+                      className="w-full h-64 sm:h-96 md:h-[400px] lg:h-[500px] object-cover"
                     />
                   </CarouselItem>
                 </CarouselContent>
@@ -207,15 +207,15 @@ Empowering patient lives since 2013 across Hyderabad, Vijayawada, and Vizag.</p>
               <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent pointer-events-none"></div>
             </div>
 
-            {/* Floating stats card */}
-            <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-6 shadow-strong animate-float">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">10k+</span>
+            {/* Floating stats card - Hidden on mobile, visible on md+ */}
+            <div className="hidden md:block absolute -bottom-4 -left-4 lg:-bottom-6 lg:-left-6 bg-white rounded-lg md:rounded-xl p-3 md:p-6 shadow-strong animate-float">
+              <div className="flex items-center gap-3 md:gap-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-primary rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-white font-bold text-sm md:text-lg">10k+</span>
                 </div>
-                <div>
-                  <p className="font-semibold text-foreground">Happy Customers</p>
-                  <p className="text-sm text-muted-foreground">Trusted nationwide</p>
+                <div className="min-w-0">
+                  <p className="font-semibold text-foreground text-sm md:text-base">Happy Customers</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">Trusted nationwide</p>
                 </div>
               </div>
             </div>

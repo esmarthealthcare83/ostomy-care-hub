@@ -41,33 +41,34 @@ const sectionVariants = {
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Header />
       <motion.main
         variants={containerVariants}
         initial="hidden"
         animate="visible"
+        className="w-full"
       >
         <Hero />
-        <motion.div variants={sectionVariants}>
+        <motion.div variants={sectionVariants} className="w-full">
           <ProductCategories />
         </motion.div>
         {/* <motion.div variants={sectionVariants}>
           <WhyChooseUs />
         </motion.div> */}
-        <motion.div variants={sectionVariants}>
+        <motion.div variants={sectionVariants} className="w-full">
           <Services />
         </motion.div>
-        <motion.div variants={sectionVariants}>
+        <motion.div variants={sectionVariants} className="w-full">
           <Testimonials />
         </motion.div>
-        <motion.div variants={sectionVariants}>
+        <motion.div variants={sectionVariants} className="w-full">
           <Branches />
         </motion.div>
         {/* <motion.div variants={sectionVariants}>
           <FAQ />
         </motion.div> */}
-        <motion.div variants={sectionVariants}>
+        <motion.div variants={sectionVariants} className="w-full">
           <Contact />
         </motion.div>
       </motion.main>
