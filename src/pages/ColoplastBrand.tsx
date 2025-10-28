@@ -528,7 +528,7 @@ export default function ColoplastBrand() {
                           <Badge className="mb-2 w-fit text-xs sm:text-sm">{product.brand}</Badge>
                           
                           <h3 className="font-semibold mb-2 line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem] text-sm sm:text-base">
-                            {product.name}
+                            {product.productcode ? `${product.productcode} - ` : ''}{product.name}
                           </h3>
                           
                           <div className="flex items-center gap-1 sm:gap-2 mb-2 flex-wrap">
