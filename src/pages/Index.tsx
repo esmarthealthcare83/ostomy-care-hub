@@ -56,9 +56,9 @@ const Index = () => {
         {/* <motion.div variants={sectionVariants}>
           <WhyChooseUs />
         </motion.div> */}
-        <motion.div variants={sectionVariants} className="w-full">
+        {/* <motion.div variants={sectionVariants} className="w-full">
           <Services />
-        </motion.div>
+        </motion.div> */}
         <motion.div variants={sectionVariants} className="w-full">
           <Testimonials />
         </motion.div>
