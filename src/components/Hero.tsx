@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { AppointmentDialog } from "./AppointmentDialog";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import heroImage from "@/assets/medical-hero.jpg";
-import heroImage2 from "@/assets/medical-hero2.jpg";
+import heroImage from "@/assets/1.webp";
+import heroImage2 from "@/assets/3.png";
+import heroImage3 from "@/assets/5.webp";
 import { motion } from "framer-motion";
 
 const leftVariants = {
@@ -185,7 +186,7 @@ Empowering patient lives since 2013 across Hyderabad, Vijayawada, and Vizag.</p>
                   </CarouselItem>
                   <CarouselItem>
                     <img
-                      src={heroImage}
+                      src={heroImage3}
                       alt="Medical supplies and healthcare products"
                       className="w-full h-64 sm:h-96 md:h-[400px] lg:h-[500px] object-cover"
                     />
