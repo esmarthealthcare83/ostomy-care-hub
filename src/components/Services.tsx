@@ -1,4 +1,4 @@
-import { Clock, Shield, HeartHandshake, Phone, Truck, Star } from "lucide-react";
+import { Clock, Shield, HeartHandshake, Phone, Truck, Star, Stethoscope } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function Services() {
@@ -38,6 +38,39 @@ export function Services() {
       title: "Loyalty Rewards",
       description: "Earn points on every purchase and get exclusive benefits",
       color: "accent"
+    },
+    {
+      icon: Stethoscope,
+      title: "Diagnostic Support",
+      description: "Comprehensive diagnostic services and medical consultations",
+      color: "primary"
+    }
+  ];
+
+  const doctors = [
+    {
+      name: "Dr. Rajesh Kumar",
+      specialization: "Colorectal Surgery",
+      experience: "15+ Years",
+      image: "/src/assets/logo.png"
+    },
+    {
+      name: "Dr. Priya Sharma",
+      specialization: "Gastroenterology",
+      experience: "12+ Years",
+      image: "/src/assets/logo.png"
+    },
+    {
+      name: "Dr. Vikram Patel",
+      specialization: "Surgical Oncology",
+      experience: "18+ Years",
+      image: "/src/assets/logo.png"
+    },
+    {
+      name: "Dr. Aneela Singh",
+      specialization: "Wound Care Specialist",
+      experience: "10+ Years",
+      image: "/src/assets/logo.png"
     }
   ];
 
@@ -119,6 +152,45 @@ export function Services() {
                 Tailored supply management solutions that adapt to your changing needs. From recurring deliveries to emergency supplies, we ensure you always have the products you need when you need them.
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* Our Medical Team */}
+        <div className="mt-20">
+          <div className="text-center mb-12 animate-fade-in">
+            <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">
+              Our Expert Medical Team
+            </h3>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Meet our experienced healthcare professionals dedicated to providing exceptional care and guidance
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {doctors.map((doctor, index) => (
+              <Card key={doctor.name}
+                    className="hover-lift shadow-soft hover:shadow-medium animate-slide-up bg-gradient-card border-0 overflow-hidden"
+                    style={{animationDelay: `${index * 0.1}s`}}>
+                <div className="flex flex-col h-full">
+                  <div className="w-full h-40 bg-gray-200 flex items-center justify-center overflow-hidden">
+                    <img src={doctor.image} alt={doctor.name} className="w-full h-full object-cover" />
+                  </div>
+                  <CardContent className="p-4 flex flex-col flex-grow">
+                    <h4 className="font-bold text-lg text-foreground mb-1">{doctor.name}</h4>
+                    <p className="text-primary font-semibold text-sm mb-2">{doctor.specialization}</p>
+                    <p className="text-muted-foreground text-sm mb-4 flex-grow">
+                      <span className="font-medium">Experience:</span> {doctor.experience}
+                    </p>
+                    <button className="w-full bg-primary text-primary-foreground py-2 rounded-lg hover:bg-primary/90 transition-colors font-semibold text-sm">
+                      <a href="tel:1800-102-0550" className="flex items-center justify-center gap-2">
+                        <Phone className="h-4 w-4" />
+                        Contact
+                      </a>
+                    </button>
+                  </CardContent>
+                </div>
+              </Card>
+            ))}
           </div>
         </div>
 

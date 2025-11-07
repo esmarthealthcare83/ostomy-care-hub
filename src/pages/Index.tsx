@@ -17,7 +17,7 @@ const containerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.2,
-      delayChildren: 0.1,
+    delayChildren: 0.1,
     }
   }
 };
@@ -68,9 +68,9 @@ const Index = () => {
         {/* <motion.div variants={sectionVariants}>
           <FAQ />
         </motion.div> */}
-        <motion.div variants={sectionVariants} className="w-full">
+        {/* <motion.div variants={sectionVariants} className="w-full">
           <Contact />
-        </motion.div>
+        </motion.div> */}
       </motion.main>
       <Footer />
     </div>

@@ -1,9 +1,13 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Users, Award, TrendingUp, Heart, Target, Shield, Star, CheckCircle } from "lucide-react";
+import { Users, Award, TrendingUp, Heart, Target, Shield, Star, CheckCircle, Phone, AlertCircle } from "lucide-react";
+import AneelaImg from "/src/assets/aneela.jpeg";
+import MaheshImg from "/src/assets/mahesh.jpeg";
+import PruthvirajImg from "/src/assets/pruthvi.jpeg";
+import BikshapathiImg from "/src/assets/bikshapathi.jpeg";
 
 const About = () => {
   const teamMembers = [
@@ -356,7 +360,7 @@ const About = () => {
               </p>
             </div>
 
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-4xl mx-auto mb-12">
               <Card className="shadow-soft hover:shadow-glow transition-all duration-300 bg-gradient-card border-0 group animate-slide-up overflow-hidden">
                 <CardHeader className="text-center pb-4">
                   <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-primary/20 group-hover:border-primary/40 transition-colors">
@@ -365,7 +369,7 @@ const About = () => {
                     </AvatarFallback>
                   </Avatar>
                   <CardTitle className="text-2xl group-hover:text-primary transition-colors">
-                    Narendra Kumar.G (M.D)
+                    G.N Kunar ( Founder & CEO )
                   </CardTitle>
                   <CardDescription className="font-medium text-primary text-lg">
                     Sales & Marketing | Business Development Professional
@@ -375,15 +379,173 @@ const About = () => {
                   <p className="text-muted-foreground text-center leading-relaxed mb-4">
                     With 14+ years of expertise across sales, marketing, brand promotion, distribution, client relations, and business development, Dr. Kumar is a visionary leader with deep knowledge of healthcare networks in South India, especially Andhra Pradesh and Telangana.
                   </p>
-                  <ul className="text-muted-foreground space-y-1">
-                    <li>• Former Territory Manager at Coloplast Ind Pvt Ltd</li>
-                    <li>• Event management and brand enhancement specialist</li>
-                    <li>• Experience with both government and private healthcare institutions</li>
-                    <li>• Detail-oriented, multi-tasking professional</li>
-                    <li>• MS Office adept; digital transformation advocate</li>
-                  </ul>
                 </CardContent>
               </Card>
+            </div>
+
+            {/* Staff Members */}
+            <div className="max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                {/* Inampudi Aneela */}
+                <Card className="shadow-soft hover:shadow-glow transition-all duration-300 bg-gradient-card border-0 group animate-slide-up overflow-hidden hover:-translate-y-3">
+                  <div className="relative h-56 sm:h-64 bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-950 dark:to-blue-900 flex items-center justify-center overflow-hidden">
+                    <Avatar className="w-48 h-48 sm:w-56 sm:h-56 mx-auto border-8 border-white dark:border-slate-800 shadow-xl group-hover:scale-110 transition-transform duration-300 ring-4 ring-blue-200 dark:ring-blue-800">
+                      <AvatarImage src={AneelaImg} alt="Inampudi Aneela" className="object-cover" />
+                      <AvatarFallback className="bg-gradient-to-br from-blue-500 to-blue-600 text-white text-4xl font-bold">IA</AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <CardHeader className="text-center pt-6 pb-3">
+                    <CardTitle className="text-lg sm:text-xl group-hover:text-primary transition-colors">
+                      Inampudi Aneela
+                    </CardTitle>
+                    <CardDescription className="font-semibold text-primary text-sm sm:text-base">
+                      Admin Accounting Manager
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3 text-xs sm:text-sm pb-6">
+                    <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-3 border border-blue-200 dark:border-blue-800">
+                      <p className="font-bold text-foreground mb-2">Contact Details</p>
+                      <ul className="space-y-2 text-muted-foreground">
+                        <li className="flex items-center gap-2">
+                          <Phone className="h-4 w-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+                          <span className="font-medium">+91 7993541999</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Phone className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0" />
+                          <span className="font-medium">09515259833</span>
+                        </li>
+                        {/* <li className="flex items-center gap-2">
+                          <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
+                          <span className="font-medium">+91 9088869996</span>
+                        </li> */}
+                      </ul>
+                    </div>
+                    <Badge className="bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-600 w-full justify-center py-2 text-xs font-bold">
+                      Blood Group: B+ve
+                    </Badge>
+                  </CardContent>
+                </Card>
+
+                {/* Kurva Mahesh Kumar */}
+                <Card className="shadow-soft hover:shadow-glow transition-all duration-300 bg-gradient-card border-0 group animate-slide-up overflow-hidden hover:-translate-y-3">
+                  <div className="relative h-56 sm:h-64 bg-gradient-to-br from-green-100 to-green-50 dark:from-green-950 dark:to-green-900 flex items-center justify-center overflow-hidden">
+                    <Avatar className="w-48 h-48 sm:w-56 sm:h-56 mx-auto border-8 border-white dark:border-slate-800 shadow-xl group-hover:scale-110 transition-transform duration-300 ring-4 ring-green-200 dark:ring-green-800">
+                      <AvatarImage src={MaheshImg} alt="Kurva Mahesh Kumar" className="object-cover" />
+                      <AvatarFallback className="bg-gradient-to-br from-green-500 to-green-600 text-white text-4xl font-bold">KM</AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <CardHeader className="text-center pt-6 pb-3">
+                    <CardTitle className="text-lg sm:text-xl group-hover:text-primary transition-colors">
+                      Kurva Mahesh Kumar
+                    </CardTitle>
+                    <CardDescription className="font-semibold text-primary text-sm sm:text-base">
+                      HR Manager
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3 text-xs sm:text-sm pb-6">
+                    <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-3 border border-green-200 dark:border-green-800">
+                      <p className="font-bold text-foreground mb-2">Contact Details</p>
+                      <ul className="space-y-2 text-muted-foreground">
+                        <li className="flex items-center gap-2">
+                          <Phone className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0" />
+                          <span className="font-medium">+91 9392698458</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Phone className="h-4 w-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+                          <span className="font-medium">9899665446</span>
+                        </li>
+                        {/* <li className="flex items-center gap-2">
+                          <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
+                          <span className="font-medium">+91 9088869996</span>
+                        </li> */}
+                      </ul>
+                    </div>
+                    <Badge className="bg-green-500/20 text-green-700 dark:text-green-300 border border-green-300 dark:border-green-600 w-full justify-center py-2 text-xs font-bold">
+                      Blood Group: B+ve
+                    </Badge>
+                  </CardContent>
+                </Card>
+
+                {/* Yarlagadda Pruthviraj */}
+                <Card className="shadow-soft hover:shadow-glow transition-all duration-300 bg-gradient-card border-0 group animate-slide-up overflow-hidden hover:-translate-y-3">
+                  <div className="relative h-56 sm:h-64 bg-gradient-to-br from-purple-100 to-purple-50 dark:from-purple-950 dark:to-purple-900 flex items-center justify-center overflow-hidden">
+                    <Avatar className="w-48 h-48 sm:w-56 sm:h-56 mx-auto border-8 border-white dark:border-slate-800 shadow-xl group-hover:scale-110 transition-transform duration-300 ring-4 ring-purple-200 dark:ring-purple-800">
+                      <AvatarImage src={PruthvirajImg} alt="Yarlagadda Pruthviraj" className="object-cover" />
+                      <AvatarFallback className="bg-gradient-to-br from-purple-500 to-purple-600 text-white text-4xl font-bold">YP</AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <CardHeader className="text-center pt-6 pb-3">
+                    <CardTitle className="text-lg sm:text-xl group-hover:text-primary transition-colors">
+                      Yarlagadda Pruthviraj
+                    </CardTitle>
+                    <CardDescription className="font-semibold text-primary text-sm sm:text-base">
+                      HR Manager
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3 text-xs sm:text-sm pb-6">
+                    <div className="bg-purple-50 dark:bg-purple-950/30 rounded-lg p-3 border border-purple-200 dark:border-purple-800">
+                      <p className="font-bold text-foreground mb-2">Contact Details</p>
+                      <ul className="space-y-2 text-muted-foreground">
+                        <li className="flex items-center gap-2">
+                          <Phone className="h-4 w-4 text-purple-600 dark:text-purple-400 flex-shrink-0" />
+                          <span className="font-medium">+91 9542498707</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Phone className="h-4 w-4 text-pink-600 dark:text-pink-400 flex-shrink-0" />
+                          <span className="font-medium">9062666754</span>
+                        </li>
+                        {/* <li className="flex items-center gap-2">
+                          <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
+                          <span className="font-medium">+91 9088869996</span>
+                        </li> */}
+                      </ul>
+                    </div>
+                    <Badge className="bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-600 w-full justify-center py-2 text-xs font-bold">
+                      Blood Group: A+ve
+                    </Badge>
+                  </CardContent>
+                </Card>
+
+                {/* Gangaram Bikshapathi */}
+                <Card className="shadow-soft hover:shadow-glow transition-all duration-300 bg-gradient-card border-0 group animate-slide-up overflow-hidden hover:-translate-y-3">
+                  <div className="relative h-56 sm:h-64 bg-gradient-to-br from-orange-100 to-orange-50 dark:from-orange-950 dark:to-orange-900 flex items-center justify-center overflow-hidden">
+                    <Avatar className="w-48 h-48 sm:w-56 sm:h-56 mx-auto border-8 border-white dark:border-slate-800 shadow-xl group-hover:scale-110 transition-transform duration-300 ring-4 ring-orange-200 dark:ring-orange-800">
+                      <AvatarImage src={BikshapathiImg} alt="Gangaram Bikshapathi" className="object-cover" />
+                      <AvatarFallback className="bg-gradient-to-br from-orange-500 to-orange-600 text-white text-4xl font-bold">GB</AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <CardHeader className="text-center pt-6 pb-3">
+                    <CardTitle className="text-lg sm:text-xl group-hover:text-primary transition-colors">
+                      Gangaram Bikshapathi
+                    </CardTitle>
+                    <CardDescription className="font-semibold text-primary text-sm sm:text-base">
+                      Admin Accounting Manager
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3 text-xs sm:text-sm pb-6">
+                    <div className="bg-orange-50 dark:bg-orange-950/30 rounded-lg p-3 border border-orange-200 dark:border-orange-800">
+                      <p className="font-bold text-foreground mb-2">Contact Details</p>
+                      <ul className="space-y-2 text-muted-foreground">
+                        <li className="flex items-center gap-2">
+                          <Phone className="h-4 w-4 text-orange-600 dark:text-orange-400 flex-shrink-0" />
+                          <span className="font-medium">+91 7959453999</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Phone className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+                          <span className="font-medium">9948902482</span>
+                        </li>
+                        {/* <li className="flex items-center gap-2">
+                          <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
+                          <span className="font-medium">+91 9088869996</span>
+                        </li> */}
+                      </ul>
+                    </div>
+                    <Badge className="bg-orange-500/20 text-orange-700 dark:text-orange-300 border border-orange-300 dark:border-orange-600 w-full justify-center py-2 text-xs font-bold">
+                      Blood Group: O+ve
+                    </Badge>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </div>
         </section>

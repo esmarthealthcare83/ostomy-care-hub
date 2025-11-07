@@ -4,47 +4,59 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export function Testimonials() {
   const testimonials = [
-    {
-      name: "Rajesh Kumar",
-      location: "Mumbai, Maharashtra",
+     {
+     
+      name: "Stephen Srija",
+      location: "Hyderabad, Telanganna",
       rating: 5,
-      text: "eSmart Healthcare has been a lifesaver. The quality of products is excellent and the delivery is always on time. The customer support team is very understanding and helpful.",
-      product: "Alterna® Ostomy Bags"
+      text: "Friendly and helpful staff quick and efficient service Discount on medicines fast prescription fulfillment delivery option including same day delivery. High quality products.. Mr MAHESH is very kind and helpful thnq Mahesh for your kind heart and supporting me to get my medicine...",
+      product: "Alterna® Ostomy Bags",
     },
     {
-      name: "Priya Sharma",
-      location: "Delhi, NCR",
+      
+      name: "BC Vengadachalam",
+      location: "Hyderabad, Telanganna",
       rating: 5,
-      text: "I've been ordering from eSmart Healthcare for over a year now. Their products are authentic and the prices are reasonable. The discreet packaging gives me confidence.",
-      product: "SenSura® Mio Baseplates"
+      text: "Mr.Kumar is very kind and takes the initiative to help the end customers He supported me from Hyderabad and am based out of Chennai. I recommend eSmart Heathcare",
+      product: "SenSura® Mio Baseplates",
+
     },
     {
-      name: "Mohammed Ali",
-      location: "Bangalore, Karnataka",
+ 
+      name: "SALI GOVARADHAN",
+      location: "Hyderabad,Telanganna",
       rating: 5,
-      text: "The expert consultation service helped me choose the right products for my needs. The free delivery across India is a great benefit. Highly recommended!",
-      product: "Brava® Accessories"
+
+      text: "I would recommend this facility to others based on my experience.Staff are attentive, respectful, and made sure all my needs were met promptly. Delivery of the product is quick",
+      product: "Brava® Accessories",
+    
     },
     {
-      name: "Lakshmi Menon",
-      location: "Chennai, Tamil Nadu",
+     
+      name: "Nirmal Hamsala",
+      location: "Vijawada, Andhra Pradesh",
       rating: 5,
-      text: "As a caregiver, I appreciate the educational resources and patient support provided by eSmart Healthcare. They truly care about their customers' well-being.",
-      product: "Complete Care Kit"
+    
+      text: "First time I ordered their products. Response is good . Prompt delivery. Good service.",
+      product: "Complete Care Kit",
+    
     },
     {
-      name: "Amit Patel",
-      location: "Ahmedabad, Gujarat",
+ 
+      name: "Dileep Kumar",
+      location: "Hyderabad, Telanganna",
       rating: 5,
-      text: "The 24/7 support has been invaluable during urgent situations. The team is knowledgeable and always ready to help. Great service overall.",
-      product: "Coloplast Products"
+      text: "Good service, delivered orders on time, friendly staff Bikshapthi and Mahesh good",
+      product: "Coloplast Products",
     },
     {
-      name: "Sunita Devi",
-      location: "Kolkata, West Bengal",
+
+      name: "Madhumanee Abeywardena",
+      location: "Vijayawada, Andhra Pradesh",
       rating: 5,
-      text: "I'm impressed with the quality assurance and the care taken in packaging. Every order arrives in perfect condition. Thank you for the excellent service.",
-      product: "Ostomy Care Supplies"
+      text: "Very good company with very nice and helpful people. They arranged my order within a day and delivered it to the door step. Highly recommend. Special thanks to Mahesh",
+      product: "Ostomy Care Supplies",
+ 
     }
   ];
 

@@ -1,4 +1,4 @@
-import { Facebook, Youtube, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Youtube, Instagram, Mail, Phone, MapPin, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import logo from "@/assets/logo.jpg";
@@ -114,20 +114,27 @@ export function Footer() {
                 placeholder="Enter your email"
                 className="flex-1 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg bg-white/10 border border-white/20 text-primary-foreground placeholder:text-primary-foreground/60 text-xs sm:text-sm"
               />
-              <Button size="sm" className="btn-secondary-medical text-xs sm:text-sm h-auto py-1.5 sm:py-2 px-3">
+              <Button 
+                size="sm" 
+                className="btn-secondary-medical text-xs sm:text-sm h-auto py-1.5 sm:py-2 px-3"
+                onClick={() => window.open("https://youtube.com/@esmarthealthcare?si=_KLZhxKhedbzO7xz", "_blank")}
+              >
                 Subscribe
               </Button>
             </div>
 
             <div className="flex gap-3 sm:gap-4">
-              <a href="#" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors flex-shrink-0">
+              <a href="https://www.facebook.com/share/1Cnoa9dFUR/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors flex-shrink-0">
                 <Facebook className="h-4 sm:h-5 w-4 sm:w-5" />
               </a>
-              <a href="#" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors flex-shrink-0">
+              <a href="https://youtube.com/@esmarthealthcare?si=_KLZhxKhedbzO7xz" target="_blank" rel="noopener noreferrer" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors flex-shrink-0">
                 <Youtube className="h-4 sm:h-5 w-4 sm:w-5" />
               </a>
-              <a href="#" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors flex-shrink-0">
+              <a href="https://www.instagram.com/esmart_healthcare?igsh=MnJwbG45bTNsc2V2" target="_blank" rel="noopener noreferrer" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors flex-shrink-0">
                 <Instagram className="h-4 sm:h-5 w-4 sm:w-5" />
+              </a>
+              <a href="https://share.google/C09oy4Gdd6NwbYcNh" target="_blank" rel="noopener noreferrer" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary transition-colors flex-shrink-0" title="eSmart Healthcare">
+                <Globe className="h-4 sm:h-5 w-4 sm:w-5" />
               </a>
             </div>
           </div>

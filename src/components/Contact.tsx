@@ -45,40 +45,41 @@ export function Contact() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      // Format message for WhatsApp
+      const whatsappMessage = `*New Contact Form Submission*
+
+*Name:* ${formData.firstName} ${formData.lastName}
+*Email:* ${formData.email}
+*Phone:* ${formData.phone}
+*Subject:* ${formData.subject}
+*Message:* ${formData.message}`;
+
+      // Encode message for URL
+      const encodedMessage = encodeURIComponent(whatsappMessage);
+      
+      // Send to WhatsApp
+      const whatsappUrl = `https://wa.me/919088869996?text=${encodedMessage}`;
+      window.open(whatsappUrl, '_blank');
+
+      // Show success message
+      toast.success("Opening WhatsApp...", {
+        description: "Your message will be sent to our team.",
+        duration: 3000,
       });
-
-      const data = await response.json();
-
-      if (data.success) {
-        toast.success("Thank you for your message!", {
-          description: "We'll get back to you within 24 hours.",
-          duration: 5000,
-        });
-        
-        // Reset form
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          subject: "",
-          message: ""
-        });
-      } else {
-        toast.error("Failed to send message", {
-          description: data.error || "Please try again or contact us directly.",
-        });
-      }
+      
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: ""
+      });
     } catch (error) {
       console.error('Error submitting form:', error);
-      toast.error("Connection error", {
-        description: "Please check your internet connection and try again.",
+      toast.error("Error", {
+        description: "Please try again or contact us via WhatsApp directly.",
       });
     } finally {
       setIsSubmitting(false);
@@ -89,10 +90,10 @@ export function Contact() {
       icon: Mail,
       title: "Email Us",
       description: "Get detailed assistance via email",
-      contact: "esmarthealthcarehyd@gmail.com",
+      contact: "support@esmarthealthcare.com",
       action: "Send Email",
       color: "primary",
-      href: "mailto:esmarthealthcarehyd@gmail.com"
+      href: "mailto:support@esmarthealthcare.com"
     },
     {
       icon: Phone,
@@ -186,7 +187,7 @@ export function Contact() {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Monday - Saturday:</span>
-                    <span className="font-medium">9:00 AM - 6:00 PM</span>
+                    <span className="font-medium">9:00 AM - 9:00 PM</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">WhatsApp Support:</span>
@@ -309,30 +310,217 @@ export function Contact() {
         </div>
 
         {/* Location Map */}
-        <div className="mt-16">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-foreground mb-4">Find Us</h3>
-            <p className="text-muted-foreground">Serving customers across Telangana & Andhra Pradesh with reliable medical supply distribution</p>
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold text-foreground mb-4">Our Locations</h3>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Strategically located across Telangana & Andhra Pradesh to serve you better</p>
           </div>
 
-          <Card className="shadow-strong overflow-hidden">
-            <CardContent className="p-0">
-              <div className="aspect-video w-full">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.721!2d78.4867!3d17.3850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99c7450c5b9f%3A0x1234567890abcdef!2sHyderabad%2C%20Telangana%2C%20India!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="eSmart Healthcare Service Area"
-                  className="rounded-lg"
-                ></iframe>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Two Location Grid */}
+          <div className="grid lg:grid-cols-2 gap-10">
+            {/* Telangana - Hyderabad */}
+            <div className="group">
+              <Card className="shadow-strong overflow-hidden relative h-full hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                {/* Map Header Badge */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 z-20"></div>
+                
+                {/* Map Container */}
+                <CardContent className="p-0">
+                  <div className="aspect-video w-full bg-gradient-to-br from-slate-100 to-slate-200 relative overflow-hidden">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.9299!2d78.48395!3d17.38246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99c7450c5b9f%3A0x123456789abcdef!2sHyderabad%20Telangana!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen=""
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="eSmart Healthcare - Telangana, Hyderabad Location"
+                    ></iframe>
+                  </div>
+                  
+                  {/* Location Pin Label */}
+                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-4 max-w-xs z-10 border border-white/20 hover:shadow-2xl transition-shadow duration-300">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+                        <MapPin className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-foreground text-sm">eSmart Healthcare</p>
+                        <p className="text-xs font-semibold text-blue-600 mt-1">📍 Main Office</p>
+                        <p className="text-xs text-muted-foreground mt-1">Hyderabad, Telangana</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
 
+              {/* Quick Stats Below Map */}
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-3 rounded-lg border border-blue-100">
+                  <p className="text-xs font-semibold text-blue-700">Service Area</p>
+                  <p className="text-sm font-bold text-foreground mt-1">Telangana</p>
+                </div>
+                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-3 rounded-lg border border-blue-100">
+                  <p className="text-xs font-semibold text-blue-700">Availability</p>
+                  <p className="text-sm font-bold text-foreground mt-1">9 AM - 9 PM</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Andhra Pradesh - Vijayawada */}
+            <div className="group">
+              <Card className="shadow-strong overflow-hidden relative h-full hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                {/* Map Header Badge */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 to-red-500 z-20"></div>
+                
+                {/* Map Container */}
+                <CardContent className="p-0">
+                  <div className="aspect-video w-full bg-gradient-to-br from-slate-100 to-slate-200 relative overflow-hidden">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.2156!2d82.24267!3d16.50621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35f5c0123456!2sVijayawada%20Andhra%20Pradesh!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen=""
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="eSmart Healthcare - Andhra Pradesh, Vijayawada Location"
+                    ></iframe>
+                  </div>
+                  
+                  {/* Location Pin Label */}
+                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-4 max-w-xs z-10 border border-white/20 hover:shadow-2xl transition-shadow duration-300">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+                        <MapPin className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-foreground text-sm">eSmart Healthcare</p>
+                        <p className="text-xs font-semibold text-orange-600 mt-1">🏢 Branch Office</p>
+                        <p className="text-xs text-muted-foreground mt-1">Vijayawada, Andhra Pradesh</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Quick Stats Below Map */}
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                <div className="bg-gradient-to-br from-orange-50 to-red-50 p-3 rounded-lg border border-orange-100">
+                  <p className="text-xs font-semibold text-orange-700">Service Area</p>
+                  <p className="text-sm font-bold text-foreground mt-1">Andhra Pradesh</p>
+                </div>
+                <div className="bg-gradient-to-br from-orange-50 to-red-50 p-3 rounded-lg border border-orange-100">
+                  <p className="text-xs font-semibold text-orange-700">Availability</p>
+                  <p className="text-sm font-bold text-foreground mt-1">9 AM - 9 PM</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Address Details Grid */}
+          <div className="grid lg:grid-cols-2 gap-8 mt-8">
+            {/* Telangana Address */}
+            <Card className="shadow-soft">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center">
+                    <MapPin className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">Telangana - Hyderabad</CardTitle>
+                    <CardDescription>Our Main Office</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <p className="text-sm font-medium text-foreground mb-1">Address</p>
+                  <p className="text-sm text-muted-foreground">
+                    B-block, Central Court Apartment, 305 & 307, Raj Bhavan Rd, beside Yamaha Bike Showroom, near Yashoda Hospitals, Durga Nagar Colony, Somajiguda.
+                    <br/> Hyderabad, Telangana 500082.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-foreground mb-1">Phone</p>
+                  <p className="text-sm text-muted-foreground">
+                    1800-102-0550<br/>
+                    0120-407-1300
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-foreground mb-1">Email</p>
+                  <p className="text-sm text-muted-foreground">
+                   support@esmarthealthcare.com
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-foreground mb-1">WhatsApp</p>
+                  <p className="text-sm text-muted-foreground">
+                    +91 9088869996
+                  </p>
+                </div>
+                <Button
+                  className="w-full btn-hero mt-4"
+                  onClick={() => window.open("https://maps.app.goo.gl/AAj2DoAJaegJWB75A?g_st=awb", "_blank")}
+                >
+                  View on Maps
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Andhra Pradesh Address */}
+            <Card className="shadow-soft">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-secondary flex items-center justify-center">
+                    <MapPin className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">Andhra Pradesh - Vijayawada</CardTitle>
+                    <CardDescription>Our Branch Office</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <p className="text-sm font-medium text-foreground mb-1">Address</p>
+                  <p className="text-sm text-muted-foreground">
+                   PANTA KALUVA ROAD, Karanam Gari St, near AISHWARYA BAR & RESTUARENT, Patamata.<br/>
+                     Vijayawada, Andhra Pradesh 520010
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-foreground mb-1">Phone</p>
+                  <p className="text-sm text-muted-foreground">
+                    1800-102-0550<br/>
+                    0120-407-1300
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-foreground mb-1">Email</p>
+                  <p className="text-sm text-muted-foreground">
+                    support@esmarthealthcare.com
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-foreground mb-1">WhatsApp</p>
+                  <p className="text-sm text-muted-foreground">
+                    +91 9088869996
+                  </p>
+                </div>
+                <Button
+                  className="w-full btn-secondary-medical mt-4"
+                  onClick={() => window.open("https://maps.app.goo.gl/5qnuPDcY4bXxr3eR6?g_st=awb", "_blank")}
+                >
+                  View on Maps
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Service Coverage */}
           <div className="mt-8 text-center">
             <Card className="inline-block shadow-soft">
               <CardContent className="p-6">

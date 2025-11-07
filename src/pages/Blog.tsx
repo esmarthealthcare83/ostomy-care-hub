@@ -3,77 +3,79 @@ import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Star, Quote, Calendar, User } from "lucide-react";
-import medicalHero from "@/assets/medical-hero.jpg";
-import medicalHero2 from "@/assets/medical-hero2.jpg";
-import productsShowcase from "@/assets/products-showcase.jpg";
+import image1 from "@/assets/1.webp";
+import image2 from "@/assets/2.jpg";
+import image3 from "@/assets/3.png";
+import image4 from "@/assets/4.jpg";
+import image5 from "@/assets/5.webp";
 
 const Blog = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Rajesh Kumar",
-      location: "Mumbai, Maharashtra",
+      name: "Stephen Srija",
+      location: "Hyderabad, Telanganna",
       rating: 5,
       title: "A Lifesaver in My Journey",
-      text: "eSmart Healthcare has been a lifesaver. The quality of products is excellent and the delivery is always on time. The customer support team is very understanding and helpful.",
+      text: "Friendly and helpful staff quick and efficient service Discount on medicines fast prescription fulfillment delivery option including same day delivery. High quality products.. Mr MAHESH is very kind and helpful thnq Mahesh for your kind heart and supporting me to get my medicine...",
       product: "Alterna® Ostomy Bags",
-      date: "2024-01-15",
-      image: medicalHero
+      date: "2025-10-15",
+      image: image1
     },
     {
       id: 2,
-      name: "Priya Sharma",
-      location: "Delhi, NCR",
+      name: "BC Vengadachalam",
+      location: "Hyderabad, Telanganna",
       rating: 5,
       title: "Reliable Care with Discreet Service",
-      text: "I've been ordering from eSmart Healthcare for over a year now. Their products are authentic and the prices are reasonable. The discreet packaging gives me confidence.",
+      text: "Mr.Kumar is very kind and takes the initiative to help the end customers He supported me from Hyderabad and am based out of Chennai. I recommend eSmart Heathcare",
       product: "SenSura® Mio Baseplates",
-      date: "2024-01-10",
-      image: medicalHero2
+      date: "2025-09-10",
+      image: image2
     },
     {
       id: 3,
-      name: "Mohammed Ali",
-      location: "Bangalore, Karnataka",
+      name: "SALI GOVARADHAN",
+      location: "Hyderabad,Telanganna",
       rating: 5,
       title: "Expert Guidance Made All the Difference",
-      text: "The expert consultation service helped me choose the right products for my needs. The free delivery across India is a great benefit. Highly recommended!",
+      text: "I would recommend this facility to others based on my experience.Staff are attentive, respectful, and made sure all my needs were met promptly. Delivery of the product is quick",
       product: "Brava® Accessories",
       date: "2024-01-05",
-      image: productsShowcase
+      image: image3
     },
     {
       id: 4,
-      name: "Lakshmi Menon",
-      location: "Chennai, Tamil Nadu",
+      name: "Nirmal Hamsala",
+      location: "Vijawada, Andhra Pradesh",
       rating: 5,
       title: "Compassionate Care for Caregivers",
-      text: "As a caregiver, I appreciate the educational resources and patient support provided by eSmart Healthcare. They truly care about their customers' well-being.",
+      text: "First time I ordered their products. Response is good . Prompt delivery. Good service.",
       product: "Complete Care Kit",
-      date: "2023-12-28",
-      image: medicalHero
+      date: "2025-08-28",
+      image: image4
     },
     {
       id: 5,
-      name: "Amit Patel",
-      location: "Ahmedabad, Gujarat",
+      name: "Dileep Kumar",
+      location: "Hyderabad, Telanganna",
       rating: 5,
-      title: "24/7 Support You Can Count On",
-      text: "The 24/7 support has been invaluable during urgent situations. The team is knowledgeable and always ready to help. Great service overall.",
+      title: "Fast Delivery",
+      text: "Good service, delivered orders on time, friendly staff Bikshapthi and Mahesh good",
       product: "Coloplast Products",
-      date: "2023-12-20",
-      image: medicalHero2
+      date: "2025-09-20",
+      image: image5
     },
     {
       id: 6,
-      name: "Sunita Devi",
-      location: "Kolkata, West Bengal",
+      name: "Madhumanee Abeywardena",
+      location: "Vijayawada, Andhra Pradesh",
       rating: 5,
       title: "Quality Assurance I Can Trust",
-      text: "I'm impressed with the quality assurance and the care taken in packaging. Every order arrives in perfect condition. Thank you for the excellent service.",
+      text: "Very good company with very nice and helpful people. They arranged my order within a day and delivered it to the door step. Highly recommend. Special thanks to Mahesh",
       product: "Ostomy Care Supplies",
-      date: "2023-12-15",
-      image: productsShowcase
+      date: "2025-02-15",
+      image: image1
     }
   ];
 
