@@ -406,14 +406,8 @@ const About = () => {
                     <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-3 border border-blue-200 dark:border-blue-800">
                       <p className="font-bold text-foreground mb-2">Contact Details</p>
                       <ul className="space-y-2 text-muted-foreground">
-                        <li className="flex items-center gap-2">
-                          <Phone className="h-4 w-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
-                          <span className="font-medium">+91 7993541999</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <Phone className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0" />
-                          <span className="font-medium">09515259833</span>
-                        </li>
+       
+                        
                         {/* <li className="flex items-center gap-2">
                           <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
                           <span className="font-medium">+91 9088869996</span>
@@ -446,14 +440,7 @@ const About = () => {
                     <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-3 border border-green-200 dark:border-green-800">
                       <p className="font-bold text-foreground mb-2">Contact Details</p>
                       <ul className="space-y-2 text-muted-foreground">
-                        <li className="flex items-center gap-2">
-                          <Phone className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0" />
-                          <span className="font-medium">+91 9392698458</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <Phone className="h-4 w-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
-                          <span className="font-medium">9899665446</span>
-                        </li>
+                        
                         {/* <li className="flex items-center gap-2">
                           <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
                           <span className="font-medium">+91 9088869996</span>
@@ -486,14 +473,7 @@ const About = () => {
                     <div className="bg-purple-50 dark:bg-purple-950/30 rounded-lg p-3 border border-purple-200 dark:border-purple-800">
                       <p className="font-bold text-foreground mb-2">Contact Details</p>
                       <ul className="space-y-2 text-muted-foreground">
-                        <li className="flex items-center gap-2">
-                          <Phone className="h-4 w-4 text-purple-600 dark:text-purple-400 flex-shrink-0" />
-                          <span className="font-medium">+91 9542498707</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <Phone className="h-4 w-4 text-pink-600 dark:text-pink-400 flex-shrink-0" />
-                          <span className="font-medium">9062666754</span>
-                        </li>
+                        
                         {/* <li className="flex items-center gap-2">
                           <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
                           <span className="font-medium">+91 9088869996</span>
@@ -526,14 +506,7 @@ const About = () => {
                     <div className="bg-orange-50 dark:bg-orange-950/30 rounded-lg p-3 border border-orange-200 dark:border-orange-800">
                       <p className="font-bold text-foreground mb-2">Contact Details</p>
                       <ul className="space-y-2 text-muted-foreground">
-                        <li className="flex items-center gap-2">
-                          <Phone className="h-4 w-4 text-orange-600 dark:text-orange-400 flex-shrink-0" />
-                          <span className="font-medium">+91 7959453999</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <Phone className="h-4 w-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
-                          <span className="font-medium">9948902482</span>
-                        </li>
+                        
                         {/* <li className="flex items-center gap-2">
                           <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
                           <span className="font-medium">+91 9088869996</span>
