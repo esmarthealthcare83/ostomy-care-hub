@@ -369,7 +369,7 @@ const About = () => {
                     </AvatarFallback>
                   </Avatar>
                   <CardTitle className="text-2xl group-hover:text-primary transition-colors">
-                    G.N Kunar ( Founder & CEO )
+                    G.N Kumar ( Founder & CEO )
                   </CardTitle>
                   <CardDescription className="font-medium text-primary text-lg">
                     Sales & Marketing | Business Development Professional
