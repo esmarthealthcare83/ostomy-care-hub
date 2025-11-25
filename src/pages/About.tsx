@@ -433,7 +433,7 @@ const About = () => {
                       Kurva Mahesh Kumar
                     </CardTitle>
                     <CardDescription className="font-semibold text-primary text-sm sm:text-base">
-                      HR Manager
+                      Supply chain and Logistics executive
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3 text-xs sm:text-sm pb-6">
@@ -466,7 +466,7 @@ const About = () => {
                       Yarlagadda Pruthviraj
                     </CardTitle>
                     <CardDescription className="font-semibold text-primary text-sm sm:text-base">
-                      HR Manager
+                      Supply chain and Logistics executive
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3 text-xs sm:text-sm pb-6">
@@ -499,7 +499,8 @@ const About = () => {
                       Gangaram Bikshapathi
                     </CardTitle>
                     <CardDescription className="font-semibold text-primary text-sm sm:text-base">
-                      Admin Accounting Manager
+                     
+Supply chain and Logistics executive
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3 text-xs sm:text-sm pb-6">
